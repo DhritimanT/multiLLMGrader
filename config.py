@@ -18,22 +18,7 @@ except Exception:
     pass
 
 # Ensure log directory exists
-if os.name == "nt":  # Windows
-    log_file_path = "E:/VidyAI/Dev/vidya_ai_backend/log/vidyaai_api.log"
-elif sys.platform == "linux":  # Linux
-    log_file_path = "/var/log/vidyaai_api/vidyaai_api.log"
-elif sys.platform == "darwin":  # macOS
-    project_root = os.path.dirname(
-        os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-    )
-    logs_dir = os.path.join(project_root, "logs")
-    log_file_path = os.path.join(logs_dir, "vidyaai_api.log")
-else:
-    # Use local log directory for macOS/Linux to avoid permission issues
-    base_dir = os.path.dirname(
-        os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-    )
-    log_file_path = os.path.join(base_dir, "logs", "vidyaai_api.log")
+log_file_path = "/var/log/multiLLMGrader/multiLLMGrader.log"
 log_dir = os.path.dirname(log_file_path)
 os.makedirs(log_dir, exist_ok=True)
 

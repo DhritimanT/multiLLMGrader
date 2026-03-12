@@ -15,17 +15,20 @@ import json
 import os
 import time
 from typing import Dict, List
+from config import logging
 
 from grading_service import LLMGrader
 
+logger = logging.getLogger(__name__)
+
 def test_pdf_grading():
     # max_runs = 3 # Run each model 3 times for consistency
-    max_runs = 1
+    max_runs = 3
     # Load test PDF submissions and assignment details
     test_data_dir = "test_files"
     pdf_submissions = {
-        # "1": "assignments/97182b65-8eb9-4e93-9332-308104003723/uploads/2217f0ba-0dde-4fcb-bfcd-b4f0fdba9582.pdf",
-        # "2": "assignments/97182b65-8eb9-4e93-9332-308104003723/uploads/f0e00cb8-2068-4639-9ab0-5ab27e9af7ed.pdf",
+        "1": "assignments/97182b65-8eb9-4e93-9332-308104003723/uploads/2217f0ba-0dde-4fcb-bfcd-b4f0fdba9582.pdf",
+        "2": "assignments/97182b65-8eb9-4e93-9332-308104003723/uploads/f0e00cb8-2068-4639-9ab0-5ab27e9af7ed.pdf",
         "3": "assignments/97182b65-8eb9-4e93-9332-308104003723/uploads/95723a95-ce20-46ee-803b-414191322765.pdf",
     }
     with open(os.path.join(test_data_dir, "AssignmentRahul.json"), "r") as f:
@@ -33,13 +36,13 @@ def test_pdf_grading():
 
     # Define models to test
     models_to_test = [
-        # "gpt-5",
-        # "gpt-4o",
-        # "anthropic.claude-opus-4-6-v1",
+        "gpt-5",
+        "gpt-4o",
+        "global.anthropic.claude-opus-4-6-v1",
         "global.anthropic.claude-sonnet-4-6",
-        # "anthropic.claude-haiku-4-5-20251001-v1:0",
-        # "gemini-2.5-flash",
-        # "gemini-2.5-pro",
+        "global.anthropic.claude-haiku-4-5-20251001-v1:0",
+        "gemini-2.5-flash",
+        "gemini-2.5-pro",
     ]
 
     # Store results
@@ -77,7 +80,7 @@ def test_pdf_grading():
                         "total_time_taken": total_time_taken,
                     })
         except Exception as e:
-            print(f"Error grading with model {model}: {str(e)}")
+            logger.info(f"Error grading with model {model}: {str(e)}")
             results[pdf_id].append({
                 "model": model,
                 "error": str(e),
