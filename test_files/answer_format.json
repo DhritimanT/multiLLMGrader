@@ -1,0 +1,118 @@
+{
+  "3": {
+    "text": "CAPP (computer assisted process planning): It is computer assisted technology used to automate or assist process planning. It is the link between CAD and CAM; it act as bridge between CAD & CAM. Advantages of the CAPP: 1) Automation of the process planning – CAPP reduce the manual work load and also decrease the human dependency. 2) Improve consistency – Autogenerate process planning; Reduce planner to planner variation. 3) Reduce lead time – Rapid generation of process planning operation sequence that minimize the manufacturing time. 4) Optimization of cost – selectively select the tool (machinability) that reduces the manufacturing cost. 5) Knowledge retention – Standard and precise procedure store into system. 6) Flexibility – Adapt any new changes in the process, operation easily. Architecture: CAPP having various models & layers that interact with CAD CAM environment. Components: a) Input – material specification; production volume; machinability tooling. b) Database – material database; process database; part/feature. c) Knowledge base – use decision logic, rules, algorithm to select automatic sequence of operations. d) Process planning – Operation selection & operation; set up process; Time & cost estimation. e) Output – work sheet.",
+    "diagram": {
+      "label": "unlabeled",
+      "s3_key": "submissions/0426ae9d-b61f-4f6d-a12c-99123a2df91e/diagrams/q3_0b88ee0a-c56b-4709-8000-4814dd171f7c.jpg",
+      "file_id": "0b88ee0a-c56b-4709-8000-4814dd171f7c",
+      "filename": "diagram_q3.jpg",
+      "confidence": 0.5538124442100525,
+      "page_number": 5,
+      "bounding_box": [
+        102,
+        150,
+        1610,
+        2260
+      ]
+    }
+  },
+  "4": {
+    "text": "CNC (Computer Numerical Control) tech: it is the process given set of numerical instruction to the machine for (lathe, cutting, milling etc). CNC machine having two types of codes. 1) G codes: It control the machine movement – how to move, where to move. Examples: G00 rapid positioning; G01 linear movement; G02 circular interpolation (clockwise); G03 circular interpolation (anticlockwise); G04 dwell (pause). 2) M codes (miscellaneous codes): These codes control the function of machine (spindle on/off, coolant, stop, end program). Examples: M00 end program; M03 spindle on (clockwise); M04 spindle on (counter clockwise); M05 spindle off. Key steps/workflow: CAD -> CAM -> (NC programming). Flow of working steps (as shown in flowchart): Study part printing; Identify machine tools; Identify operation and tooling; Determination of speed, feed, power, depth; Set up of worksheet, work setting, tooling assembly; Develope part programing; Simulate path flow; Dry run; Cut the first part; Inspect the part; Final proven part.",
+    "diagram": {
+      "label": "unlabeled",
+      "s3_key": "submissions/0426ae9d-b61f-4f6d-a12c-99123a2df91e/diagrams/q4_db7ac1de-d326-48a1-aee5-16ed3d9a026d.jpg",
+      "file_id": "db7ac1de-d326-48a1-aee5-16ed3d9a026d",
+      "filename": "diagram_q4.jpg",
+      "confidence": 0.580091118812561,
+      "page_number": 13,
+      "bounding_box": [
+        46,
+        556,
+        1476,
+        2300
+      ]
+    }
+  },
+  "5": {
+    "text": "Finite Element Analysis (FEA): Finite element analysis is the computer numerical based method in which we estimate the structure and material behaviour by external force such as temperature, pressure, compression etc. Instead of solving complex equation for object we divide into small part called as element. Computer compute the each element behaviour and then combine to estimate whole system behaviour. Step by step process of FEA: 1) Geometry creation – Create a 3D model by using CAD software. 2) Meshing – meshing is the process in which complex geometry convert into simple small part; complex geometry convert into number of nodes where calculation occurs; increase meshing -> increase no. of element and order of element (nodes). 3) Element type – 1D lines; 2D triangle and quadrilateral; 3D tetrahedral and hexahedray (examples noted: thin layer drug patches for 2D; bone implant for 3D). 4) Application of material properties – Assign the material properties whether mechanically and thermally by using Poisson ratio, thermal conductivity etc. 5) Boundary condition – in this detect how material react to load. 6) Solving – in this process computer are calculate behaviour of each element. 7) Post processing – in this process demonstrate the result of compression, pressure etc. Applications of FEA: 1) Strain analysis of insulin pen and microneedle. 2) Studying stress strain properties of tissue and bone deformation due to implant. 3) Stress and compression estimation of compression tablet.",
+    "diagram": {
+      "label": "unlabeled",
+      "s3_key": "submissions/0426ae9d-b61f-4f6d-a12c-99123a2df91e/diagrams/q5_3d15a813-e258-4a3f-b176-80e5f62dd80e.jpg",
+      "file_id": "3d15a813-e258-4a3f-b176-80e5f62dd80e",
+      "filename": "diagram_q5.jpg",
+      "confidence": 0.3673035502433777,
+      "page_number": 17,
+      "bounding_box": [
+        1,
+        0,
+        1653,
+        1977
+      ]
+    }
+  },
+  "1.1": "Process planning is the activity determining appropriate sequence and manufacturing operation to convert raw material into finished product is called as process planning.",
+  "1.2": "Hybrid CAPP (computer assisted process planning): Hybrid CAPP is the combination of variant (retrieval) approach and generative approach. This hybrid CAPP balance between both practically.",
+  "1.3": "Meshing (Discretisation): meshing is the process in which complex geometry convert into small part of element is called meshing.",
+  "1.4": "A",
+  "1.5": "mirror tool is observing the view of object by mirroring. requirement -> to view the different reference plane of the object.",
+  "1.6": "[Clearvar] is the command which in matlab for clear all variable from the matlab.",
+  "1.7": {
+    "text": "",
+    "diagram": {
+      "label": "unlabeled",
+      "s3_key": "submissions/0426ae9d-b61f-4f6d-a12c-99123a2df91e/diagrams/q1.7_28b8fcda-867c-49b7-ac8b-d43f3d8f1554.jpg",
+      "file_id": "28b8fcda-867c-49b7-ac8b-d43f3d8f1554",
+      "filename": "diagram_q1.7.jpg",
+      "confidence": 0.34227585792541504,
+      "page_number": 3,
+      "bounding_box": [
+        0,
+        105,
+        1596,
+        2018
+      ]
+    }
+  },
+  "1.8": "0.2% offset yield method: This method is used for determining of the yield strength of the material who does not have sharp or clear yield point on stress strain curve is called as 0.2% offset yield method.",
+  "1.9": "Toughness: Toughness is define as in stress strain graph the region show absorb energy per unit volume is called as Toughness. Toughness = Absorbed energy / volume.",
+  "2.2": "Generative Approach: Generative approach is knowledge & AI technique fully. In this approaches for generation of process planes may use AI. Automatic generate the process planes based on algorithm, decision logic, rules. This system analyse the structure, material, geometry, for generation of new planes from the scratch. Advantages: It is fully automated; consistent; used in computer integrated manufacturing. Limitations: Required high description data; High initial cost.",
+  "6.1": {
+    "text": "Stress strain curve demonstrate that material structure subjected to the increase tensile strength, compression force etc. Following are the stress strain diagram of mild steel. In this stress strain curve the origin is O then next is A. Point A – proportionality limit: the stress strain curve show that stress is directly proportional to the strain that follow Hooke’s law; material show perfect elastic property. Point B – Elasticity limit: in that region the material having ability to return into its original shape after unloading; material still show elastic behaviour. Point C – Yield point: material limit the elastic deformation and beginning of the plastic deformation. Point D – Maximum tensile strength: this point show that material with stand with maximum stress; after this point material start with necking although decrease the load at the point. Point E – fracture point: material at the point is break called as fracture point; generally material at the point failure occur.",
+    "diagram": {
+      "label": "unlabeled",
+      "s3_key": "submissions/0426ae9d-b61f-4f6d-a12c-99123a2df91e/diagrams/q6.1_e1de4290-5248-4a47-996b-d6a4ca846599.jpg",
+      "file_id": "e1de4290-5248-4a47-996b-d6a4ca846599",
+      "filename": "diagram_q6.1.jpg",
+      "confidence": 0.6707831025123596,
+      "page_number": 20,
+      "bounding_box": [
+        167,
+        400,
+        1623,
+        2339
+      ]
+    }
+  },
+  "6.2": {
+    "text": "Stress strain diagram of ceramic, polymer, bone, metal. Fig: This is the strain strain curve diagram of ceramic, polymer, bone, metal.",
+    "diagram": {
+      "label": "unlabeled",
+      "s3_key": "submissions/0426ae9d-b61f-4f6d-a12c-99123a2df91e/diagrams/q6.2_a8a72d6d-38bb-4960-a3c6-fa22250cc92d.jpg",
+      "file_id": "a8a72d6d-38bb-4960-a3c6-fa22250cc92d",
+      "filename": "diagram_q6.2.jpg",
+      "confidence": 0.5779000520706177,
+      "page_number": 23,
+      "bounding_box": [
+        128,
+        443,
+        1612,
+        2339
+      ]
+    }
+  },
+  "1.10": "G codes (geometric codes): That control the movement of machine (where and how to move tool). eg. G00 – rapid positioning; G01 – linear movement. M codes (Miscellaneous codes): That code control the function of machine (spindle on/off, coolant, program stop). eg. M00 – stop program; M04 – spindle on; M05 – spindle off.",
+  "1.11": "CNC = (computer numerical control) tech.",
+  "1.12": "Type of element: 1D – line; 2D – Triangle, Quadrilateral; 3D – Tetrahedral, Hexahedray.",
+  "2.1.1": "Variant (retrieval) approach: In this approach is based on group of technology; i.e. part with similar design and manufacturing characteristics is group into families. Standard process planes store for each family. For new part the existing planes are revied or modified. Advantages: use of existing knowledge; easy to implement; used for batch process.",
+  "2.1.2": "Steps: 1) classify each family by using code system. 2) store the standard process planes to the each family. 3) modify & retrieval as accordingly. Limitations: Not fully automatic; required initial classification system; adaptability issue."
+}

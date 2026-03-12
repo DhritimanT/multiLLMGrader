@@ -1,0 +1,487 @@
+{
+    "1": {
+        "2": {
+            "question": "Let\u2019s examine a simple program, \u201cloop.s\u201d. First, just read and understand it. Then, run it with these arguments (./x86.py -p loop.s -t 1 -i 100 -R dx). This specifies a single thread, an interrupt every 100 instructions, and tracing of register %dx. What will %dx be during the run? Use the -c flag to check your answers; the answers, on the left, show the value of the register (or memory value) after the instruction on the right has run.",
+            "answer": "We need to run like this: ./x86.py -p loop.s -t 1 -i 100 -R dx -c Here is how it\u2019s executed. It simply subtracts 1 from %dx register, then tests it\u2019s value, as long as it\u2019s not >= 0, it halts.",
+            "sample_answer": "dx Thread 0 \n0 \n-1 1000 sub $1,%dx\n-1 1001 test $0,%dx\n-1 1002 jgte .top\n-1 1003 halt",
+            "sample_criteria": "The program code or text explanation can explain the process of value changing from 0 to -1. Correct (16 points);\nIf only answer the final value is -1 . Partically correct (4 points); If only asnser the \"change range is from 0 to -1 (8 points); If answer list all values, Partically correct (12 points)\n",
+            "full_points": 16,
+            "score_1": 16,
+            "score_2": 16,
+            "score_3": 16,
+            "score_outlier": 6
+        }
+    },
+    "2": {
+        "2": {
+            "question": "Let\u2019s examine a simple program, \u201cloop.s\u201d. First, just read and understand it. Then, run it with these arguments (./x86.py -p loop.s -t 1 -i 100 -R dx). This specifies a single thread, an interrupt every 100 instructions, and tracing of register %dx. What will %dx be during the run? Use the -c flag to check your answers; the answers, on the left, show the value of the register (or memory value) after the instruction on the right has run.",
+            "answer": "%dx will be -1",
+            "sample_answer": "dx Thread 0 \n0 \n-1 1000 sub $1,%dx\n-1 1001 test $0,%dx\n-1 1002 jgte .top\n-1 1003 halt",
+            "sample_criteria": "The program code or text explanation can explain the process of value changing from 0 to -1. Correct (16 points);\nIf only answer the final value is -1 . Partically correct (4 points); If only asnser the \"change range is from 0 to -1 (8 points); If answer list all values, Partically correct (12 points)\n",
+            "full_points": 16,
+            "score_1": 8.0,
+            "score_2": 4.0,
+            "score_3": 4
+        }
+    },
+    "3": {
+        "2": {
+            "question": "Let\u2019s examine a simple program, \u201cloop.s\u201d. First, just read and understand it. Then, run it with these arguments (./x86.py -p loop.s -t 1 -i 100 -R dx). This specifies a single thread, an interrupt every 100 instructions, and tracing of register %dx. What will %dx be during the run? Use the -c flag to check your answers; the answers, on the left, show the value of the register (or memory value) after the instruction on the right has run.",
+            "answer": "%dx will be change from 0 to -1",
+            "sample_answer": "dx Thread 0 \n0 \n-1 1000 sub $1,%dx\n-1 1001 test $0,%dx\n-1 1002 jgte .top\n-1 1003 halt",
+            "sample_criteria": "The program code or text explanation can explain the process of value changing from 0 to -1. Correct (16 points);\nIf only answer the final value is -1 . Partically correct (4 points); If only asnser the \"change range is from 0 to -1 (8 points); If answer list all values, Partically correct (12 points)\n",
+            "full_points": 16,
+            "score_1": 8,
+            "score_2": 8,
+            "score_3": 8
+        }
+    },
+    "4": {
+        "2": {
+            "question": "Let\\u2019s examine a simple program, \\u201cloop.s\\u201d. First, just read and understand it. Then, run it with these arguments (./x86.py -p loop.s -t 1 -i 100 -R dx). This specifies a single thread, an interrupt every 100 instructions, and tracing of register %dx. What will %dx be during the run? Use the -c flag to check your answers; the answers, on the left, show the value of the register (or memory value) after the instruction on the right has run.",
+            "answer": "%dx will be 0 before the run, and -1 during the run.",
+            "sample_answer": "dx Thread 0 \n0 \n-1 1000 sub $1,%dx\n-1 1001 test $0,%dx\n-1 1002 jgte .top\n-1 1003 halt",
+            "sample_criteria": "The program code or text explanation can explain the process of value changing from 0 to -1. Correct (16 points);\nIf only answer the final value is -1 . Partically correct (4 points); If only asnser the \"change range is from 0 to -1 (8 points); If answer list all values, Partically correct (12 points)\n",
+            "full_points": 16,
+            "score_1": 8.0,
+            "score_2": 8.0,
+            "score_3": 8
+        }
+    },
+    "5": {
+        "2": {
+            "question": "Let\u00e2\u20ac\u2122s examine a simple program, \\",
+            "answer": "0, -1, -1, -1, -1",
+            "sample_answer": "dx Thread 0 \n0 \n-1 1000 sub $1,%dx\n-1 1001 test $0,%dx\n-1 1002 jgte .top\n-1 1003 halt",
+            "sample_criteria": "The program code or text explanation can explain the process of value changing from 0 to -1. Correct (16 points);\nIf only answer the final value is -1 . Partically correct (4 points); If only asnser the \"change range is from 0 to -1 (8 points); If answer list all values, Partically correct (12 points)\n",
+            "full_points": 16,
+            "score_1": 12,
+            "score_2": 12,
+            "score_3": 12,
+            "score_outlier": 4
+        }
+    },
+    "6": {
+        "2": {
+            "question": "Let\u2019s examine a simple program, \u201cloop.s\u201d. First, just read and understand it. Then, run it with these arguments (./x86.py -p loop.s -t 1 -i 100 -R dx). This specifies a single thread, an interrupt every 100 instructions, and tracing of register %dx. What will %dx be during the run? Use the -c flag to check your answers; the answers, on the left, show the value of the register (or memory value) after the instruction on the right has run.",
+            "answer": "dx should be -1.",
+            "sample_answer": "dx Thread 0 \n0 \n-1 1000 sub $1,%dx\n-1 1001 test $0,%dx\n-1 1002 jgte .top\n-1 1003 halt",
+            "sample_criteria": "The program code or text explanation can explain the process of value changing from 0 to -1. Correct (16 points);\nIf only answer the final value is -1 . Partically correct (4 points); If only asnser the \"change range is from 0 to -1 (8 points); If answer list all values, Partically correct (12 points)\n",
+            "full_points": 16,
+            "score_1": 4.0,
+            "score_2": 4,
+            "score_3": 4
+        }
+    },
+    "7": {
+        "2": {
+            "question": "Let\u2019s examine a simple program, \u201cloop.s\u201d. First, just read and understand it. Then, run it with these arguments (./x86.py -p loop.s -t 1 -i 100 -R dx). This specifies a single thread, an interrupt every 100 instructions, and tracing of register %dx. What will %dx be during the run? Use the -c flag to check your answers; the answers, on the left, show the value of the register (or memory value) after the instruction on the right has run.",
+            "answer": "%dx will be -1. dx Thread 0 0 1 1000 sub $1,%dx 1 1001 test $0,%dx 1 1002 jgte .top 1 1003 halt",
+            "sample_answer": "dx Thread 0 \n0 \n-1 1000 sub $1,%dx\n-1 1001 test $0,%dx\n-1 1002 jgte .top\n-1 1003 halt",
+            "sample_criteria": "The program code or text explanation can explain the process of value changing from 0 to -1. Correct (16 points);\nIf only answer the final value is -1 . Partically correct (4 points); If only asnser the \"change range is from 0 to -1 (8 points); If answer list all values, Partically correct (12 points)\n",
+            "full_points": 16,
+            "score_1": 16,
+            "score_2": 16,
+            "score_3": 16
+        }
+    },
+    "8": {
+        "2": {
+            "question": "Let\u2019s examine a simple program, \u201cloop.s\u201d. First, just read and understand it. Then, run it with these arguments (./x86.py -p loop.s -t 1 -i 100 -R dx). This specifies a single thread, an interrupt every 100 instructions, and tracing of register %dx. What will %dx be during the run? Use the -c flag to check your answers; the answers, on the left, show the value of the register (or memory value) after the instruction on the right has run.",
+            "answer": "the %dx register will see values from 0 to -1 during the run.",
+            "sample_answer": "dx Thread 0 \n0 \n-1 1000 sub $1,%dx\n-1 1001 test $0,%dx\n-1 1002 jgte .top\n-1 1003 halt",
+            "sample_criteria": "The program code or text explanation can explain the process of value changing from 0 to -1. Correct (16 points);\nIf only answer the final value is -1 . Partically correct (4 points); If only asnser the \"change range is from 0 to -1 (8 points); If answer list all values, Partically correct (12 points)\n",
+            "full_points": 16,
+            "score_1": 8,
+            "score_2": 8,
+            "score_3": 8
+        }
+    },
+    "9": {
+        "2": {
+            "question": "Let's examine a simple program, \n\u201cloop.s\u201d. First, just read and understand it. Then, run it with these arguments (./x86.py -p loop.s -t 1 -i 100 -R dx). This specifies a single thread, an interrupt every 100 instructions, and tracing of register %dx. What will %dx be during the run? Use the -c flag to check your answers; the answers, on the left, show the value of the register (or memory value) after the instruction on the right has run.",
+            "answer": "%dx is 0 at first Then it sub 1 %dx is -1 Then it is still -1",
+            "sample_answer": "dx Thread 0 \n0 \n-1 1000 sub $1,%dx\n-1 1001 test $0,%dx\n-1 1002 jgte .top\n-1 1003 halt",
+            "sample_criteria": "The program code or text explanation can explain the process of value changing from 0 to -1. Correct (16 points);\nIf only answer the final value is -1 . Partically correct (4 points); If only asnser the \"change range is from 0 to -1 (8 points); If answer list all values, Partically correct (12 points)\n",
+            "full_points": 16,
+            "score_1": 16.0,
+            "score_2": 16.0,
+            "score_3": 16.0,
+            "score_outlier": 5
+        }
+    },
+    "10": {
+        "2": {
+            "question": "Let's examine a simple program, \"loop.s\". First, just read and understand it. Then, run it with these arguments (./x86.py -p loop.s -t 1 -i 100 -R dx). This specifies a single thread, an interrupt every 100 instructions, and tracing of register %dx. What will %dx be during the run? Use the -c flag to check your answers; the answers, on the left, show the value of the register (or memory value) after the instruction on the right has run.",
+            "answer": "-1",
+            "sample_answer": "dx Thread 0 \n0 \n-1 1000 sub $1,%dx\n-1 1001 test $0,%dx\n-1 1002 jgte .top\n-1 1003 halt",
+            "sample_criteria": "The program code or text explanation can explain the process of value changing from 0 to -1. Correct (16 points);\nIf only answer the final value is -1 . Partically correct (4 points); If only asnser the \"change range is from 0 to -1 (8 points); If answer list all values, Partically correct (12 points)\n",
+            "full_points": 16,
+            "score_1": 16.0,
+            "score_2": 16.0,
+            "score_3": 16.0
+        }
+    },
+    "11": {
+        "2": {
+            "question": "Let's examine a simple program, \\",
+            "answer": "%dx will be -1",
+            "sample_answer": "dx Thread 0 \n0 \n-1 1000 sub $1,%dx\n-1 1001 test $0,%dx\n-1 1002 jgte .top\n-1 1003 halt",
+            "sample_criteria": "The program code or text explanation can explain the process of value changing from 0 to -1. Correct (16 points);\nIf only answer the final value is -1 . Partically correct (4 points); If only asnser the \"change range is from 0 to -1 (8 points); If answer list all values, Partically correct (12 points)\n",
+            "full_points": 16,
+            "score_1": 8.0,
+            "score_2": 4.0,
+            "score_3": 4,
+            "score_outlier": 16
+        }
+    },
+    "12": {
+        "2": {
+            "question": "Let\u2019s examine a simple program, \u201cloop.s\u201d. First, just read and understand it. Then, run it with these arguments (./x86.py -p loop.s -t 1 -i 100 -R dx). This specifies a single thread, an interrupt every 100 instructions, and tracing of register %dx. What will %dx be during the run? Use the -c flag to check your answers; the answers, on the left, show the value of the register (or memory value) after the instruction on the right has run.",
+            "answer": "0, -1, -1, -1, -1",
+            "sample_answer": "dx Thread 0 \n0 \n-1 1000 sub $1,%dx\n-1 1001 test $0,%dx\n-1 1002 jgte .top\n-1 1003 halt",
+            "sample_criteria": "The program code or text explanation can explain the process of value changing from 0 to -1. Correct (16 points);\nIf only answer the final value is -1 . Partically correct (4 points); If only asnser the \"change range is from 0 to -1 (8 points); If answer list all values, Partically correct (12 points)\n",
+            "full_points": 16,
+            "score_1": 16,
+            "score_2": 16,
+            "score_3": 12
+        }
+    },
+    "13": {
+        "2": {
+            "question": "Let\u2019s examine a simple program, \u201cloop.s\u201d. First, just read and understand it. Then, run it with these arguments (./x86.py -p loop.s -t 1 -i 100 -R dx). This specifies a single thread, an interrupt every 100 instructions, and tracing of register %dx. What will %dx be during the run? Use the -c flag to check your answers; the answers, on the left, show the value of the register (or memory value) after the instruction on the right has run.",
+            "answer": "Initially dx will be 0 and it will become -1 after running the code",
+            "sample_answer": "dx Thread 0 \n0 \n-1 1000 sub $1,%dx\n-1 1001 test $0,%dx\n-1 1002 jgte .top\n-1 1003 halt",
+            "sample_criteria": "The program code or text explanation can explain the process of value changing from 0 to -1. Correct (16 points);\nIf only answer the final value is -1 . Partically correct (4 points); If only asnser the \"change range is from 0 to -1 (8 points); If answer list all values, Partically correct (12 points)\n",
+            "full_points": 16,
+            "score_1": 16,
+            "score_2": 16,
+            "score_3": 8
+        }
+    },
+    "14": {
+        "2": {
+            "question": "Let\u2019s examine a simple program, \u201cloop.s\u201d. First, just read and understand it. Then, run it with these arguments (./x86.py -p loop.s -t 1 -i 100 -R dx). This specifies a single thread, an interrupt every 100 instructions, and tracing of register %dx. What will %dx be during the run? Use the -c flag to check your answers; the answers, on the left, show the value of the register (or memory value) after the instruction on the right has run.",
+            "answer": "-1",
+            "sample_answer": "dx Thread 0 \n0 \n-1 1000 sub $1,%dx\n-1 1001 test $0,%dx\n-1 1002 jgte .top\n-1 1003 halt",
+            "sample_criteria": "The program code or text explanation can explain the process of value changing from 0 to -1. Correct (16 points);\nIf only answer the final value is -1 . Partically correct (4 points); If only asnser the \"change range is from 0 to -1 (8 points); If answer list all values, Partically correct (12 points)\n",
+            "full_points": 16,
+            "score_1": 4,
+            "score_2": 4,
+            "score_3": 4
+        }
+    },
+    "15": {
+        "2": {
+            "question": "Let\u2019s examine a simple program, \u201cloop.s\u201d. First, just read and understand it. Then, run it with these arguments (./x86.py -p loop.s -t 1 -i 100 -R dx). This specifies a single thread, an interrupt every 100 instructions, and tracing of register %dx. What will %dx be during the run? Use the -c flag to check your answers; the answers, on the left, show the value of the register (or memory value) after the instruction on the right has run.",
+            "answer": "-1",
+            "sample_answer": "dx Thread 0 \n0 \n-1 1000 sub $1,%dx\n-1 1001 test $0,%dx\n-1 1002 jgte .top\n-1 1003 halt",
+            "sample_criteria": "The program code or text explanation can explain the process of value changing from 0 to -1. Correct (16 points);\nIf only answer the final value is -1 . Partically correct (4 points); If only asnser the \"change range is from 0 to -1 (8 points); If answer list all values, Partically correct (12 points)\n",
+            "full_points": 16,
+            "score_1": 4,
+            "score_2": 4,
+            "score_3": 4
+        }
+    },
+    "16": {
+        "2": {
+            "question": "Let\u2019s examine a simple program, \u201cloop.s\u201d. First, just read and understand it. Then, run it with these arguments (./x86.py -p loop.s -t 1 -i 100 -R dx). This specifies a single thread, an interrupt every 100 instructions, and tracing of register %dx. What will %dx be during the run? Use the -c flag to check your answers; the answers, on the left, show the value of the register (or memory value) after the instruction on the right has run.",
+            "answer": "%dx is -1 during the run",
+            "sample_answer": "dx Thread 0 \n0 \n-1 1000 sub $1,%dx\n-1 1001 test $0,%dx\n-1 1002 jgte .top\n-1 1003 halt",
+            "sample_criteria": "The program code or text explanation can explain the process of value changing from 0 to -1. Correct (16 points);\nIf only answer the final value is -1 . Partically correct (4 points); If only asnser the \"change range is from 0 to -1 (8 points); If answer list all values, Partically correct (12 points)\n",
+            "full_points": 16,
+            "score_1": 4,
+            "score_2": 4,
+            "score_3": 4
+        }
+    },
+    "17": {
+        "2": {
+            "question": "Let\u00e2\u20ac\u2122s examine a simple program, \u00e2\u20ac\u0153loop.s\u00e2\u20ac\ufffd. First, just read and understand it. Then, run it with these arguments (./x86.py -p loop.s -t 1 -i 100 -R dx). This specifies a single thread, an interrupt every 100 instructions, and tracing of register %dx. What will %dx be during the run? Use the -c flag to check your answers; the answers, on the left, show the value of the register (or memory value) after the instruction on the right has run.",
+            "answer": "dx = -1.",
+            "sample_answer": "dx Thread 0 \n0 \n-1 1000 sub $1,%dx\n-1 1001 test $0,%dx\n-1 1002 jgte .top\n-1 1003 halt",
+            "sample_criteria": "The program code or text explanation can explain the process of value changing from 0 to -1. Correct (16 points);\nIf only answer the final value is -1 . Partically correct (4 points); If only asnser the \"change range is from 0 to -1 (8 points); If answer list all values, Partically correct (12 points)\n",
+            "full_points": 16,
+            "score_1": 4.0,
+            "score_2": 4.0,
+            "score_3": 4
+        }
+    },
+    "18": {
+        "2": {
+            "question": "Let\u2019s examine a simple program, \u201cloop.s\u201d. First, just read and understand it. Then, run it with these arguments (./x86.py -p loop.s -t 1 -i 100 -R dx). This specifies a single thread, an interrupt every 100 instructions, and tracing of register %dx. What will %dx be during the run? Use the -c flag to check your answers; the answers, on the left, show the value of the register (or memory value) after the instruction on the right has run.",
+            "answer": "The value of %dx will be -1.",
+            "sample_answer": "dx Thread 0 \n0 \n-1 1000 sub $1,%dx\n-1 1001 test $0,%dx\n-1 1002 jgte .top\n-1 1003 halt",
+            "sample_criteria": "The program code or text explanation can explain the process of value changing from 0 to -1. Correct (16 points);\nIf only answer the final value is -1 . Partically correct (4 points); If only asnser the \"change range is from 0 to -1 (8 points); If answer list all values, Partically correct (12 points)\n",
+            "full_points": 16,
+            "score_1": 4,
+            "score_2": 4,
+            "score_3": 4
+        }
+    },
+    "19": {
+        "2": {
+            "question": "Let\u2019s examine a simple program, \u201cloop.s\u201d. First, just read and understand it. Then, run it with these arguments (./x86.py -p loop.s -t 1 -i 100 -R dx). This specifies a single thread, an interrupt every 100 instructions, and tracing of register %dx. What will %dx be during the run? Use the -c flag to check your answers; the answers, on the left, show the value of the register (or memory value) after the instruction on the right has run.",
+            "answer": "0 in %dx in the beginning. In sub $1, %dx, %dx become -1. In test $0, %dx, -1 in %dx is smaller than 0. %dx remains unchanged. In jgte .top, as it is not greater than or equal to, no jump occurs. %dx remains unchanged. In halt, the thread stops running. %dx remains unchanged.",
+            "sample_answer": "dx Thread 0 \n0 \n-1 1000 sub $1,%dx\n-1 1001 test $0,%dx\n-1 1002 jgte .top\n-1 1003 halt",
+            "sample_criteria": "The program code or text explanation can explain the process of value changing from 0 to -1. Correct (16 points);\nIf only answer the final value is -1 . Partically correct (4 points); If only asnser the \"change range is from 0 to -1 (8 points); If answer list all values, Partically correct (12 points)\n",
+            "full_points": 16,
+            "score_1": 16,
+            "score_2": 16,
+            "score_3": 16
+        }
+    },
+    "20": {
+        "2": {
+            "question": "Let\u2019s examine a simple program, \u201cloop.s\u201d. First, just read and understand it. Then, run it with these arguments (./x86.py -p loop.s -t 1 -i 100 -R dx). This specifies a single thread, an interrupt every 100 instructions, and tracing of register %dx. What will %dx be during the run? Use the -c flag to check your answers; the answers, on the left, show the value of the register (or memory value) after the instruction on the right has run.",
+            "answer": "%dx will become 0 and -1 during the run.",
+            "sample_answer": "dx Thread 0 \n0 \n-1 1000 sub $1,%dx\n-1 1001 test $0,%dx\n-1 1002 jgte .top\n-1 1003 halt",
+            "sample_criteria": "The program code or text explanation can explain the process of value changing from 0 to -1. Correct (16 points);\nIf only answer the final value is -1 . Partically correct (4 points); If only asnser the \"change range is from 0 to -1 (8 points); If answer list all values, Partically correct (12 points)\n",
+            "full_points": 16,
+            "score_1": 12,
+            "score_2": 8,
+            "score_3": 8
+        }
+    },
+    "21": {
+        "2": {
+            "question": "Let's examine a simple program, \\\\u201cloop.s\\\\u201d. First, just read and understand it. Then, run it with these arguments (./x86.py -p loop.s -t 1 -i 100 -R dx). This specifies a single thread, an interrupt every 100 instructions, and tracing of register %dx. What will %dx be during the run? Use the -c flag to check your answers; the answers, on the left, show the value of the register (or memory value) after the instruction on the right has run.",
+            "answer": "dx Thread 0 0 -1 1000 sub $1,%dx -1 1001 test $0,%dx -1 1002 jgte .top -1 1003 halt",
+            "sample_answer": "dx Thread 0 \n0 \n-1 1000 sub $1,%dx\n-1 1001 test $0,%dx\n-1 1002 jgte .top\n-1 1003 halt",
+            "sample_criteria": "The program code or text explanation can explain the process of value changing from 0 to -1. Correct (16 points);\nIf only answer the final value is -1 . Partically correct (4 points); If only asnser the \"change range is from 0 to -1 (8 points); If answer list all values, Partically correct (12 points)\n",
+            "full_points": 16,
+            "score_1": 16,
+            "score_2": 16,
+            "score_3": 16
+        }
+    },
+    "22": {
+        "2": {
+            "question": "Let\u2019s examine a simple program, \u201cloop.s\u201d. First, just read and understand it. Then, run it with these arguments (./x86.py -p loop.s -t 1 -i 100 -R dx). This specifies a single thread, an interrupt every 100 instructions, and tracing of register %dx. What will %dx be during the run? Use the -c flag to check your answers; the answers, on the left, show the value of the register (or memory value) after the instruction on the right has run.",
+            "answer": "0 1 1 1 1",
+            "sample_answer": "dx Thread 0 \n0 \n-1 1000 sub $1,%dx\n-1 1001 test $0,%dx\n-1 1002 jgte .top\n-1 1003 halt",
+            "sample_criteria": "The program code or text explanation can explain the process of value changing from 0 to -1. Correct (16 points);\nIf only answer the final value is -1 . Partically correct (4 points); If only asnser the \"change range is from 0 to -1 (8 points); If answer list all values, Partically correct (12 points)\n",
+            "full_points": 16,
+            "score_1": 0,
+            "score_2": 0,
+            "score_3": 0
+        }
+    },
+    "23": {
+        "2": {
+            "question": "Let's examine a simple program, \\",
+            "answer": "python2 x86.py -p loop.s -t 1 -i 100 -R dx -c ARG seed 0 ARG numthreads 1 ARG program loop.s ARG interrupt frequency 100 ARG interrupt randomness False ARG argv ARG load address 1000 ARG memsize 128 ARG memtrace ARG regtrace dx ARG cctrace False ARG printstats False ARG verbose False dx Thread 0 0 -1 1000 sub $1,%dx  -1 1001 test $0,%dx -1 1002 jgte .top -1 1003 halt",
+            "sample_answer": "dx Thread 0 \n0 \n-1 1000 sub $1,%dx\n-1 1001 test $0,%dx\n-1 1002 jgte .top\n-1 1003 halt",
+            "sample_criteria": "The program code or text explanation can explain the process of value changing from 0 to -1. Correct (16 points);\nIf only answer the final value is -1 . Partically correct (4 points); If only asnser the \"change range is from 0 to -1 (8 points); If answer list all values, Partically correct (12 points)\n",
+            "full_points": 16,
+            "score_1": 16,
+            "score_2": 16,
+            "score_3": 16
+        }
+    },
+    "24": {
+        "2": {
+            "question": "Let\u2019s examine a simple program, \u201cloop.s\u201d. First, just read and understand it. Then, run it with these arguments (./x86.py -p loop.s -t 1 -i 100 -R dx). This specifies a single thread, an interrupt every 100 instructions, and tracing of register %dx. What will %dx be during the run? Use the -c flag to check your answers; the answers, on the left, show the value of the register (or memory value) after the instruction on the right has run.",
+            "answer": "-1",
+            "sample_answer": "dx Thread 0 \n0 \n-1 1000 sub $1,%dx\n-1 1001 test $0,%dx\n-1 1002 jgte .top\n-1 1003 halt",
+            "sample_criteria": "The program code or text explanation can explain the process of value changing from 0 to -1. Correct (16 points);\nIf only answer the final value is -1 . Partically correct (4 points); If only asnser the \"change range is from 0 to -1 (8 points); If answer list all values, Partically correct (12 points)\n",
+            "full_points": 16,
+            "score_1": 4.0,
+            "score_2": 4,
+            "score_3": 4
+        }
+    },
+    "25": {
+        "2": {
+            "question": "Let's examine a simple program, \\",
+            "answer": "python2 x86.py -p loop.s -t 1 -i 100 -R dx -c dx\n\nThread 0\n0 \n-1 1000 sub $1,%dx\n-1 1001 test $0,%dx\n-1 1002 jgte .top\n-1 1003 halt\n\nThe %dx decrease by 1 during the run.",
+            "sample_answer": "dx Thread 0 \n0 \n-1 1000 sub $1,%dx\n-1 1001 test $0,%dx\n-1 1002 jgte .top\n-1 1003 halt",
+            "sample_criteria": "The program code or text explanation can explain the process of value changing from 0 to -1. Correct (16 points);\nIf only answer the final value is -1 . Partically correct (4 points); If only asnser the \"change range is from 0 to -1 (8 points); If answer list all values, Partically correct (12 points)\n",
+            "full_points": 16,
+            "score_1": 16,
+            "score_2": 16,
+            "score_3": 16
+        }
+    },
+    "26": {
+        "2": {
+            "question": "Let's examine a simple program, 'loop.s'. First, just read and understand it. Then, run it with these arguments (./x86.py -p loop.s -t 1 -i 100 -R dx). This specifies a single thread, an interrupt every 100 instructions, and tracing of register %dx. What will %dx be during the run? Use the -c flag to check your answers; the answers, on the left, show the value of the register (or memory value) after the instruction on the right has run.",
+            "answer": "dx Thread 0 0 -1 1000 sub $1,%dx -1 1001 test $0,%dx -1 1002 jgte .top -1 1003 halt Sub instruction substitutes 1 from the initial value of %dx (0), so that it becomes -1. Test instruction checks the %dx value, since it is smaller than 0, jump doesn\u2019t happen and program halts.",
+            "sample_answer": "dx Thread 0 \n0 \n-1 1000 sub $1,%dx\n-1 1001 test $0,%dx\n-1 1002 jgte .top\n-1 1003 halt",
+            "sample_criteria": "The program code or text explanation can explain the process of value changing from 0 to -1. Correct (16 points);\nIf only answer the final value is -1 . Partically correct (4 points); If only asnser the \"change range is from 0 to -1 (8 points); If answer list all values, Partically correct (12 points)\n",
+            "full_points": 16,
+            "score_1": 16.0,
+            "score_2": 16.0,
+            "score_3": 16
+        }
+    },
+    "27": {
+        "2": {
+            "question": "Let's examine a simple program, \"loop.s\". First, just read and understand it. Then, run it with these arguments (./x86.py -p loop.s -t 1 -i 100 -R dx). This specifies a single thread, an interrupt every 100 instructions, and tracing of register %dx. What will %dx be during the run? Use the - c flag to check your answers; the answers, on the left, show the value of the register (or memory value) after the instruction on the right has run.",
+            "answer": "dx = 0 initally dx = -1 after sub $1,%dx",
+            "sample_answer": "dx Thread 0 \n0 \n-1 1000 sub $1,%dx\n-1 1001 test $0,%dx\n-1 1002 jgte .top\n-1 1003 halt",
+            "sample_criteria": "The program code or text explanation can explain the process of value changing from 0 to -1. Correct (16 points);\nIf only answer the final value is -1 . Partically correct (4 points); If only asnser the \"change range is from 0 to -1 (8 points); If answer list all values, Partically correct (12 points)\n",
+            "full_points": 16,
+            "score_1": 16.0,
+            "score_2": 16.0,
+            "score_3": 16
+        }
+    },
+    "28": {
+        "2": {
+            "question": "Let\u2019s examine a simple program, \u201cloop.s\u201d. First, just read and understand it. Then, run it with these arguments (./x86.py -p loop.s -t 1 -i 100 -R dx). This specifies a single thread, an interrupt every 100 instructions, and tracing of register %dx. What will %dx be during the run? Use the -c flag to check your answers; the answers, on the left, show the value of the register (or memory value) after the instruction on the right has run.",
+            "answer": "The value of %dx is -1 after the instruction has run.",
+            "sample_answer": "dx Thread 0 \n0 \n-1 1000 sub $1,%dx\n-1 1001 test $0,%dx\n-1 1002 jgte .top\n-1 1003 halt",
+            "sample_criteria": "The program code or text explanation can explain the process of value changing from 0 to -1. Correct (16 points);\nIf only answer the final value is -1 . Partically correct (4 points); If only asnser the \"change range is from 0 to -1 (8 points); If answer list all values, Partically correct (12 points)\n",
+            "full_points": 16,
+            "score_1": 4,
+            "score_2": 4,
+            "score_3": 4
+        }
+    },
+    "29": {
+        "2": {
+            "question": "Let\u2019s examine a simple program, \u201cloop.s\u201d. First, just read and understand it. Then, run it with these arguments (./x86.py -p loop.s -t 1 -i 100 -R dx). This specifies a single thread, an interrupt every 100 instructions, and tracing of register %dx. What will %dx be during the run? Use the -c flag to check your answers; the answers, on the left, show the value of the register (or memory value) after the instruction on the right has run.",
+            "answer": "dx will be -1 during the run. Dx starts as 0, then the sub instruction substracts 1 from dx, making it -1. Then in the next instructions, 0 is compared against dx. Since dx is smaller than 0, the loop would not continue, and the program halts in the next instruction.",
+            "sample_answer": "dx Thread 0 \n0 \n-1 1000 sub $1,%dx\n-1 1001 test $0,%dx\n-1 1002 jgte .top\n-1 1003 halt",
+            "sample_criteria": "The program code or text explanation can explain the process of value changing from 0 to -1. Correct (16 points);\nIf only answer the final value is -1 . Partically correct (4 points); If only asnser the \"change range is from 0 to -1 (8 points); If answer list all values, Partically correct (12 points)\n",
+            "full_points": 16,
+            "score_1": 16,
+            "score_2": 16,
+            "score_3": 16
+        }
+    },
+    "30": {
+        "2": {
+            "question": "Let\u2019s examine a simple program, \n\u201cloop.s\u201d. First, just read and understand it. Then, run it with these arguments (./x86.py -p loop.s -t 1 -i 100 -R dx). This specifies a single thread, an interrupt every 100 instructions, and tracing of register %dx. What will %dx be during the run? Use the -c flag to check your answers; the answers, on the left, show the value of the register (or memory value) after the instruction on the right has run.",
+            "answer": "At first the dx is 0,then it become a few -1.",
+            "sample_answer": "dx Thread 0 \n0 \n-1 1000 sub $1,%dx\n-1 1001 test $0,%dx\n-1 1002 jgte .top\n-1 1003 halt",
+            "sample_criteria": "The program code or text explanation can explain the process of value changing from 0 to -1. Correct (16 points);\nIf only answer the final value is -1 . Partically correct (4 points); If only asnser the \"change range is from 0 to -1 (8 points); If answer list all values, Partically correct (12 points)\n",
+            "full_points": 16,
+            "score_1": 8.0,
+            "score_2": 8,
+            "score_3": 8
+        }
+    },
+    "31": {
+        "2": {
+            "question": "Let\u2019s examine a simple program, \n\u201cloop.s\u201d. First, just read and understand it. Then, run it with these arguments (./x86.py -p loop.s -t 1 -i 100 -R dx). This specifies a single thread, an interrupt every 100 instructions, and tracing of register %dx. What will %dx be during the run? Use the -c flag to check your answers; the answers, on the left, show the value of the register (or memory value) after the instruction on the right has run.",
+            "answer": "dx Thread 0 \n0 \n-1 1000 sub $1,%dx\n-1 1001 test $0,%dx\n-1 1002 jgte .top\n-1 1003 halt",
+            "sample_answer": "dx Thread 0 \n0 \n-1 1000 sub $1,%dx\n-1 1001 test $0,%dx\n-1 1002 jgte .top\n-1 1003 halt",
+            "sample_criteria": "The program code or text explanation can explain the process of value changing from 0 to -1. Correct (16 points);\nIf only answer the final value is -1 . Partically correct (4 points); If only asnser the \"change range is from 0 to -1 (8 points); If answer list all values, Partically correct (12 points)\n",
+            "full_points": 16,
+            "score_1": 12,
+            "score_2": 16,
+            "score_3": 16,
+            "score_outlier": 2
+        }
+    },
+    "32": {
+        "2": {
+            "question": "Let\u2019s examine a simple program, \u201cloop.s\u201d. First, just read and understand it. Then, run it with these arguments (./x86.py -p loop.s -t 1 -i 100 -R dx). This specifies a single thread, an interrupt every 100 instructions, and tracing of register %dx. What will %dx be during the run? Use the -c flag to check your answers; the answers, on the left, show the value of the register (or memory value) after the instruction on the right has run.",
+            "answer": "%dx turns -1 from 0 on the sub instruction. The test instruction sees that %dx is smaller than 0 and doesn\u2019t execute the jump/jgte instruction (%dx stays -1). The program halts with %dx value -1.",
+            "sample_answer": "dx Thread 0 \n0 \n-1 1000 sub $1,%dx\n-1 1001 test $0,%dx\n-1 1002 jgte .top\n-1 1003 halt",
+            "sample_criteria": "The program code or text explanation can explain the process of value changing from 0 to -1. Correct (16 points);\nIf only answer the final value is -1 . Partically correct (4 points); If only asnser the \"change range is from 0 to -1 (8 points); If answer list all values, Partically correct (12 points)\n",
+            "full_points": 16,
+            "score_1": 16.0,
+            "score_2": 16.0,
+            "score_3": 16
+        }
+    },
+    "33": {
+        "2": {
+            "question": "Let's examine a simple program, \"loop.s\". First, just read and understand it. Then, run it with these arguments (./x86.py -p loop.s -t 1 -i 100 -R dx). This specifies a single thread, an interrupt every 100 instructions, and tracing of register %dx. What will %dx be during the run? Use the -c flag to check your answers; the answers, on the left, show the value of the register (or memory value) after the instruction on the right has run.",
+            "answer": "dx: 0 0 0 0 0",
+            "sample_answer": "dx Thread 0 \n0 \n-1 1000 sub $1,%dx\n-1 1001 test $0,%dx\n-1 1002 jgte .top\n-1 1003 halt",
+            "sample_criteria": "The program code or text explanation can explain the process of value changing from 0 to -1. Correct (16 points);\nIf only answer the final value is -1 . Partically correct (4 points); If only asnser the \"change range is from 0 to -1 (8 points); If answer list all values, Partically correct (12 points)\n",
+            "full_points": 16,
+            "score_1": 0,
+            "score_2": 0,
+            "score_3": 0
+        }
+    },
+    "34": {
+        "2": {
+            "question": "Same code, different flags: (./x86.py -p loop.s -t 2 -i 100 -a dx=3,dx=3 -R dx). This specifies two threads, and initializes each %dx to 3. What values will %dx see? Run with -c to check. Does the presence of multiple threads affect your calculations? Is there a race in this code?",
+            "answer": "The first thread starts with a dx value of 3, which decreases by 1 after each iteration until it reaches -1. Then, the second thread starts with a dx value of 3, which also decreases by 1 after each iteration until it reaches -1. Result of \\xe2\\x80\\x93c: saali6@ubt20a ~/tutorial3> python2 ./x86.py -p loop.s -t 2 -i 100 -a dx=3,dx=3 -R dx -c ARG seed 0 ARG numthreads 2 ARG program loop.s ARG interrupt frequency 100 ARG interrupt randomness False ARG argv dx=3,dx=3 ARG load address 1000 ARG memsize 128 ARG memtrace ARG regtrace dx ARG cctrace False ARG printstats False ARG verbose False 2 CS3103 - Operating Systems dx Thread 0 Thread 1 3 2 1000 sub $1,%dx 2 1001 test $0,%dx 2 1002 jgte .top 1 1000 sub $1,%dx 1 1001 test $0,%dx 1 1002 jgte .top 0 1000 sub $1,%dx 0 1001 test $0,%dx 0 1002 jgte .top 1 1000 sub $1,%dx 1 1001 test $0,%dx 1 1002 jgte .top 1 1003 halt 3 ----- Halt;Switch ----- ----- Halt;Switch ----- 2 1000 sub $1,%dx 2 1001 test $0,%dx 2 1002 jgte .top 1 1000 sub $1,%dx 1 1001 test $0,%dx 1 1002 jgte .top 0 1000 sub $1,%dx 0 1001 test $0,%dx 0 1002 jgte .top 1 1000 sub $1,%dx 1 1001 test $0,%dx 1 1002 jgte .top \u20131 1003 halt 3 CS3103 - Operating Systems",
+            "sample_answer": "dx Thread 0 \n0 \n-1 1000 sub $1,%dx\n-1 1001 test $0,%dx\n-1 1002 jgte .top\n-1 1003 halt",
+            "sample_criteria": "The program code or text explanation can explain the process of value changing from 0 to -1. Correct (16 points);\nIf only answer the final value is -1 . Partically correct (4 points); If only asnser the \"change range is from 0 to -1 (8 points); If answer list all values, Partically correct (12 points)\n",
+            "full_points": 16,
+            "score_1": 16.0,
+            "score_2": 16.0,
+            "score_3": 16.0
+        }
+    },
+    "35": {
+        "2": {
+            "question": "Let\\u2019s examine a simple program, \\u201cloop.s\\u201d. First, just read and understand it. Then, run it with these arguments (./x86.py -p loop.s -t 1 -i 100 -R dx). This specifies a single thread, an interrupt every 100 instructions, and tracing of register %dx. What will %dx be during the run? Use the -c flag to check your answers; the answers, on the left, show the value of the register (or memory value) after the instruction on the right has run.",
+            "answer": "\ndx 0 -1 -1 -1 -1",
+            "sample_answer": "dx Thread 0 \n0 \n-1 1000 sub $1,%dx\n-1 1001 test $0,%dx\n-1 1002 jgte .top\n-1 1003 halt",
+            "sample_criteria": "The program code or text explanation can explain the process of value changing from 0 to -1. Correct (16 points);\nIf only answer the final value is -1 . Partically correct (4 points); If only asnser the \"change range is from 0 to -1 (8 points); If answer list all values, Partically correct (12 points)\n",
+            "full_points": 16,
+            "score_1": 16,
+            "score_2": 16,
+            "score_3": 12
+        }
+    },
+    "36": {
+        "2": {
+            "question": "Let \n{^'}s examine a simple program, \n{^'}loop.s\textbf{^'}. First, just read and understand it. Then, run it with these arguments (./x86.py -p loop.s -t 1 -i 100 R dx). This specifies a single thread, an interrupt every 100 instructions, and tracing of register %dx. What will %dx be during the run? Use the -c flag to check your answers; the answers, on the left, show the value of the register (or memory value) after the instruction on the right has run.",
+            "answer": "dx Thread 0 0 1 1000 sub $1, %dx 1 1001 test $0, %dx 1 1002 jgte .top 1 1003 halt",
+            "sample_answer": "dx Thread 0 \n0 \n-1 1000 sub $1,%dx\n-1 1001 test $0,%dx\n-1 1002 jgte .top\n-1 1003 halt",
+            "sample_criteria": "The program code or text explanation can explain the process of value changing from 0 to -1. Correct (16 points);\nIf only answer the final value is -1 . Partically correct (4 points); If only asnser the \"change range is from 0 to -1 (8 points); If answer list all values, Partically correct (12 points)\n",
+            "full_points": 16,
+            "score_1": 0,
+            "score_2": 0,
+            "score_3": 0
+        }
+    },
+    "37": {
+        "2": {
+            "question": "Let\u2019s examine a simple program, \n \u201cloop.s\u201d. First, just read and understand it. Then, run it with these arguments (./x86.py -p loop.s -t 1 -i 100 -R dx). This specifies a single thread, an interrupt every 100 instructions, and tracing of register %dx. What will %dx be during the run? Use the -c flag to check your answers; the answers, on the left, show the value of the register (or memory value) after the instruction on the right has run.",
+            "answer": "%dx will be change from 0 to -1",
+            "sample_answer": "dx Thread 0 \n0 \n-1 1000 sub $1,%dx\n-1 1001 test $0,%dx\n-1 1002 jgte .top\n-1 1003 halt",
+            "sample_criteria": "The program code or text explanation can explain the process of value changing from 0 to -1. Correct (16 points);\nIf only answer the final value is -1 . Partically correct (4 points); If only asnser the \"change range is from 0 to -1 (8 points); If answer list all values, Partically correct (12 points)\n",
+            "full_points": 16,
+            "score_1": 8.0,
+            "score_2": 8.0,
+            "score_3": 8
+        }
+    },
+    "38": {
+        "2": {
+            "question": "Let\u2019s examine a simple program, \n \u201cloop.s\u201d. First, just read and understand it. Then, run it with these arguments (./x86.py -p loop.s -t 1 -i 100 -R dx). This specifies a single thread, an interrupt every 100 instructions, and tracing of register %dx. What will %dx be during the run? Use the -c flag to check your answers; the answers, on the left, show the value of the register (or memory value) after the instruction on the right has run.",
+            "answer": "The value is -1.",
+            "sample_answer": "dx Thread 0 \n0 \n-1 1000 sub $1,%dx\n-1 1001 test $0,%dx\n-1 1002 jgte .top\n-1 1003 halt",
+            "sample_criteria": "The program code or text explanation can explain the process of value changing from 0 to -1. Correct (16 points);\nIf only answer the final value is -1 . Partically correct (4 points); If only asnser the \"change range is from 0 to -1 (8 points); If answer list all values, Partically correct (12 points)\n",
+            "full_points": 16,
+            "score_1": 4,
+            "score_2": 4,
+            "score_3": 4
+        }
+    },
+    "39": {
+        "2": {
+            "question": "Let\u2019s examine a simple program, \n \u201cloop.s\u201d. First, just read and understand it. Then, run it with these arguments (./x86.py -p loop.s -t 1 -i 100 -R dx). This specifies a single thread, an interrupt every 100 instructions, and tracing of register %dx. What will %dx be during the run? Use the -c flag to check your answers; the answers, on the left, show the value of the register (or memory value) after the instruction on the right has run.",
+            "answer": "-1",
+            "sample_answer": "dx Thread 0 \n0 \n-1 1000 sub $1,%dx\n-1 1001 test $0,%dx\n-1 1002 jgte .top\n-1 1003 halt",
+            "sample_criteria": "The program code or text explanation can explain the process of value changing from 0 to -1. Correct (16 points);\nIf only answer the final value is -1 . Partically correct (4 points); If only asnser the \"change range is from 0 to -1 (8 points); If answer list all values, Partically correct (12 points)\n",
+            "full_points": 16,
+            "score_1": 4,
+            "score_2": 4,
+            "score_3": 4
+        }
+    },
+    "40": {
+        "2": {
+            "question": "Let's examine a simple program, 'loop.s'. First, just read and understand it. Then, run it with these arguments (./x86.py -p loop.s -t 1 -i 100 -R dx). This specifies a single thread, an interrupt every 100 instructions, and tracing of register %dx. What will %dx be during the run? Use the -c flag to check your answers; the answers, on the left, show the value of the register (or memory value) after the instruction on the right has run.",
+            "answer": "%dx will be \n-1. Since the register is 0 in the beginning and subtract by 1. The value is -1 which is smaller than 0 so the program is terminated.",
+            "sample_answer": "dx Thread 0 \n0 \n-1 1000 sub $1,%dx\n-1 1001 test $0,%dx\n-1 1002 jgte .top\n-1 1003 halt",
+            "sample_criteria": "The program code or text explanation can explain the process of value changing from 0 to -1. Correct (16 points);\nIf only answer the final value is -1 . Partically correct (4 points); If only asnser the \"change range is from 0 to -1 (8 points); If answer list all values, Partically correct (12 points)\n",
+            "full_points": 16,
+            "score_1": 16,
+            "score_2": 16,
+            "score_3": 16.0
+        }
+    }
+}

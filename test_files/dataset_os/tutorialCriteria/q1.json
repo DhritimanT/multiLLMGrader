@@ -1,0 +1,7 @@
+{
+    "1": {
+        "full_points": 19,
+        "answer": "The response time and turnaround time for three jobs using the FIFO policy and SJF policy are the same in the given order of job length. If we change the order of job length, response time and turnaround time for the SJF policy should remain the same.\nHowever, the results for FIFO policy in different orders will change. In particular, if we run these jobs in order 300, 200, 100, it makes FIFO perform poorly (the average response time is 266.67, and turnaround time is 466.67).",
+        "criteria": "case1: \n\u2022 For correct \u201cAverage reponse time and Turnaround time\u201d for SJF (6.5 points)\n\u2022 For correct \u201cAverage reponse time and Turnaround time\u201d for FIFO (6.5 points)\n\u2022 For point out \u201cif change the order of job length, response time and turnaround time for the SJF policy should remain the same.\u201d (3 points) \n\u2022 For correct explain \u201cthe results for FIFO policy in different orders will change.\u201d (3 points) \ncase2: \n\u2022 For point out \u201cif change the order of job length, response time and turnaround time for the SJF policy should remain the same.\u201d (3 points)  and explain the reason (6.5). \n\u2022 For correct explain \u201cthe results for FIFO policy in different orders will change.\u201d (3 points) and explain the reason (6.5). "
+    }
+}

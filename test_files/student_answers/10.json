@@ -1,0 +1,8 @@
+{
+    "1": "With SJF: Job 0: Response \\u2013 0, turnaround \\u2013 100 Job 1: Response \\u2013 100, turnaround \\u2013 300 Job 2: Response \\u2013 300, turnaround \\u2013 600\nWith FIFO is the same because jobs arrive in the order of increasing range which makes the first come the shortest job.\nHowever if we change the order of the jobs, the output will be different. For example with -l 300,200,100 FIFO will be: Job 0: Response \\u2013 0, turnaround \\u2013 300 Job 1: Response \\u2013 300, turnaround \\u2013 500 Job 2: Response \\u2013 500, turnaround - 600",
+    "2": "-1",
+    "3": "The main problem is that the approach requires the threads to acquire the global lock before acquiring the vector, which will reduce concurrency. When running with p, global order has the shortest run time, followed with avoid hold and wait and try wait. When running without p, try wait have the shortest run time, followed by global order and avoid hold and wait.",
+    "4": "9 time units. First processor 4:100 use 4 time units for running regular CPU instruction while second processor 1:0 issue 1 I/O request, that just use 5 time units for running.",
+    "5": "The behavior of the code will become increase in the number of buffers. The prediction of num_full should be changed between 0 to max. The consumer gets to run, but finds the queue empty, and thus sleep for 1 seconds.",
+    "6": "Virtual Address 5a23: Fault (PTE not valid) Virtual Address 14ab: Fault (PDE not valid) Virtual Address 257e: Physical Address 0x9fe, Virtual Address 7988: Fault (PDE not valid) Virtual Address 75cf: Physical Address 0xc9f Virtual Address 3350: Physical Address 0x6b0 Virtual Address 0a70: Fault (PTE not valid) Virtual Address 55f9: Physical Address 0x709"
+}

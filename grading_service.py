@@ -345,6 +345,7 @@ class LLMGrader:
             max_tokens_to_use = 8000
 
             # Make single LLM call
+            start_time = time.time()
             result_text = self._call_llm(
                 system_content=system_msg["content"],
                 user_content=user_content,
@@ -352,6 +353,8 @@ class LLMGrader:
                 max_tokens=max_tokens_to_use,
                 response_schema=schema,
             )
+            end_time = time.time()
+            time_taken = end_time - start_time
 
             # Parse bulk response
             (
@@ -389,7 +392,7 @@ class LLMGrader:
         total_points = sum(float(q.get("points", 0) or 0) for q in flattened_questions)
         total_score = sum(fb.get("score", 0.0) for fb in feedback_by_question.values())
 
-        return total_score, total_points, feedback_by_question, overall_feedback
+        return total_score, total_points, feedback_by_question, overall_feedback, time_taken
 
     def grade_pdf_direct(
         self,
@@ -1075,47 +1078,70 @@ class LLMGrader:
         diagram_index = 0
 
         # Branching to safely accommodate Gemini's structured response expectation
-        if self.provider == "gemini":
-            prompt_parts.append(
-                "You are an expert academic grader. Grade this student's submission for all questions. "
-                "For each question, FIRST write out your step-by-step reasoning against the rubric, "
-                "THEN provide a score, strengths, areas for improvement, and detailed breakdown. "
-                "Return your response as JSON with the following structure:\n"
-                "{\n"
-                '  "grades": [\n'
-                '    {\n'
-                '      "question_id": "<id>",\n'
-                '      "reasoning": "<step-by-step logic against rubric>",\n'
-                '      "score": <float in [0, max_points]>,\n'
-                '      "strengths": "<brief strengths>",\n'
-                '      "areas_for_improvement": "<areas to improve>",\n'
-                '      "breakdown": "<detailed analysis>"\n'
-                '    }\n'
-                '  ],\n'
-                '  "overall_feedback": "<overall assessment>"\n'
-                "}\n\n"
-                "GRADING CRITERIA:\n"
-                "- Grade strictly according to the provided rubric and max points.\n\n"
-                "Questions, reference answers, rubrics, max points, and student answers follow:\n"
-            )
-        else:
-            prompt_parts.append(
-                "You are an expert academic grader. Grade this student's submission for all questions. "
-                "For each question, provide a score, strengths, areas for improvement, and detailed breakdown. "
-                "Return your response as JSON with the following structure:\n"
-                "{\n"
-                '  "question_<id>": {\n'
-                '    "score": <float in [0, max_points]>,\n'
-                '    "strengths": "<brief strengths>",\n'
-                '    "areas_for_improvement": "<areas to improve>",\n'
-                '    "breakdown": "<detailed analysis>"\n'
-                "  },\n"
-                '  "overall_feedback": "<overall assessment>"\n'
-                "}\n\n"
-                "GRADING CRITERIA:\n"
-                "- Grade strictly according to the provided rubric and max points.\n\n"
-                "Questions, reference answers, rubrics, max points, and student answers follow:\n"
-            )
+        # if self.provider == "gemini":
+        #     prompt_parts.append(
+        #         "You are an expert academic grader. Grade this student's submission for all questions. "
+        #         "For each question, FIRST write out your step-by-step reasoning against the rubric, "
+        #         "THEN provide a score, strengths, areas for improvement, and detailed breakdown. "
+        #         "Return your response as JSON with the following structure:\n"
+        #         "{\n"
+        #         '  "grades": [\n'
+        #         '    {\n'
+        #         '      "question_id": "<id>",\n'
+        #         '      "reasoning": "<step-by-step logic against rubric>",\n'
+        #         '      "score": <float in [0, max_points]>,\n'
+        #         '      "strengths": "<brief strengths>",\n'
+        #         '      "areas_for_improvement": "<areas to improve>",\n'
+        #         '      "breakdown": "<detailed analysis>"\n'
+        #         '    }\n'
+        #         '  ],\n'
+        #         '  "overall_feedback": "<overall assessment>"\n'
+        #         "}\n\n"
+        #         "GRADING CRITERIA:\n"
+        #         "- Grade strictly according to the provided rubric and max points.\n\n"
+        #         "Questions, reference answers, rubrics, max points, and student answers follow:\n"
+        #     )
+        # else:
+        #     prompt_parts.append(
+        #         "You are an expert academic grader. Grade this student's submission for all questions. "
+        #         "For each question, provide a score, strengths, areas for improvement, and detailed breakdown. "
+        #         "Return your response as JSON with the following structure:\n"
+        #         "{\n"
+        #         '  "question_<id>": {\n'
+        #         '    "score": <float in [0, max_points]>,\n'
+        #         '    "strengths": "<brief strengths>",\n'
+        #         '    "areas_for_improvement": "<areas to improve>",\n'
+        #         '    "breakdown": "<detailed analysis>"\n'
+        #         "  },\n"
+        #         '  "overall_feedback": "<overall assessment>"\n'
+        #         "}\n\n"
+        #         "GRADING CRITERIA:\n"
+        #         "- Grade strictly according to the provided rubric and max points.\n\n"
+        #         "Questions, reference answers, rubrics, max points, and student answers follow:\n"
+        #     )
+
+        prompt_parts.append(
+            "You are an expert academic grader. Grade this student's submission for all questions. "
+            "For each question, FIRST write out your step-by-step reasoning against the rubric, "
+            "THEN provide a score, strengths, areas for improvement, and detailed breakdown. "
+            "Return your response as JSON with the following structure:\n"
+            "{\n"
+            '  "grades": [\n'
+            '    {\n'
+            '      "question_id": "<id (the question id e.g., 1, 2.1, 2.1.3)>",\n'
+            '      "reasoning": "<step-by-step logic against rubric>",\n'
+            '      "score": <float in [0, max_points]>,\n'
+            '      "strengths": "<brief strengths>",\n'
+            '      "areas_for_improvement": "<areas to improve>",\n'
+            '      "breakdown": "<detailed analysis>"\n'
+            '    }\n'
+            '  ],\n'
+            '  "overall_feedback": "<overall assessment>"\n'
+            "}\n\n"
+            "GRADING CRITERIA:\n"
+            "- Grade strictly according to the provided rubric and max points.\n\n"
+            "Questions, reference answers, rubrics, max points, and student answers follow:\n"
+        )
 
         for question in flattened_questions:
             q_id = str(question.get("id"))

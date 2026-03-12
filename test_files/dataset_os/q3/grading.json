@@ -1,0 +1,482 @@
+{
+    "1": {
+        "3": {
+            "question": "Now let\u2019s look at vector-avoid-hold-and-wait.c. What is the main problem with this approach? How does its performance compare to the other versions (i.e., vector-global-order and vector-try-wait), when running both with -p and without it?",
+            "answer": "The main problem of this approach is that the global lock will protect the acquirement of all the locks. ./vector-avoid-hold-and-wait -t -l 100000 -d -n 2, the completion time is around 0.10 seconds which is very close to vector-global-order and vector-try-wait. With -p, ./vector-avoid-hold-and-wait -t -l 100000 -d -n 2 -p, the completion time is around 0.06 seconds, it is much slower than the other two types.",
+            "sample_answer": "The main problem with this approach is that it is too coarse: the global lock (which protects the acquisition of all the other locks) will be under contention even when the vectors being manipulated by each thread is different. The run times under heavy contention (without the -p flag) very close to those for vector-global-order. For the high parallelism (with the -p flag) case, vector-avoid-hold-and-wait performs as it does under high contention, but about twice as slow as vector-global-order under high parallelism. Consequently, the comparison between vector-global-order and vector-try-wait holds here as well.",
+            "sample_criteria": "three-subquestions, 5 points for each subquestion.\n\u2022 For explain \u201cmain problem\u201d (5 points)\n\u2022 For explain the setting \u201cwithout the -p flag\u201d (5 points)\n\u2022 For explain the setting \u201cwith the -p flag\u201d (5 points)",
+            "full_points": 15,
+            "score_1": 15,
+            "score_2": 15,
+            "score_3": 15
+        }
+    },
+    "2": {
+        "3": {
+            "question": "Now let\u2019s look at vector-avoid-hold-and-wait.c. What is the main problem with this approach? How does its performance compare to the other versions (i.e., vector-global-order and vector-try-wait), when running both with -p and without it?",
+            "answer": "The global locks that protect other locks from acquisition is the main problem because it keeps holding the lock although the thread is running or manipulating different vectors. When running the code without -p flag it takes longer time If we compare this with the vector-global-order the runtime without the -p flag is more or less the same while with the -p flag it is also similar. However, it is as slow as the vector-global-order under parallelism. The comparison with the vector-try-wait and vector-global-order also holds true in this scenario as well.",
+            "sample_answer": "The main problem with this approach is that it is too coarse: the global lock (which protects the acquisition of all the other locks) will be under contention even when the vectors being manipulated by each thread is different. The run times under heavy contention (without the -p flag) very close to those for vector-global-order. For the high parallelism (with the -p flag) case, vector-avoid-hold-and-wait performs as it does under high contention, but about twice as slow as vector-global-order under high parallelism. Consequently, the comparison between vector-global-order and vector-try-wait holds here as well.",
+            "sample_criteria": "three-subquestions, 5 points for each subquestion.\n\u2022 For explain \u201cmain problem\u201d (5 points)\n\u2022 For explain the setting \u201cwithout the -p flag\u201d (5 points)\n\u2022 For explain the setting \u201cwith the -p flag\u201d (5 points)",
+            "full_points": 15,
+            "score_1": 10.0,
+            "score_2": 15,
+            "score_3": 15
+        }
+    },
+    "3": {
+        "3": {
+            "question": "Now let\u2019s look at vector-avoid-hold-and-wait.c. What is the main problem with this approach? How does its performance compare to the other versions (i.e., vector-global-order and vector-try-wait), when running both with -p and without it?",
+            "answer": "The main problem with this approach is that it can lead to a deadlock if all threads do not acquire the locks in a consistent order. Using the same command, ./vector-avoid-hold-and-wait -t -n 2 -l 10000 -d only takes 0.01, faster than other versions.",
+            "sample_answer": "The main problem with this approach is that it is too coarse: the global lock (which protects the acquisition of all the other locks) will be under contention even when the vectors being manipulated by each thread is different. The run times under heavy contention (without the -p flag) very close to those for vector-global-order. For the high parallelism (with the -p flag) case, vector-avoid-hold-and-wait performs as it does under high contention, but about twice as slow as vector-global-order under high parallelism. Consequently, the comparison between vector-global-order and vector-try-wait holds here as well.",
+            "sample_criteria": "three-subquestions, 5 points for each subquestion.\n\u2022 For explain \u201cmain problem\u201d (5 points)\n\u2022 For explain the setting \u201cwithout the -p flag\u201d (5 points)\n\u2022 For explain the setting \u201cwith the -p flag\u201d (5 points)",
+            "full_points": 15,
+            "score_1": 5,
+            "score_2": 7,
+            "score_3": 5
+        }
+    },
+    "4": {
+        "3": {
+            "question": "Now let\u2019s look at vector-avoid-hold-and-wait.c. What is the main problem with this approach? How does its performance compare to the other versions (i.e., vector-global-order and vector-try-wait), when running both with -p and without it?",
+            "answer": "The main problem with this approach is that the global lock should be unlocked in the end of the code instead of right after getting the dst and src lock. When I run ./vector-avoid-hold-and-wait -t -n 2 -l 100000 -d, the total time is 0.10 seconds. When I run ./vector-avoid-hold-and-wait -t -n 2 -l 100000 -d -p, the total time is 0.06 seconds. Therefore, when running without -p, the total time of vector-avoid-hold-and-wait.c is longer than the vector-global-order.c, but shorter than the vector-try-wait.c. When running with -p, the total time of vector-avoid-hold-and-wait.c is longer than both vector-global-order.c and vector-try-wait.c.",
+            "sample_answer": "The main problem with this approach is that it is too coarse: the global lock (which protects the acquisition of all the other locks) will be under contention even when the vectors being manipulated by each thread is different. The run times under heavy contention (without the -p flag) very close to those for vector-global-order. For the high parallelism (with the -p flag) case, vector-avoid-hold-and-wait performs as it does under high contention, but about twice as slow as vector-global-order under high parallelism. Consequently, the comparison between vector-global-order and vector-try-wait holds here as well.",
+            "sample_criteria": "three-subquestions, 5 points for each subquestion.\n\u2022 For explain \u201cmain problem\u201d (5 points)\n\u2022 For explain the setting \u201cwithout the -p flag\u201d (5 points)\n\u2022 For explain the setting \u201cwith the -p flag\u201d (5 points)",
+            "full_points": 15,
+            "score_1": 10.0,
+            "score_2": 10,
+            "score_3": 10
+        }
+    },
+    "5": {
+        "3": {
+            "question": "Now let\u2019s look at vector-avoid-hold-and-wait.c. What is the main problem with this approach? How does its performance compare to the other versions (i.e., vector-global-order and vector-try-wait), when running both with -p and without it?",
+            "answer": "The main problem is only one thread could get the mutex of vectors, even if other threads are requiring different vectors. Vector-avoid-hold-and-wait has a shorter total time taken when running with -p, while vector-global-order and vector-try-wait have even shorter total time taken when running with -p than without.",
+            "sample_answer": "The main problem with this approach is that it is too coarse: the global lock (which protects the acquisition of all the other locks) will be under contention even when the vectors being manipulated by each thread is different. The run times under heavy contention (without the -p flag) very close to those for vector-global-order. For the high parallelism (with the -p flag) case, vector-avoid-hold-and-wait performs as it does under high contention, but about twice as slow as vector-global-order under high parallelism. Consequently, the comparison between vector-global-order and vector-try-wait holds here as well.",
+            "sample_criteria": "three-subquestions, 5 points for each subquestion.\n\u2022 For explain \u201cmain problem\u201d (5 points)\n\u2022 For explain the setting \u201cwithout the -p flag\u201d (5 points)\n\u2022 For explain the setting \u201cwith the -p flag\u201d (5 points)",
+            "full_points": 15,
+            "score_1": 12,
+            "score_2": 8,
+            "score_3": 9
+        }
+    },
+    "6": {
+        "3": {
+            "question": "Now let\u2019s look at vector-avoid-hold-and-wait.c. What is the main problem with this approach? How does its performance compare to the other versions (i.e., vector-global-order and vector-try-wait), when running both with -p and without it?",
+            "answer": "Compare to `vector-global-order.c`: The global order approach also avoids deadlocks but allows for more concurrency because it doesn\u2019t use a global lock. Instead, it orders lock acquisition based on the memory addresses of the vectors. This allows different threads to work on different vectors concurrently, as long as they\u2019re not trying to lock the same two vectors in the opposite order. Therefore, the global order approach is likely to have better performance than the avoid-hold-and-wait approach, both with and without parallelism enabled. `./vector-global-order -d n 2 -l 800000 -t`: 0.30 seconds `./vector-avoid-hold-and-wait -d n 2 -l 800000 -t`: 0.76 seconds `./vector-global-order -d n 2 -l 800000 -p -t`: 0.14 seconds `./vector-avoid-hold-and-wait -d n 2 -l 800000 -p -t`: 0.38 seconds The test results prove my hypothesis. Compare to vector-try-wait.c: The try-wait approach uses `pthread_mutex_trylock()` to attempt to lock the vectors without blocking. If it can\u2019t acquire a lock, it immediately releases any locks it already holds and tries again. This approach can also provide more concurrency than the avoid-hold-and-wait approach because it doesn\u2019t use a global lock. However, it could lead to busy-waiting if a thread repeatedly fails to acquire its locks, which could consume CPU resources. `./vector-try-wait -d n 2 -l 800000 -t`: 1.22 seconds `./vector-avoid-hold-and-wait -d n 2 -l 800000 -t`: 0.76 seconds `./vector-try-wait -d n 2 -l 800000 -p -t`: 0.18 seconds `./vector-avoid-hold-and-wait -d n 2 -l 800000 -p -t`: 0.38 seconds The test results prove my hypothesis.",
+            "sample_answer": "The main problem with this approach is that it is too coarse: the global lock (which protects the acquisition of all the other locks) will be under contention even when the vectors being manipulated by each thread is different. The run times under heavy contention (without the -p flag) very close to those for vector-global-order. For the high parallelism (with the -p flag) case, vector-avoid-hold-and-wait performs as it does under high contention, but about twice as slow as vector-global-order under high parallelism. Consequently, the comparison between vector-global-order and vector-try-wait holds here as well.",
+            "sample_criteria": "three-subquestions, 5 points for each subquestion.\n\u2022 For explain \u201cmain problem\u201d (5 points)\n\u2022 For explain the setting \u201cwithout the -p flag\u201d (5 points)\n\u2022 For explain the setting \u201cwith the -p flag\u201d (5 points)",
+            "full_points": 15,
+            "score_1": 15,
+            "score_2": 15,
+            "score_3": 15
+        }
+    },
+    "7": {
+        "3": {
+            "question": "Now let\u2019s look at vector-avoid-hold-and-wait.c. What is the main problem with this approach? How does its performance compare to the other versions (i.e., vector-global-order and vector-try-wait), when running both with -p and without it?",
+            "answer": "This approach is too rough. Even if the vectors are being manipulated by different threads, the global lock will be under contention. The performance in this approach (high contention, without the -p flag) is similar to the vector-global-order approach. The performance in this approach (high parallelism, with the p flag) is two times slower than the vector-global-order approach.",
+            "sample_answer": "The main problem with this approach is that it is too coarse: the global lock (which protects the acquisition of all the other locks) will be under contention even when the vectors being manipulated by each thread is different. The run times under heavy contention (without the -p flag) very close to those for vector-global-order. For the high parallelism (with the -p flag) case, vector-avoid-hold-and-wait performs as it does under high contention, but about twice as slow as vector-global-order under high parallelism. Consequently, the comparison between vector-global-order and vector-try-wait holds here as well.",
+            "sample_criteria": "three-subquestions, 5 points for each subquestion.\n\u2022 For explain \u201cmain problem\u201d (5 points)\n\u2022 For explain the setting \u201cwithout the -p flag\u201d (5 points)\n\u2022 For explain the setting \u201cwith the -p flag\u201d (5 points)",
+            "full_points": 15,
+            "score_1": 15.0,
+            "score_2": 15,
+            "score_3": 15
+        }
+    },
+    "8": {
+        "3": {
+            "question": "Now let\u2019s look at vector-avoid-hold-and-wait.c. What is the main problem with this approach? How does its performance compare to the other versions (i.e., vector-global-order and vector-try-wait), when running both with -p and without it?",
+            "answer": "After Thread 1 lock the global, if Thread 2 want to run the program and do not use the vector used by Thread 1. Theoretically, Thread 2 can run correctly. So Thread 2 can run at any time. But because Thread 1 lock the global, Thread 2 cannot run in time. Without -p: It is faster than vector-try-wait, but slower than vector-global-order. With -p: It is slower than vector-try-wait, and slower than vector-global-order.",
+            "sample_answer": "The main problem with this approach is that it is too coarse: the global lock (which protects the acquisition of all the other locks) will be under contention even when the vectors being manipulated by each thread is different. The run times under heavy contention (without the -p flag) very close to those for vector-global-order. For the high parallelism (with the -p flag) case, vector-avoid-hold-and-wait performs as it does under high contention, but about twice as slow as vector-global-order under high parallelism. Consequently, the comparison between vector-global-order and vector-try-wait holds here as well.",
+            "sample_criteria": "three-subquestions, 5 points for each subquestion.\n\u2022 For explain \u201cmain problem\u201d (5 points)\n\u2022 For explain the setting \u201cwithout the -p flag\u201d (5 points)\n\u2022 For explain the setting \u201cwith the -p flag\u201d (5 points)",
+            "full_points": 15,
+            "score_1": 15,
+            "score_2": 15,
+            "score_3": 15
+        }
+    },
+    "9": {
+        "3": {
+            "question": "Now let\u2019s look at vector-avoid-hold-and-wait.c. What is the main problem with this approach? How does its performance compare to the other versions (i.e., vector-global-order and vector-try-wait), when running both with -p and without it?",
+            "answer": "The thread that is waiting to acquire a lock may be blocked if another thread holds the lock for a long time. The performance is better when running both with -p and without it.",
+            "sample_answer": "The main problem with this approach is that it is too coarse: the global lock (which protects the acquisition of all the other locks) will be under contention even when the vectors being manipulated by each thread is different. The run times under heavy contention (without the -p flag) very close to those for vector-global-order. For the high parallelism (with the -p flag) case, vector-avoid-hold-and-wait performs as it does under high contention, but about twice as slow as vector-global-order under high parallelism. Consequently, the comparison between vector-global-order and vector-try-wait holds here as well.",
+            "sample_criteria": "three-subquestions, 5 points for each subquestion.\n\u2022 For explain \u201cmain problem\u201d (5 points)\n\u2022 For explain the setting \u201cwithout the -p flag\u201d (5 points)\n\u2022 For explain the setting \u201cwith the -p flag\u201d (5 points)",
+            "full_points": 15,
+            "score_1": 12,
+            "score_2": 10,
+            "score_3": 10
+        }
+    },
+    "10": {
+        "3": {
+            "question": "Now let\u2019s look at vector-avoid-hold-and-wait.c. What is the main problem with this approach? How does its performance compare to the other versions (i.e., vector-global-order and vector-try-wait), when running both with -p and without it?",
+            "answer": "The main problem is that the approach requires the threads to acquire the global lock before acquiring the vector, which will reduce concurrency. When running with p, global order has the shortest run time, followed with avoid hold and wait and try wait. When running without p, try wait have the shortest run time, followed by global order and avoid hold and wait.",
+            "sample_answer": "The main problem with this approach is that it is too coarse: the global lock (which protects the acquisition of all the other locks) will be under contention even when the vectors being manipulated by each thread is different. The run times under heavy contention (without the -p flag) very close to those for vector-global-order. For the high parallelism (with the -p flag) case, vector-avoid-hold-and-wait performs as it does under high contention, but about twice as slow as vector-global-order under high parallelism. Consequently, the comparison between vector-global-order and vector-try-wait holds here as well.",
+            "sample_criteria": "three-subquestions, 5 points for each subquestion.\n\u2022 For explain \u201cmain problem\u201d (5 points)\n\u2022 For explain the setting \u201cwithout the -p flag\u201d (5 points)\n\u2022 For explain the setting \u201cwith the -p flag\u201d (5 points)",
+            "full_points": 15,
+            "score_1": 5,
+            "score_2": 5,
+            "score_3": 5
+        }
+    },
+    "11": {
+        "3": {
+            "question": "What is the main problem with the approach in vector-avoid-hold-and-wait.c? How does its performance compare to vector-global-order and vector-try-wait with and without the -p flag?",
+            "answer": "The main problem is the global lock causing contention. Without the -p flag, performance is similar to vector-global-order. With -p, it is slower than vector-global-order due to the global lock bottleneck.",
+            "sample_answer": "The main problem with this approach is that it is too coarse: the global lock (which protects the acquisition of all the other locks) will be under contention even when the vectors being manipulated by each thread is different. The run times under heavy contention (without the -p flag) very close to those for vector-global-order. For the high parallelism (with the -p flag) case, vector-avoid-hold-and-wait performs as it does under high contention, but about twice as slow as vector-global-order under high parallelism. Consequently, the comparison between vector-global-order and vector-try-wait holds here as well.",
+            "sample_criteria": "three-subquestions, 5 points for each subquestion.\n\u2022 For explain \u201cmain problem\u201d (5 points)\n\u2022 For explain the setting \u201cwithout the -p flag\u201d (5 points)\n\u2022 For explain the setting \u201cwith the -p flag\u201d (5 points)",
+            "full_points": 15,
+            "score_1": 15.0,
+            "score_2": 15,
+            "score_3": 15
+        }
+    },
+    "12": {
+        "3": {
+            "question": "Now let\\u2019s look at vector-avoid-hold-and-wait.c. What is the main problem with this approach? How does its performance compare to the other versions (i.e., vector-global-order and vector-try-wait), when running both with -p and without it?",
+            "answer": "The problem is it may lead to deadlock. When running with -p, the performance may be better compared with vector-global-order may be better. The performance may be worsen compared with vector-try-wait. If without parallel, the performance may be worsened.",
+            "sample_answer": "The main problem with this approach is that it is too coarse: the global lock (which protects the acquisition of all the other locks) will be under contention even when the vectors being manipulated by each thread is different. The run times under heavy contention (without the -p flag) very close to those for vector-global-order. For the high parallelism (with the -p flag) case, vector-avoid-hold-and-wait performs as it does under high contention, but about twice as slow as vector-global-order under high parallelism. Consequently, the comparison between vector-global-order and vector-try-wait holds here as well.",
+            "sample_criteria": "three-subquestions, 5 points for each subquestion.\n\u2022 For explain \u201cmain problem\u201d (5 points)\n\u2022 For explain the setting \u201cwithout the -p flag\u201d (5 points)\n\u2022 For explain the setting \u201cwith the -p flag\u201d (5 points)",
+            "full_points": 15,
+            "score_1": 10.0,
+            "score_2": 12,
+            "score_3": 10
+        }
+    },
+    "13": {
+        "3": {
+            "question": "Now let\u2019s look at vector-avoid-hold-and-wait.c. What is the main problem with this approach? How does its performance compare to the other versions (i.e., vector-global-order and vector-try-wait), when running both with -p and without it?",
+            "answer": "When running with the parallelism flag (-p), the performance of `vector-avoid-hold-and-wait.c` may be affected by the potential hold-and-wait situations.",
+            "sample_answer": "The main problem with this approach is that it is too coarse: the global lock (which protects the acquisition of all the other locks) will be under contention even when the vectors being manipulated by each thread is different. The run times under heavy contention (without the -p flag) very close to those for vector-global-order. For the high parallelism (with the -p flag) case, vector-avoid-hold-and-wait performs as it does under high contention, but about twice as slow as vector-global-order under high parallelism. Consequently, the comparison between vector-global-order and vector-try-wait holds here as well.",
+            "sample_criteria": "three-subquestions, 5 points for each subquestion.\n\u2022 For explain \u201cmain problem\u201d (5 points)\n\u2022 For explain the setting \u201cwithout the -p flag\u201d (5 points)\n\u2022 For explain the setting \u201cwith the -p flag\u201d (5 points)",
+            "full_points": 15,
+            "score_1": 7,
+            "score_2": 5,
+            "score_3": 3
+        }
+    },
+    "14": {
+        "3": {
+            "question": "Now let\u2019s look at vector-avoid-hold-and-wait.c. What is the main problem with this approach? How does its performance compare to the other versions (i.e., vector-global-order and vector-try-wait), when running both with -p and without it?",
+            "answer": "The global lock will under have conflict when the vectors being manipulated by each thread is different. The run times without the p flag very close to those for vector-global-order. With the p flag case, program performs more slow in low parallelism than in high parallelism.",
+            "sample_answer": "The main problem with this approach is that it is too coarse: the global lock (which protects the acquisition of all the other locks) will be under contention even when the vectors being manipulated by each thread is different. The run times under heavy contention (without the -p flag) very close to those for vector-global-order. For the high parallelism (with the -p flag) case, vector-avoid-hold-and-wait performs as it does under high contention, but about twice as slow as vector-global-order under high parallelism. Consequently, the comparison between vector-global-order and vector-try-wait holds here as well.",
+            "sample_criteria": "three-subquestions, 5 points for each subquestion.\n\u2022 For explain \u201cmain problem\u201d (5 points)\n\u2022 For explain the setting \u201cwithout the -p flag\u201d (5 points)\n\u2022 For explain the setting \u201cwith the -p flag\u201d (5 points)",
+            "full_points": 15,
+            "score_1": 15,
+            "score_2": 15,
+            "score_3": 15
+        }
+    },
+    "15": {
+        "3": {
+            "question": "Now let\u2019s look at vector-avoid-hold-and-wait.c. What is the main problem with this approach? How does its performance compare to the other versions (i.e., vector-global-order and vector-try-wait), when running both with -p and without it?",
+            "answer": "The problem is that conflict will be occurred when the vectors in each thread are not equal. Compared to the version vector-global-order, the version vector-avoid-hold-and-wait always complete the program with shorter time for both with -p and without it.",
+            "sample_answer": "The main problem with this approach is that it is too coarse: the global lock (which protects the acquisition of all the other locks) will be under contention even when the vectors being manipulated by each thread is different. The run times under heavy contention (without the -p flag) very close to those for vector-global-order. For the high parallelism (with the -p flag) case, vector-avoid-hold-and-wait performs as it does under high contention, but about twice as slow as vector-global-order under high parallelism. Consequently, the comparison between vector-global-order and vector-try-wait holds here as well.",
+            "sample_criteria": "three-subquestions, 5 points for each subquestion.\n\u2022 For explain \u201cmain problem\u201d (5 points)\n\u2022 For explain the setting \u201cwithout the -p flag\u201d (5 points)\n\u2022 For explain the setting \u201cwith the -p flag\u201d (5 points)",
+            "full_points": 15,
+            "score_1": 10.0,
+            "score_2": 5,
+            "score_3": 7
+        }
+    },
+    "16": {
+        "3": {
+            "question": "Now let\u2019s look at vector-avoid-hold-and-wait.c. What is the main problem with this approach? How does its performance compare to the other versions (i.e., vector-global-order and vector-try-wait), when running both with -p and without it?",
+            "answer": "There is no need for the approach to get both two values\u2019 lock. The performance is faster than vector-try-and-wait but slower than vector-global-order without -p. The performance is slower than both vector-try-and-wait and vector-global-order with -p.",
+            "sample_answer": "The main problem with this approach is that it is too coarse: the global lock (which protects the acquisition of all the other locks) will be under contention even when the vectors being manipulated by each thread is different. The run times under heavy contention (without the -p flag) very close to those for vector-global-order. For the high parallelism (with the -p flag) case, vector-avoid-hold-and-wait performs as it does under high contention, but about twice as slow as vector-global-order under high parallelism. Consequently, the comparison between vector-global-order and vector-try-wait holds here as well.",
+            "sample_criteria": "three-subquestions, 5 points for each subquestion.\n\u2022 For explain \u201cmain problem\u201d (5 points)\n\u2022 For explain the setting \u201cwithout the -p flag\u201d (5 points)\n\u2022 For explain the setting \u201cwith the -p flag\u201d (5 points)",
+            "full_points": 15,
+            "score_1": 10,
+            "score_2": 5,
+            "score_3": 8
+        }
+    },
+    "17": {
+        "3": {
+            "question": "Now let\u2019s look at vector-avoid-hold-and-wait.c. What is the main problem with this approach? How does its performance compare to the other versions (i.e., vector-global-order and vector-try-wait), when running both with -p and without it?",
+            "answer": "Without -p With -p ./vector-try-wait -d -n 2 -l 100000 -t ./vector-try-wait -d -n 2 -l 100000 -t -p Retries: 516458 Retries: 0 Time: 0.16 seconds Time: 0.03 seconds ./vector-global-order -d -n 2 -l 100000 -t ./vector-global-order -d -n 2 -l 100000 -t -p Time: 0.05 seconds Time: 0.03 seconds ./vector-avoid-hold-and-wait -d -n 2 -l 100000 -t ./vector-avoid-hold-and-wait -d -n 2 -l 100000 -t - Time: 0.10 seconds p Time: 0.07 seconds",
+            "sample_answer": "The main problem with this approach is that it is too coarse: the global lock (which protects the acquisition of all the other locks) will be under contention even when the vectors being manipulated by each thread is different. The run times under heavy contention (without the -p flag) very close to those for vector-global-order. For the high parallelism (with the -p flag) case, vector-avoid-hold-and-wait performs as it does under high contention, but about twice as slow as vector-global-order under high parallelism. Consequently, the comparison between vector-global-order and vector-try-wait holds here as well.",
+            "sample_criteria": "three-subquestions, 5 points for each subquestion.\n\u2022 For explain \u201cmain problem\u201d (5 points)\n\u2022 For explain the setting \u201cwithout the -p flag\u201d (5 points)\n\u2022 For explain the setting \u201cwith the -p flag\u201d (5 points)",
+            "full_points": 15,
+            "score_1": 7,
+            "score_2": 5,
+            "score_3": 5
+        }
+    },
+    "18": {
+        "3": {
+            "question": "Now let\u2019s look at vector-avoid-hold-and-wait.c. What is the main problem with this approach? How does its performance compare to the other versions (i.e., vector-global-order and vector-try-wait), when running both with -p and without it?",
+            "answer": "With -p it is slightly slower than global order. Without -p it is in the middle between two methods.",
+            "sample_answer": "The main problem with this approach is that it is too coarse: the global lock (which protects the acquisition of all the other locks) will be under contention even when the vectors being manipulated by each thread is different. The run times under heavy contention (without the -p flag) very close to those for vector-global-order. For the high parallelism (with the -p flag) case, vector-avoid-hold-and-wait performs as it does under high contention, but about twice as slow as vector-global-order under high parallelism. Consequently, the comparison between vector-global-order and vector-try-wait holds here as well.",
+            "sample_criteria": "three-subquestions, 5 points for each subquestion.\n\u2022 For explain \u201cmain problem\u201d (5 points)\n\u2022 For explain the setting \u201cwithout the -p flag\u201d (5 points)\n\u2022 For explain the setting \u201cwith the -p flag\u201d (5 points)",
+            "full_points": 15,
+            "score_1": 5.0,
+            "score_2": 5,
+            "score_3": 4
+        }
+    },
+    "19": {
+        "3": {
+            "question": "Now let\u2019s look at vector-avoid-hold-and-wait.c. What is the main problem with this approach? How does its performance compare to the other versions (i.e., vector-global-order and vector-try-wait), when running both with -p and without it?",
+            "answer": "The mutex lock cannot work properly as there are three mutex lock however, the order of releasing the lock is not same. This will cause a deadlock. When running -d -n 2 -l 10000 -t, vector-avoid-hold-and-wait and vector-global-order run 0.01 and vector-try-wait run 0.02. However, when adding -p, vector-avoid-hold-and-wait run 0.01 where vector-global-order and vector- try-wait run 0.0.",
+            "sample_answer": "The main problem with this approach is that it is too coarse: the global lock (which protects the acquisition of all the other locks) will be under contention even when the vectors being manipulated by each thread is different. The run times under heavy contention (without the -p flag) very close to those for vector-global-order. For the high parallelism (with the -p flag) case, vector-avoid-hold-and-wait performs as it does under high contention, but about twice as slow as vector-global-order under high parallelism. Consequently, the comparison between vector-global-order and vector-try-wait holds here as well.",
+            "sample_criteria": "three-subquestions, 5 points for each subquestion.\n\u2022 For explain \u201cmain problem\u201d (5 points)\n\u2022 For explain the setting \u201cwithout the -p flag\u201d (5 points)\n\u2022 For explain the setting \u201cwith the -p flag\u201d (5 points)",
+            "full_points": 15,
+            "score_1": 8,
+            "score_2": 9,
+            "score_3": 7
+        }
+    },
+    "20": {
+        "3": {
+            "question": "Now let\u2019s look at vector-avoid-hold-and-wait.c. What is the main problem with this approach? How does its performance compare to the other versions (i.e., vector-global-order and vector-try-wait), when running both with -p and without it?",
+            "answer": "The main problem is that each thread needs a lock on the vector before accessing. When multiple threads want to access the vector at the same time, the lock will be contended. It will have similar performance when running.",
+            "sample_answer": "The main problem with this approach is that it is too coarse: the global lock (which protects the acquisition of all the other locks) will be under contention even when the vectors being manipulated by each thread is different. The run times under heavy contention (without the -p flag) very close to those for vector-global-order. For the high parallelism (with the -p flag) case, vector-avoid-hold-and-wait performs as it does under high contention, but about twice as slow as vector-global-order under high parallelism. Consequently, the comparison between vector-global-order and vector-try-wait holds here as well.",
+            "sample_criteria": "three-subquestions, 5 points for each subquestion.\n\u2022 For explain \u201cmain problem\u201d (5 points)\n\u2022 For explain the setting \u201cwithout the -p flag\u201d (5 points)\n\u2022 For explain the setting \u201cwith the -p flag\u201d (5 points)",
+            "full_points": 15,
+            "score_1": 5.0,
+            "score_2": 5,
+            "score_3": 5
+        }
+    },
+    "21": {
+        "3": {
+            "question": "Now let\u2019s look at vector-avoid-hold-and-wait.c. What is the main problem with this approach? How does its performance compare to the other versions (i.e., vector-global-order and vector-try-wait), when running both with -p and without it?",
+            "answer": "The problem of this approach is, when parallelism is enabled, this approach is slower than others. This is because the other approaches are mapping one resource to one lock correspondingly, while this approach mapped all resources, across all threads, to a single, atomic global lock. As a result, if there was no parallelism, vector-avoid-hold-and-wait performs slightly worse than if not same as vector-global-order (because individual locks act as a slightly faster global lock), however, if parallelism is enabled, it became the worst amongst the others.",
+            "sample_answer": "The main problem with this approach is that it is too coarse: the global lock (which protects the acquisition of all the other locks) will be under contention even when the vectors being manipulated by each thread is different. The run times under heavy contention (without the -p flag) very close to those for vector-global-order. For the high parallelism (with the -p flag) case, vector-avoid-hold-and-wait performs as it does under high contention, but about twice as slow as vector-global-order under high parallelism. Consequently, the comparison between vector-global-order and vector-try-wait holds here as well.",
+            "sample_criteria": "three-subquestions, 5 points for each subquestion.\n\u2022 For explain \u201cmain problem\u201d (5 points)\n\u2022 For explain the setting \u201cwithout the -p flag\u201d (5 points)\n\u2022 For explain the setting \u201cwith the -p flag\u201d (5 points)",
+            "full_points": 15,
+            "score_1": 15,
+            "score_2": 15,
+            "score_3": 15
+        }
+    },
+    "22": {
+        "3": {
+            "question": "Now let\u2019s look at vector-avoid-hold-and-wait.c. What is the main problem with this approach? How does its performance compare to the other versions (i.e., vector-global-order and vector-try-wait), when running both with -p and without it?",
+            "answer": "Without -p, it is worse than global-order but better than try-wait. It gets 0.10 seconds in -n 2 -l 100000 while global-order gets 0.05 and try-wait gets 0.17. With -p, it is worse than both global-order and try-wait. It gets 0.08 seconds in -n 2 -l 100000 while global-order and try-wait both get 0.03.",
+            "sample_answer": "The main problem with this approach is that it is too coarse: the global lock (which protects the acquisition of all the other locks) will be under contention even when the vectors being manipulated by each thread is different. The run times under heavy contention (without the -p flag) very close to those for vector-global-order. For the high parallelism (with the -p flag) case, vector-avoid-hold-and-wait performs as it does under high contention, but about twice as slow as vector-global-order under high parallelism. Consequently, the comparison between vector-global-order and vector-try-wait holds here as well.",
+            "sample_criteria": "three-subquestions, 5 points for each subquestion.\n\u2022 For explain \u201cmain problem\u201d (5 points)\n\u2022 For explain the setting \u201cwithout the -p flag\u201d (5 points)\n\u2022 For explain the setting \u201cwith the -p flag\u201d (5 points)",
+            "full_points": 15,
+            "score_1": 10.0,
+            "score_2": 12,
+            "score_3": 10
+        }
+    },
+    "23": {
+        "3": {
+            "question": "Now let\u2019s look at vector-avoid-hold-and-wait.c. What is the main problem with this approach? How does its performance compare to the other versions (i.e., vector-global-order and vector-try-wait), when running both with -p and without it?",
+            "answer": "the problem for this approach is that the global lock will be under contention at all times. Resulting in its performance being twice as slow as the other versions.",
+            "sample_answer": "The main problem with this approach is that it is too coarse: the global lock (which protects the acquisition of all the other locks) will be under contention even when the vectors being manipulated by each thread is different. The run times under heavy contention (without the -p flag) very close to those for vector-global-order. For the high parallelism (with the -p flag) case, vector-avoid-hold-and-wait performs as it does under high contention, but about twice as slow as vector-global-order under high parallelism. Consequently, the comparison between vector-global-order and vector-try-wait holds here as well.",
+            "sample_criteria": "three-subquestions, 5 points for each subquestion.\n\u2022 For explain \u201cmain problem\u201d (5 points)\n\u2022 For explain the setting \u201cwithout the -p flag\u201d (5 points)\n\u2022 For explain the setting \u201cwith the -p flag\u201d (5 points)",
+            "full_points": 15,
+            "score_1": 10.0,
+            "score_2": 5,
+            "score_3": 7
+        }
+    },
+    "24": {
+        "3": {
+            "question": "Now let's look at vector-avoid-hold-and-wait.c. What is the main problem with this approach? How does its performance compare to the other versions (i.e., vector-global-order and vector-try-wait), when running both with -p and without it?",
+            "answer": "The main problem is that the global lock holds the lock even when sometimes it is not necessary to avoid deadlock, it plays too safe. The performance without -p: global order better than avoid hold and wait better than try wait. But with -p: global order better than try wait better than avoid hold and wait.",
+            "sample_answer": "The main problem with this approach is that it is too coarse: the global lock (which protects the acquisition of all the other locks) will be under contention even when the vectors being manipulated by each thread is different. The run times under heavy contention (without the -p flag) very close to those for vector-global-order. For the high parallelism (with the -p flag) case, vector-avoid-hold-and-wait performs as it does under high contention, but about twice as slow as vector-global-order under high parallelism. Consequently, the comparison between vector-global-order and vector-try-wait holds here as well.",
+            "sample_criteria": "three-subquestions, 5 points for each subquestion.\n\u2022 For explain \u201cmain problem\u201d (5 points)\n\u2022 For explain the setting \u201cwithout the -p flag\u201d (5 points)\n\u2022 For explain the setting \u201cwith the -p flag\u201d (5 points)",
+            "full_points": 15,
+            "score_1": 13.0,
+            "score_2": 10,
+            "score_3": 10
+        }
+    },
+    "25": {
+        "3": {
+            "question": "Now let\u2019s look at vector-avoid-hold-and-wait.c. What is the main problem with this approach? How does its performance compare to the other versions (i.e., vector-global-order and vector-try-wait), when running both with -p and without it?",
+            "answer": "t-l 100000 -d Indicates the number of variable threads 2 threads :~0.7 seconds 4 threads :~1.4 seconds 8 threads :2.9-3.0 seconds 16 threads :5.9-6.2 seconds 32 threads :~12.5 seconds t -l 100000 -d-p (parallel), the number of threads varies 2 threads :0.6-0.7 seconds 4 threads :~1.4 seconds 8 threads :~2.8 seconds 4 threads :5.9-6.1 seconds 32 threads :12.5-12.7 seconds The run time under severe contention (no -p flag) is very close to the run time under vector-global-order. In the case of high parallelism (with the -p flag), the execution of vector-avoid-hold-and-wait is more or less the same as in the case of high contention, but about twice the execution of vector-global-order in the case of high parallelism. Therefore, the comparison between vector-global-order and vector-try-wait more or less applies here as well.",
+            "sample_answer": "The main problem with this approach is that it is too coarse: the global lock (which protects the acquisition of all the other locks) will be under contention even when the vectors being manipulated by each thread is different. The run times under heavy contention (without the -p flag) very close to those for vector-global-order. For the high parallelism (with the -p flag) case, vector-avoid-hold-and-wait performs as it does under high contention, but about twice as slow as vector-global-order under high parallelism. Consequently, the comparison between vector-global-order and vector-try-wait holds here as well.",
+            "sample_criteria": "three-subquestions, 5 points for each subquestion.\n\u2022 For explain \u201cmain problem\u201d (5 points)\n\u2022 For explain the setting \u201cwithout the -p flag\u201d (5 points)\n\u2022 For explain the setting \u201cwith the -p flag\u201d (5 points)",
+            "full_points": 15,
+            "score_1": 11,
+            "score_2": 10,
+            "score_3": 10
+        }
+    },
+    "26": {
+        "3": {
+            "question": "Now let's look at vector-avoid-hold-and-wait.c. What is the main problem with this approach? How does its performance compare to the other versions (i.e., vector-global-order and vector-try-wait), when running both with -p and without it?",
+            "answer": "It presents a challenge as it necessitates knowing in advance which locks to acquire, resulting in reduced concurrency. It runs slower than other versions.",
+            "sample_answer": "The main problem with this approach is that it is too coarse: the global lock (which protects the acquisition of all the other locks) will be under contention even when the vectors being manipulated by each thread is different. The run times under heavy contention (without the -p flag) very close to those for vector-global-order. For the high parallelism (with the -p flag) case, vector-avoid-hold-and-wait performs as it does under high contention, but about twice as slow as vector-global-order under high parallelism. Consequently, the comparison between vector-global-order and vector-try-wait holds here as well.",
+            "sample_criteria": "three-subquestions, 5 points for each subquestion.\n\u2022 For explain \u201cmain problem\u201d (5 points)\n\u2022 For explain the setting \u201cwithout the -p flag\u201d (5 points)\n\u2022 For explain the setting \u201cwith the -p flag\u201d (5 points)",
+            "full_points": 15,
+            "score_1": 5.0,
+            "score_2": 9,
+            "score_3": 7
+        }
+    },
+    "27": {
+        "3": {
+            "question": "The main problem with the vector-avoid-hold-and-wait.c approach is the potential for deadlocks. It tries to acquire locks for both the source and destination vectors simultaneously using a global lock. However, if multiple threads try to acquire locks on different vectors in conflicting orders, a deadlock can occur. And the performance will be slower than other version.",
+            "answer": "The main problem with this approach is that it is too coarse: the global lock (which protects the acquisition of all the other locks) will be under contention even when the vectors being manipulated by each thread is different. The run times under heavy contention (without the -p flag) very close to those for vector-global-order. For the high parallelism (with the -p flag) case, vector-avoid-hold-and-wait performs as it does under high contention, but about twice as slow as vector-global-order under high parallelism. Consequently, the comparison between vector-global-order and vector-try-wait holds here as well.",
+            "sample_answer": "The main problem with this approach is that it is too coarse: the global lock (which protects the acquisition of all the other locks) will be under contention even when the vectors being manipulated by each thread is different. The run times under heavy contention (without the -p flag) very close to those for vector-global-order. For the high parallelism (with the -p flag) case, vector-avoid-hold-and-wait performs as it does under high contention, but about twice as slow as vector-global-order under high parallelism. Consequently, the comparison between vector-global-order and vector-try-wait holds here as well.",
+            "sample_criteria": "three-subquestions, 5 points for each subquestion.\n\u2022 For explain \u201cmain problem\u201d (5 points)\n\u2022 For explain the setting \u201cwithout the -p flag\u201d (5 points)\n\u2022 For explain the setting \u201cwith the -p flag\u201d (5 points)",
+            "full_points": 15,
+            "score_1": 15,
+            "score_2": 13,
+            "score_3": 15
+        }
+    },
+    "28": {
+        "3": {
+            "question": "What is the main problem with the approach in vector-avoid-hold-and-wait.c? How does its performance compare to vector-global-order and vector-try-wait when running with and without parallelism (-p)?",
+            "answer": "The main problem is that it requires knowing exactly which lock to acquire in advance and decreases concurrency. When using -p, it is slower compared to other versions but almost the same without -p.",
+            "sample_answer": "The main problem with this approach is that it is too coarse: the global lock (which protects the acquisition of all the other locks) will be under contention even when the vectors being manipulated by each thread is different. The run times under heavy contention (without the -p flag) very close to those for vector-global-order. For the high parallelism (with the -p flag) case, vector-avoid-hold-and-wait performs as it does under high contention, but about twice as slow as vector-global-order under high parallelism. Consequently, the comparison between vector-global-order and vector-try-wait holds here as well.",
+            "sample_criteria": "three-subquestions, 5 points for each subquestion.\n\u2022 For explain \u201cmain problem\u201d (5 points)\n\u2022 For explain the setting \u201cwithout the -p flag\u201d (5 points)\n\u2022 For explain the setting \u201cwith the -p flag\u201d (5 points)",
+            "full_points": 15,
+            "score_1": 8,
+            "score_2": 7,
+            "score_3": 5
+        }
+    },
+    "29": {
+        "3": {
+            "question": "Now let\u2019s look at vector-avoid-hold-and-wait.c. What is the main problem with this approach? How does its performance compare to the other versions (i.e., vector-global-order and vector-try-wait), when running both with -p and without it?",
+            "answer": "The main problem with the vector-avoid-hold-and-wait.c approach is the use of a global lock, which introduces a bottleneck and can impact performance due to increased contention. When the p flag is on, the version of vector-avoid-hold-and-wait is obviously slower than the other two. However, when the p flag is off, the time difference between the three algorithms becomes less significant if there is no deadlock.",
+            "sample_answer": "The main problem with this approach is that it is too coarse: the global lock (which protects the acquisition of all the other locks) will be under contention even when the vectors being manipulated by each thread is different. The run times under heavy contention (without the -p flag) very close to those for vector-global-order. For the high parallelism (with the -p flag) case, vector-avoid-hold-and-wait performs as it does under high contention, but about twice as slow as vector-global-order under high parallelism. Consequently, the comparison between vector-global-order and vector-try-wait holds here as well.",
+            "sample_criteria": "three-subquestions, 5 points for each subquestion.\n\u2022 For explain \u201cmain problem\u201d (5 points)\n\u2022 For explain the setting \u201cwithout the -p flag\u201d (5 points)\n\u2022 For explain the setting \u201cwith the -p flag\u201d (5 points)",
+            "full_points": 15,
+            "score_1": 8,
+            "score_2": 10,
+            "score_3": 9
+        }
+    },
+    "30": {
+        "3": {
+            "question": "Now let\u2019s look at vector-avoid-hold-and-wait.c. What is the main problem with this approach? How does its performance compare to the other versions (i.e., vector-global-order and vector-try-wait), when running both with -p and without it?",
+            "answer": "The main problem with this approach is too coarse, since the global lock will be under contention even when the vectors being manipulated by each thread is different. The global lock in this code is used to ensure that the lock acquisition is atomic. This is a technique known as lock hierarchy or ordered locking to prevent deadlocks. However, it will cause unnecessary waiting if there are complex multithreaded programs that are not effective. The performance compares to other versions: For  no -p: vector-try-wait > vector-avoid-hold-and-wait > vector-global-order For -p: vector-hold-and-wait > vector-try-wait >= vector-global-order",
+            "sample_answer": "The main problem with this approach is that it is too coarse: the global lock (which protects the acquisition of all the other locks) will be under contention even when the vectors being manipulated by each thread is different. The run times under heavy contention (without the -p flag) very close to those for vector-global-order. For the high parallelism (with the -p flag) case, vector-avoid-hold-and-wait performs as it does under high contention, but about twice as slow as vector-global-order under high parallelism. Consequently, the comparison between vector-global-order and vector-try-wait holds here as well.",
+            "sample_criteria": "three-subquestions, 5 points for each subquestion.\n\u2022 For explain \u201cmain problem\u201d (5 points)\n\u2022 For explain the setting \u201cwithout the -p flag\u201d (5 points)\n\u2022 For explain the setting \u201cwith the -p flag\u201d (5 points)",
+            "full_points": 15,
+            "score_1": 10,
+            "score_2": 12,
+            "score_3": 10
+        }
+    },
+    "31": {
+        "3": {
+            "question": "Now let\u2019s look at vector-avoid-hold-and-wait.c. What is the main problem with this approach? How does its performance compare to the other versions (i.e., vector-global-order and vector-try-wait), when running both with -p and without it?",
+            "answer": "The main problem is it use global lock. It will reduce concurrency. May have lower performance with -p. Without -p, performance may higher.",
+            "sample_answer": "The main problem with this approach is that it is too coarse: the global lock (which protects the acquisition of all the other locks) will be under contention even when the vectors being manipulated by each thread is different. The run times under heavy contention (without the -p flag) very close to those for vector-global-order. For the high parallelism (with the -p flag) case, vector-avoid-hold-and-wait performs as it does under high contention, but about twice as slow as vector-global-order under high parallelism. Consequently, the comparison between vector-global-order and vector-try-wait holds here as well.",
+            "sample_criteria": "three-subquestions, 5 points for each subquestion.\n\u2022 For explain \u201cmain problem\u201d (5 points)\n\u2022 For explain the setting \u201cwithout the -p flag\u201d (5 points)\n\u2022 For explain the setting \u201cwith the -p flag\u201d (5 points)",
+            "full_points": 15,
+            "score_1": 5,
+            "score_2": 7,
+            "score_3": 5
+        }
+    },
+    "32": {
+        "3": {
+            "question": "Now let\u2019s look at vector-avoid-hold-and-wait.c. What is the main problem with this approach? How does its performance compare to the other versions (i.e., vector-global-order and vector-try-wait), when running both with -p and without it?",
+            "answer": "The main problem of this approach is that it requires us to know exactly which locks to acquire in prior and decreases concurrency. Compared to vector-global-order: With or without -p, the performance of vector-global-order surpasses that of vector-avoid-hold-and-wait, given that the vector-global-order method allows for more concurrency without the overhead of a global lock. Moreover, with -p, the superiority of vector-global-order becomes even more evident, as vector-global-order benefits significantly from parallelism while the vector-avoid-hold-and-wait's performance improvement is limited by the bottleneck of the global lock. Compared to vector-try-wait: Without -p, the performance of vector-avoid-hold-and-wait is better than that of vector-try-wait, which is limited by the overhead of retries. With -p, the performance of vector-avoid-hold-and-wait is worse than that of vector-try-wait, because vector-try-wait can improve performance from parallelism with fewer retries, but vector-avoid-hold-and-wait limited by the global lock cannot capitalize on the potential for parallelism as effectively as vector-try-wait.",
+            "sample_answer": "The main problem with this approach is that it is too coarse: the global lock (which protects the acquisition of all the other locks) will be under contention even when the vectors being manipulated by each thread is different. The run times under heavy contention (without the -p flag) very close to those for vector-global-order. For the high parallelism (with the -p flag) case, vector-avoid-hold-and-wait performs as it does under high contention, but about twice as slow as vector-global-order under high parallelism. Consequently, the comparison between vector-global-order and vector-try-wait holds here as well.",
+            "sample_criteria": "three-subquestions, 5 points for each subquestion.\n\u2022 For explain \u201cmain problem\u201d (5 points)\n\u2022 For explain the setting \u201cwithout the -p flag\u201d (5 points)\n\u2022 For explain the setting \u201cwith the -p flag\u201d (5 points)",
+            "full_points": 15,
+            "score_1": 13.0,
+            "score_2": 15,
+            "score_3": 13
+        }
+    },
+    "33": {
+        "3": {
+            "question": "Now let\u2019s look at vector-avoid-hold-and-wait.c. What is the main problem with this approach? How does its performance compare to the other versions (i.e., vector-global-order and vector-try-wait), when running both with -p and without it?",
+            "answer": "The main problem is that the global lock will be under contention. When running without -p, the performance is slower compared to vector-global-order. With -p flag, it performs closer to vector-avoid-hold-and-wait.",
+            "sample_answer": "The main problem with this approach is that it is too coarse: the global lock (which protects the acquisition of all the other locks) will be under contention even when the vectors being manipulated by each thread is different. The run times under heavy contention (without the -p flag) very close to those for vector-global-order. For the high parallelism (with the -p flag) case, vector-avoid-hold-and-wait performs as it does under high contention, but about twice as slow as vector-global-order under high parallelism. Consequently, the comparison between vector-global-order and vector-try-wait holds here as well.",
+            "sample_criteria": "three-subquestions, 5 points for each subquestion.\n\u2022 For explain \u201cmain problem\u201d (5 points)\n\u2022 For explain the setting \u201cwithout the -p flag\u201d (5 points)\n\u2022 For explain the setting \u201cwith the -p flag\u201d (5 points)",
+            "full_points": 15,
+            "score_1": 10.0,
+            "score_2": 7,
+            "score_3": 7
+        }
+    },
+    "34": {
+        "3": {
+            "question": "Now let\u2019s look at vector-avoid-hold-and-wait.c. What is the main problem with this approach? How does its performance compare to the other versions (i.e., vector-global-order and vector-try-wait), when running both with -p and without it?",
+            "answer": "The problem with this approach is that it uses a single lock around acquisition, and this lock will be acquired most of the time, even when it is not needed, resulting in slower execution. For -t -n 2 -l 100000 -d, the execution time is 0.09, which is faster than try and wait but slower than the global order. The difference is that with an increasing number of threads, execution time always increases. If we enable - p, then this approach is slower than the two previous approaches. For example, for -n 5 -l 200000 -p: global order \u2013 0.08 seconds, try and wait \u2013 0.08 seconds, hold and wait \u2013 0.31 seconds.",
+            "sample_answer": "The main problem with this approach is that it is too coarse: the global lock (which protects the acquisition of all the other locks) will be under contention even when the vectors being manipulated by each thread is different. The run times under heavy contention (without the -p flag) very close to those for vector-global-order. For the high parallelism (with the -p flag) case, vector-avoid-hold-and-wait performs as it does under high contention, but about twice as slow as vector-global-order under high parallelism. Consequently, the comparison between vector-global-order and vector-try-wait holds here as well.",
+            "sample_criteria": "three-subquestions, 5 points for each subquestion.\n\u2022 For explain \u201cmain problem\u201d (5 points)\n\u2022 For explain the setting \u201cwithout the -p flag\u201d (5 points)\n\u2022 For explain the setting \u201cwith the -p flag\u201d (5 points)",
+            "full_points": 15,
+            "score_1": 10.0,
+            "score_2": 12,
+            "score_3": 10
+        }
+    },
+    "35": {
+        "3": {
+            "question": "Now let\u2019s look at vector-avoid-hold-and-wait.c. What is the main problem with this approach? How does its performance compare to the other versions (i.e., vector-global-order and vector-try-wait), when running both with -p and without it?",
+            "answer": "with this approach, all threads are blocked if one thread is waiting for a mutex even if other threads can aquire all the mutexs that it needs, resulting to inefficiency. sikyansin2@ubt20a:~/tutorial6$ ./vector-avoid-hold-and-wait -t -n 25 -l 100000 -d -p Time: 5.00 seconds sikyansin2@ubt20a:~/tutorial6$ ./vector-global-order -t -n 25 -l 100000 -d -p Time: 0.25 seconds sikyansin2@ubt20a:~/tutorial6$ ./vector-try-wait -t -n 25 -l 100000 -d -p Retries: 0 Time: 0.29 seconds 5 CS3103 - Operating Systems vector-avoid-hold-and-wait preform way worse than vector-global-order and vector-try-wait with -p sikyansin2@ubt20a:~/tutorial6$ ./vector-avoid-hold-and-wait -t -n 25 -l 100000 -d Time: 2.55 seconds sikyansin2@ubt20a:~/tutorial6$ ./vector-global-order -t -n 25 -l 100000 -d Time: 2.01 seconds sikyansin2@ubt20a:~/tutorial6$ ./vector-try-wait -t -n 25 -l 100000 -d (takes too long to compute) vector-try-wait preform the worse. threads has to complete for mutexs resulting to acquire mutex result in a decrease of efficiency deadlock technically did not occure as threads can unlock themselves by chance, but is a lot of trials and long time",
+            "sample_answer": "The main problem with this approach is that it is too coarse: the global lock (which protects the acquisition of all the other locks) will be under contention even when the vectors being manipulated by each thread is different. The run times under heavy contention (without the -p flag) very close to those for vector-global-order. For the high parallelism (with the -p flag) case, vector-avoid-hold-and-wait performs as it does under high contention, but about twice as slow as vector-global-order under high parallelism. Consequently, the comparison between vector-global-order and vector-try-wait holds here as well.",
+            "sample_criteria": "three-subquestions, 5 points for each subquestion.\n\u2022 For explain \u201cmain problem\u201d (5 points)\n\u2022 For explain the setting \u201cwithout the -p flag\u201d (5 points)\n\u2022 For explain the setting \u201cwith the -p flag\u201d (5 points)",
+            "full_points": 15,
+            "score_1": 15,
+            "score_2": 10,
+            "score_3": 13
+        }
+    },
+    "36": {
+        "3": {
+            "question": "Now let\u2019s look at vector-avoid-hold-and-wait.c. What is the main problem with this approach? How does its performance compare to the other versions (i.e., vector-global-order and vector-try-wait), when running both with -p and without it?",
+            "answer": "The presence of a global lock for all vectors implies that even when different threads are attempting to manipulate them, a thread may be unable to obtain the necessary vectors. This leads to reduced resource utilization and the potential for starvation to occur. Without -p, performance is faster than try-wait but somewhere the same as global order. With -p, performance is slower than the earlier versions (global order and try-wait).",
+            "sample_answer": "The main problem with this approach is that it is too coarse: the global lock (which protects the acquisition of all the other locks) will be under contention even when the vectors being manipulated by each thread is different. The run times under heavy contention (without the -p flag) very close to those for vector-global-order. For the high parallelism (with the -p flag) case, vector-avoid-hold-and-wait performs as it does under high contention, but about twice as slow as vector-global-order under high parallelism. Consequently, the comparison between vector-global-order and vector-try-wait holds here as well.",
+            "sample_criteria": "three-subquestions, 5 points for each subquestion.\n\u2022 For explain \u201cmain problem\u201d (5 points)\n\u2022 For explain the setting \u201cwithout the -p flag\u201d (5 points)\n\u2022 For explain the setting \u201cwith the -p flag\u201d (5 points)",
+            "full_points": 15,
+            "score_1": 15,
+            "score_2": 15,
+            "score_3": 15
+        }
+    },
+    "37": {
+        "3": {
+            "question": "Now let's look at vector-avoid-hold-and-wait.c. What is the main problem with this approach? How does its performance compare to the other versions (i.e., vector-global-order and vector-try-wait), when running both with -p and without it?",
+            "answer": "The global lock which protects the acquisition of all other locks will be subject to contention even if the vector of each thread's operation is different. The time required for vector-avoid-hold-and-wait is much slower than vector-global-order and vector-try-wait.",
+            "sample_answer": "The main problem with this approach is that it is too coarse: the global lock (which protects the acquisition of all the other locks) will be under contention even when the vectors being manipulated by each thread is different. The run times under heavy contention (without the -p flag) very close to those for vector-global-order. For the high parallelism (with the -p flag) case, vector-avoid-hold-and-wait performs as it does under high contention, but about twice as slow as vector-global-order under high parallelism. Consequently, the comparison between vector-global-order and vector-try-wait holds here as well.",
+            "sample_criteria": "three-subquestions, 5 points for each subquestion.\n\u2022 For explain \u201cmain problem\u201d (5 points)\n\u2022 For explain the setting \u201cwithout the -p flag\u201d (5 points)\n\u2022 For explain the setting \u201cwith the -p flag\u201d (5 points)",
+            "full_points": 15,
+            "score_1": 10.0,
+            "score_2": 10,
+            "score_3": 10
+        }
+    },
+    "38": {
+        "3": {
+            "question": "Now let\u2019s look at vector-avoid-hold-and-wait.c. What is the main problem with this approach? How does its performance compare to the other versions (i.e., vector-global-order and vector-try-wait), when running both with -p and without it?",
+            "answer": "The main problem is too coarse: the global lock (which protects the acquisition of all the other locks) will be under contention even when the vectors being manipulated by each thread is different. The run times under heavy contention (without the -p flag) very close to those for vector-global-order. For the high parallelism (with the -p flag) case, vector-avoid-hold-and-wait performs as it does under high contention, but about twice as slow as vector-global-order under high parallelism. Consequently, the comparison between vector-global-order and vector-try-wait holds here as well.",
+            "sample_answer": "The main problem with this approach is that it is too coarse: the global lock (which protects the acquisition of all the other locks) will be under contention even when the vectors being manipulated by each thread is different. The run times under heavy contention (without the -p flag) very close to those for vector-global-order. For the high parallelism (with the -p flag) case, vector-avoid-hold-and-wait performs as it does under high contention, but about twice as slow as vector-global-order under high parallelism. Consequently, the comparison between vector-global-order and vector-try-wait holds here as well.",
+            "sample_criteria": "three-subquestions, 5 points for each subquestion.\n\u2022 For explain \u201cmain problem\u201d (5 points)\n\u2022 For explain the setting \u201cwithout the -p flag\u201d (5 points)\n\u2022 For explain the setting \u201cwith the -p flag\u201d (5 points)",
+            "full_points": 15,
+            "score_1": 15.0,
+            "score_2": 13,
+            "score_3": 15
+        }
+    },
+    "39": {
+        "3": {
+            "question": "Now let\u2019s look at vector-avoid-hold-and-wait.c. What is the main problem with this approach? How does its performance compare to the other versions (i.e., vector-global-order and vector-try-wait), when running both with -p and without it?",
+            "answer": "It employs a universal lock across all vectors, indicating that even when various threads are engaged, a thread may struggle to access necessary vectors, leading to diminished resource utilization and potential starvation. When using the -p option, it exhibits slower performance compared to previous versions employing global order and try wait. Conversely, without the -p option, it outperforms try wait in terms of speed but is comparable to global order in certain scenarios.",
+            "sample_answer": "The main problem with this approach is that it is too coarse: the global lock (which protects the acquisition of all the other locks) will be under contention even when the vectors being manipulated by each thread is different. The run times under heavy contention (without the -p flag) very close to those for vector-global-order. For the high parallelism (with the -p flag) case, vector-avoid-hold-and-wait performs as it does under high contention, but about twice as slow as vector-global-order under high parallelism. Consequently, the comparison between vector-global-order and vector-try-wait holds here as well.",
+            "sample_criteria": "three-subquestions, 5 points for each subquestion.\n\u2022 For explain \u201cmain problem\u201d (5 points)\n\u2022 For explain the setting \u201cwithout the -p flag\u201d (5 points)\n\u2022 For explain the setting \u201cwith the -p flag\u201d (5 points)",
+            "full_points": 15,
+            "score_1": 10.0,
+            "score_2": 15,
+            "score_3": 15
+        }
+    },
+    "40": {
+        "3": {
+            "question": "Now let\u2019s look at vector-avoid-hold-and-wait.c. What is the main problem with this approach? How does its performance compare to the other versions (i.e., vector-global-order and vector-try-wait), when running both with -p and without it?",
+            "answer": "Using -p will decrease the running time.",
+            "sample_answer": "The main problem with this approach is that it is too coarse: the global lock (which protects the acquisition of all the other locks) will be under contention even when the vectors being manipulated by each thread is different. The run times under heavy contention (without the -p flag) very close to those for vector-global-order. For the high parallelism (with the -p flag) case, vector-avoid-hold-and-wait performs as it does under high contention, but about twice as slow as vector-global-order under high parallelism. Consequently, the comparison between vector-global-order and vector-try-wait holds here as well.",
+            "sample_criteria": "three-subquestions, 5 points for each subquestion.\n\u2022 For explain \u201cmain problem\u201d (5 points)\n\u2022 For explain the setting \u201cwithout the -p flag\u201d (5 points)\n\u2022 For explain the setting \u201cwith the -p flag\u201d (5 points)",
+            "full_points": 15,
+            "score_1": 1.0,
+            "score_2": 0,
+            "score_3": 0
+        }
+    }
+}

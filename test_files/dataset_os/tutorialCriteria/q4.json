@@ -1,0 +1,7 @@
+{
+    "4": {
+        "full_points": 16,
+        "answer": "9 (or 10) time units. \nProcess 0 (4:100) uses four time units for running regular CPU instructions. \nProcess 1 (1:0) issues one I/O request, using five time units to complete. (It needs one more tick to switch to the DONE state.)",
+        "criteria": "2 sub-questions: 8 points/each sub-question"
+    }
+}

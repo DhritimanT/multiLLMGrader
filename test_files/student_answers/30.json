@@ -1,0 +1,8 @@
+{
+    "1": "If we use FIFO and try different order, the average Response and Turnaround time will change. The time will be shorter if we run short job 100 first than we run the long 300 job. If we use SFJ and try different order, there are no any differences.",
+    "2": "At first the dx is 0,then it become a few -1.",
+    "3": "The main problem with this approach is too coarse, since the global lock will be under contention even when the vectors being manipulated by each thread is different. The global lock in this code is used to ensure that the lock acquisition is atomic. This is a technique known as lock hierarchy or ordered locking to prevent deadlocks. However, it will cause unnecessary waiting if there are complex multithreaded programs that are not effective. The performance compares to other versions: For  no -p: vector-try-wait > vector-avoid-hold-and-wait > vector-global-order For -p: vector-hold-and-wait > vector-try-wait >= vector-global-order",
+    "4": "For process 4:100, it takes 4 time units. For process 1:0, it takes 7 time units. In total, it takes 11 time units.",
+    "5": "Num_full is always either be 9 or 10 instead of 1. Because consumer have to wait for 1 second and within this second, producer check the buffer and keep producing items.",
+    "6": "Virtual Address 5a23: Fault • Virtual Address 14ab: Fault • Virtual Address 257e: 0xb14 • Virtual Address 7988: 0x3a8 • Virtual Address 75cf: 0x02f • Virtual Address 3350: 0x810 • Virtual Address 0a70: 0x0f0 • Virtual Address 55f9: 0x0d9"
+}

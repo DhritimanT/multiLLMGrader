@@ -1,0 +1,8 @@
+{
+    "1": "For SJF, The response time is 133.3 while the turnaround time is 333.33. When the order of job length is changed, the response time, turnaround time would still be the same. For FIFO, the response time is 133.3 while the turnaround time is 333.33. When the order of job length is changed, the time would vary.",
+    "2": "-1",
+    "3": "It employs a universal lock across all vectors, indicating that even when various threads are engaged, a thread may struggle to access necessary vectors, leading to diminished resource utilization and potential starvation. When using the -p option, it exhibits slower performance compared to previous versions employing global order and try wait. Conversely, without the -p option, it outperforms try wait in terms of speed but is comparable to global order in certain scenarios.",
+    "4": "10 clock ticks, \nProcess 0 (4:100) uses four time units for running regular CPU instructions. \nProcess 1 (1:0) issues one I/O request, using five time units to complete. (It needs one more tick to switch to the DONE state.)",
+    "5": "A larger buffer allow the producer to produce more without waiting the consumer to consume ,as long as there is still space in the buffer.",
+    "6": "Virtual Address 5a23: Fault Virtual Address 14ab: Physical Address 0d Virtual Address 257e: Fault Virtual Address 7988: Physical Address 19 Virtual Address 75cf: Fault Virtual Address 3350: Physical Address 4 Virtual Address 0a70: Fault Virtual Address 55f9: Fault"
+}

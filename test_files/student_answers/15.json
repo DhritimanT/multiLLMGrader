@@ -1,0 +1,8 @@
+{
+    "1": "change the order to 200,100,300",
+    "2": "-1",
+    "3": "The problem is that conflict will be occurred when the vectors in each thread are not equal. Compared to the version vector-global-order, the version vector-avoid-hold-and-wait always complete the program with shorter time for both with -p and without it.",
+    "4": "It took 10 time units to finish both processes",
+    "5": "By utilizing larger buffers, the producer gains the ability to add multiple values to the buffer, up to its maximum length, before needing to wait or switch context. Conversely, the consumer operates under a different scenario where consuming items takes significantly longer compared to the producer's item production speed. Here, the consumer retrieves one item and promptly enters a one-second sleep, allowing the producer to fill the buffer. Subsequently, the producer sleeps until the consumer awakens, and this cycle repeats. As a result, the buffer remains predominantly full, with the variable \"num_full\" consistently equal to or nearing the buffer size. Since there is only one vacant slot in the buffer, the producer runs once, and until both loops are completed, they alternate in adding or removing one item at a time.",
+    "6": "Virtual Address 5a23 ➔ Fault (page table entry not valid) Virtual Address 14ab ➔ Fault (page directory entry not valid) Virtual Address 257e ➔ Fault (page table entry not valid) Virtual Address 7988 ➔ Fault (page table entry not valid) Virtual Address 75cf Translates to Physical Address 0x768 → Value: 0x19 Virtual Address 3350  ➔ Fault (page table entry not valid) Virtual Address 0a70 Translates to Physical Address 0x2f → Value: 0x07 Virtual Address 55f9 Translates to Physical Address 0xb9 → Value: 0x07"
+}

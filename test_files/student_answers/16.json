@@ -1,0 +1,8 @@
+{
+    "1": "SFJ doesn’t have any effect when changing the order of the length FIFO does cost more time in the order (300,200,100) then in (100,200,300)",
+    "2": "%dx is -1 during the run",
+    "3": "There is no need for the approach to get both two values’ lock. The performance is faster than vector-try-and-wait but slower than vector-global-order without -p. The performance is slower than both vector-try-and-wait and vector-global-order with -p.",
+    "4": "The total time is 10. 4 CPU for the \frst process, 1 CPU and 4 I/O are waiting for the second process.",
+    "5": "The behavior of the code doesn’t change since the default sleeping time for both producer and consumer are zero. No matter how large the buffer size is, it would always produce a thing and consume a thing. The num_full will increase to n if the buffer size n is less than the numbers of produced items l. For example, if the buffer size is 10 and the number of produced items is 100, the num_full will be increasing from 0 to 10 and the buffer will be full, and it will keep looping from consuming and producing an item until the buffer is relieved.",
+    "6": "5a23: Page fault; 14ab: Page fault; 257e: Page fault; 7988: 0x1e; 75cf: 07; 3350: 0x04; 0a70: 0x1e; 55f9: 0x1d."
+}

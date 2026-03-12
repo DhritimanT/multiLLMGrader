@@ -1,0 +1,8 @@
+{
+    "1": "When changing the order of the length to \n“ ./scheduler.py -p SJF -l 300,200,100 ”, the scheduler will execute the last jobs first because it has the shortest length, then the execute the second and last the first. However, the change of the order of the jobs length will still execute from the first to the last job as it is FIFO.",
+    "2": "We need to run like this: ./x86.py -p loop.s -t 1 -i 100 -R dx -c Here is how it’s executed. It simply subtracts 1 from %dx register, then tests it’s value, as long as it’s not >= 0, it halts.",
+    "3": "The main problem of this approach is that the global lock will protect the acquirement of all the locks. ./vector-avoid-hold-and-wait -t -l 100000 -d -n 2, the completion time is around 0.10 seconds which is very close to vector-global-order and vector-try-wait. With -p, ./vector-avoid-hold-and-wait -t -l 100000 -d -n 2 -p, the completion time is around 0.06 seconds, it is much slower than the other two types.",
+    "4": "It takes 10 units of time to complete both processes.",
+    "5": "Producer can produce multiple values. When consumer sleeps for 1 after consumption, the num-full would have temporary increase because the buffer is full.",
+    "6": "5a23 = fault • 14ab = fault • 257e = fault • 7988 = 0x3a8 • 75cf = 0x02f • 3350 = 0x810 • 0a70 = 0x0f0 • 55f9 = 0x0d9"
+}

@@ -1,0 +1,7 @@
+{
+    "3": {
+        "full_points": 15,
+        "answer": "The main problem with this approach is that it is too coarse: the global lock (which protects the acquisition of all the other locks) will be under contention even when the vectors being manipulated by each thread is different. The run times under heavy contention (without the -p flag) very close to those for vector-global-order. For the high parallelism (with the -p flag) case, vector-avoid-hold-and-wait performs as it does under high contention, but about twice as slow as vector-global-order under high parallelism. Consequently, the comparison between vector-global-order and vector-try-wait holds here as well.",
+        "criteria": "three-subquestions, 5 points for each subquestion.\n\u2022 For explain \u201cmain problem\u201d (5 points)\n\u2022 For explain the setting \u201cwithout the -p flag\u201d (5 points)\n\u2022 For explain the setting \u201cwith the -p flag\u201d (5 points)"
+    }
+}

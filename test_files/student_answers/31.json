@@ -1,0 +1,8 @@
+{
+    "1": "SJF: Job 0 -- Response: 0.00 Turnaround 100.00 Wait 0.00 Job 1 -- Response: 100.00 Turnaround 300.00 Wait 100.00 Job 2 -- Response: 300.00 Turnaround 600.00 Wait 300.00. Change to 300 200 100: Job 2 -- Response: 0.00 Turnaround 100.00 Wait 0.00 Job 1 -- Response: 100.00 Turnaround 300.00 Wait 100.00 Job 0 -- Response: 300.00 Turnaround 600.00 Wait 300.00. For FIFO: Job 0 -- Response: 0.00 Turnaround 100.00 Wait 0.00 Job 1 -- Response: 100.00 Turnaround 300.00 Wait 100.00 Job 2 -- Response: 300.00 Turnaround 600.00 Wait 300.00. Change to 300 200 100: Job 0 -- Response: 0.00 Turnaround 300.00 Wait 0.00 Job 1 -- Response: 300.00 Turnaround 500.00 Wait 300.00 Job 2 -- Response: 500.00 Turnaround 600.00 Wait 500.00",
+    "2": "dx Thread 0 \n0 \n-1 1000 sub $1,%dx\n-1 1001 test $0,%dx\n-1 1002 jgte .top\n-1 1003 halt",
+    "3": "The main problem is it use global lock. It will reduce concurrency. May have lower performance with -p. Without -p, performance may higher.",
+    "4": "9 time units",
+    "5": "With a larger buffer (from m=1 to m=3), the behavior remains unchanged. For no sleep, the value of num_full only changes from 0 to 1 and vice versa. For -C 0,0,0,0,0,0,1, the value of num_full rises from 0 to 10, while in the middle, it keeps fluctuate between 9 and 10, and goes back to 0 at the end. With sleep, the buffer will be more utilized.",
+    "6": "5a23: Fault\n14ab: Fault\n257e: Fault\n7988: Physical address: 0x3a8, Value: 19\n75cf: Physical address: 0x2f, Value: 07\n3350: Physical address: 0x810, Value: 04\n0a70: Physical address: 0xf0, Value: 1e\n55f9: Physical address: 0xd9, Value: 1d"
+}

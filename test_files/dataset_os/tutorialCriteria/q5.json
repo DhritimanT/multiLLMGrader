@@ -1,0 +1,7 @@
+{
+    "5": {
+        "full_points": 27,
+        "answer": "With larger buffers, producer can add multiple values to the buffer (up to the length of the buffer) before it waits or context switches, and vice versa for the consumer. The second question models consumers that take much longer to consume items than it takes for producers to produce items. The consumer grabs one item each and then immediately falls asleep for one second, leaving the producer to fill the buffer. The producer would then sleep until the consumer woke up and cycle repeated. (Help to understand the second question model) The buffer would thus spend most of its time full, i.e. num_full would always be equal to or close to the buffer size. Since there is only one empty buffer slot, the producer will run once, and until the loops are over for each, they will take turns to add/remove one at a time.",
+        "criteria": "3 sub-questions, 9 points for each sub-question"
+    }
+}

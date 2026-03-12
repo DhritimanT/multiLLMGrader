@@ -1,0 +1,482 @@
+{
+    "1": {
+        "5": {
+            "question": "Our \nfirst question focuses on main-two-cvs-while.c (the working solution). Run with one producer and one consumer, and have the producer produce a few values. Start with a buffer (size 1), and then increase it. How does the behavior of the code change with larger buffers? (or does it?) What would you predict num_full to be with different buffer sizes (e.g., -m 10) and different numbers of produced items (e.g., -l 100), when you change the consumer sleep string from default (no sleep) to -C 0,0,0,0,0,0,1?",
+            "answer": "Producer can produce multiple values. When consumer sleeps for 1 after consumption, the num-full would have temporary increase because the buffer is full.",
+            "sample_answer": "With larger buffers, producer can add multiple values to the buffer (up to the length of the buffer) before it waits or context switches, and vice versa for the consumer. The second question models consumers that take much longer to consume items than it takes for producers to produce items. The consumer grabs one item each and then immediately falls asleep for one second, leaving the producer to fill the buffer. The producer would then sleep until the consumer woke up and cycle repeated. (Help to understand the second question model) The buffer would thus spend most of its time full, i.e. num_full would always be equal to or close to the buffer size. Since there is only one empty buffer slot, the producer will run once, and until the loops are over for each, they will take turns to add/remove one at a time.",
+            "sample_criteria": "3 sub-questions, 9 points for each sub-question",
+            "full_points": 27,
+            "score_1": 13.0,
+            "score_2": 15,
+            "score_3": 13
+        }
+    },
+    "2": {
+        "5": {
+            "question": "Our first question focuses on main-two-cvs-while.c (the working solution). Run with one producer and one consumer, and have the producer produce a few values. Start with a buffer (size 1), and then increase it. How does the behavior of the code change with larger buffers? (or does it?) What would you predict num_full to be with different buffer sizes (e.g., -m 10) and different numbers of produced items (e.g., -l 100), when you change the consumer sleep string from default (no sleep) to -C 0,0,0,0,0,0,1?",
+            "answer": "By increasing the size of the buffers, the producer has the ability to add multiple values to the buffer (up to its maximum capacity) before needing to wait or switch its context. Conversely, the consumer, in the second scenario, takes significantly longer to consume items compared to the time taken by the producers to produce them. The consumer consumes one item and then immediately goes to sleep for one second, allowing the producer to fill the buffer. The producer then waits until the consumer wakes up, and this cycle repeats. As a result, the buffer remains mostly full, with the number of occupied slots (num_full) always being equal to or close to the buffer size. Since there is only one empty slot in the buffer, the producer will execute once, and until both loops are completed, they will take turns adding or removing items one at a time.",
+            "sample_answer": "With larger buffers, producer can add multiple values to the buffer (up to the length of the buffer) before it waits or context switches, and vice versa for the consumer. The second question models consumers that take much longer to consume items than it takes for producers to produce items. The consumer grabs one item each and then immediately falls asleep for one second, leaving the producer to fill the buffer. The producer would then sleep until the consumer woke up and cycle repeated. (Help to understand the second question model) The buffer would thus spend most of its time full, i.e. num_full would always be equal to or close to the buffer size. Since there is only one empty buffer slot, the producer will run once, and until the loops are over for each, they will take turns to add/remove one at a time.",
+            "sample_criteria": "3 sub-questions, 9 points for each sub-question",
+            "full_points": 27,
+            "score_1": 27.0,
+            "score_2": 27,
+            "score_3": 27
+        }
+    },
+    "3": {
+        "5": {
+            "question": "What would you predict num_full to be with different buffer sizes?",
+            "answer": " No because there are no other consumers consuming the data asked by other consumers.",
+            "sample_answer": "With larger buffers, producer can add multiple values to the buffer (up to the length of the buffer) before it waits or context switches, and vice versa for the consumer. The second question models consumers that take much longer to consume items than it takes for producers to produce items. The consumer grabs one item each and then immediately falls asleep for one second, leaving the producer to fill the buffer. The producer would then sleep until the consumer woke up and cycle repeated. (Help to understand the second question model) The buffer would thus spend most of its time full, i.e. num_full would always be equal to or close to the buffer size. Since there is only one empty buffer slot, the producer will run once, and until the loops are over for each, they will take turns to add/remove one at a time.",
+            "sample_criteria": "3 sub-questions, 9 points for each sub-question",
+            "full_points": 27,
+            "score_1": 1.0,
+            "score_2": 0,
+            "score_3": 0
+        }
+    },
+    "4": {
+        "5": {
+            "question": "Our first question focuses on main-two-cvs-while.c (the working solution). Run with one producer and one consumer, and have the producer produce a few values. Start with a buffer (size 1), and then increase it. How does the behavior of the code change with larger buffers? (or does it?) What would you predict num_full to be with different buffer sizes (e.g., -m 10) and different numbers of produced items (e.g., -l 100), when you change the consumer sleep string from default (no sleep) to -C 0,0,0,0,0,0,1?",
+            "answer": "In this setup, the producer produces a value, as soon as mutex unlocks, the consumer consumes the value right away. Therefore, the behavior of the codes barely changes except when with a large buffer, the pointer would move forward in the buffer array. When changing all three values of products to produce, buffer size and sleep string, the num_full value varies in different settings. (NF for num_full or is placed in bracket, l for items, m for size for simplicity.) The first item produced is immediately consumed. That is, initially the buffer is empty (0), then an item is produced (1), then consumed right away (0). Therefore, when only 1 item is produced and consumed, producer puts EOS into the buffer (1), which after the consumer takes it, would terminate the process (0). When l<=m, after the (0-1-0) sequence, the consumer would put to sleep for a second. Assuming the producer could produce infinite products before the consumer wakes, NF would reach l because of l-1 items + EOS, which EOS is also regarded as an item in this setup. After the consumer wakes, it would consume an item every second, until EOS is reached, or NF = 0. When l>m, after the (0-1-0) sequence, the producer would flood the buffer (NF=m) until the consumer consumes an item. And right after an item is consumed (m-1), the producer would put the new item into the buffer, or EOS if it is the end of production (m). Finally, as the producer stopped producing, the products inside the buffer would be consumed in 1 item/s, until EOS is reached, or NF = 0.",
+            "sample_answer": "With larger buffers, producer can add multiple values to the buffer (up to the length of the buffer) before it waits or context switches, and vice versa for the consumer. The second question models consumers that take much longer to consume items than it takes for producers to produce items. The consumer grabs one item each and then immediately falls asleep for one second, leaving the producer to fill the buffer. The producer would then sleep until the consumer woke up and cycle repeated. (Help to understand the second question model) The buffer would thus spend most of its time full, i.e. num_full would always be equal to or close to the buffer size. Since there is only one empty buffer slot, the producer will run once, and until the loops are over for each, they will take turns to add/remove one at a time.",
+            "sample_criteria": "3 sub-questions, 9 points for each sub-question",
+            "full_points": 27,
+            "score_1": 2,
+            "score_2": 5,
+            "score_3": 3
+        }
+    },
+    "5": {
+        "5": {
+            "question": "Our first question focuses on main-two-cvs-while.c (the working solution). Run with one producer and one consumer, and have the producer produce a few values. Start with a buffer (size 1), and then increase it. How does the behavior of the code change with larger buffers? (or does it?) What would you predict num_full to be with different buffer sizes (e.g., -m 10) and different numbers of produced items (e.g., -l 100), when you change the consumer sleep string from default (no sleep) to -C 0,0,0,0,0,0,1?",
+            "answer": "When the buffer is increased, the behavior of the code do not change a lot. Producer produces one then consumer consumes one. When the buffer size was set to 10, num_full is still change back and forth between 0 and 1.",
+            "sample_answer": "With larger buffers, producer can add multiple values to the buffer (up to the length of the buffer) before it waits or context switches, and vice versa for the consumer. The second question models consumers that take much longer to consume items than it takes for producers to produce items. The consumer grabs one item each and then immediately falls asleep for one second, leaving the producer to fill the buffer. The producer would then sleep until the consumer woke up and cycle repeated. (Help to understand the second question model) The buffer would thus spend most of its time full, i.e. num_full would always be equal to or close to the buffer size. Since there is only one empty buffer slot, the producer will run once, and until the loops are over for each, they will take turns to add/remove one at a time.",
+            "sample_criteria": "3 sub-questions, 9 points for each sub-question",
+            "full_points": 27,
+            "score_1": 2.0,
+            "score_2": 4,
+            "score_3": 3
+        }
+    },
+    "6": {
+        "5": {
+            "question": "Our first question focuses on main-two-cvs-while.c (the working solution). Run with one\nproducer and one consumer, and have the producer produce a few values. Start with a buffer (size 1), and then increase it. \nHow does the behavior of the code change with larger buffers? (or does it?) What would you predict num_full to be with different \nbuffer sizes (e.g., -m 10) and different numbers of produced items (e.g., -l 100), when you change the consumer sleep string from default (no\nsleep) to -C 0,0,0,0,0,0,1?",
+            "answer": "If we only change the buffer size the num_full will not change, the different number of produced items make the program becomes longer, but the largest num_full will not change if we only change the numbers of produce items",
+            "sample_answer": "With larger buffers, producer can add multiple values to the buffer (up to the length of the buffer) before it waits or context switches, and vice versa for the consumer. The second question models consumers that take much longer to consume items than it takes for producers to produce items. The consumer grabs one item each and then immediately falls asleep for one second, leaving the producer to fill the buffer. The producer would then sleep until the consumer woke up and cycle repeated. (Help to understand the second question model) The buffer would thus spend most of its time full, i.e. num_full would always be equal to or close to the buffer size. Since there is only one empty buffer slot, the producer will run once, and until the loops are over for each, they will take turns to add/remove one at a time.",
+            "sample_criteria": "3 sub-questions, 9 points for each sub-question",
+            "full_points": 27,
+            "score_1": 3,
+            "score_2": 3,
+            "score_3": 3
+        }
+    },
+    "7": {
+        "5": {
+            "question": "Our first question focuses on main-two-cvs-while.c (the working solution). Run with one producer and one consumer, and have the producer produce a few values. Start with a buffer (size 1), and then increase it. How does the behavior of the code change with larger buffers? (or does it?) What would you predict num_full to be with different buffer sizes (e.g., -m 10) and different numbers of produced items (e.g., -l 100), when you change the consumer sleep string from default (no sleep) to -C 0,0,0,0,0,0,1?",
+            "answer": "The enhancement of buffer size does not change the behavior of the code. The null_full will first goes from 0 to 1 and then return back to 0, raise from 0 to 100 and then drop to 0 slowly\nWith -C 0,0,0,0,0,0,1, this means the consumer will sleep for some time after consuming each item. This will slow down the process, which num_full will likely be larger.",
+            "sample_answer": "With larger buffers, producer can add multiple values to the buffer (up to the length of the buffer) before it waits or context switches, and vice versa for the consumer. The second question models consumers that take much longer to consume items than it takes for producers to produce items. The consumer grabs one item each and then immediately falls asleep for one second, leaving the producer to fill the buffer. The producer would then sleep until the consumer woke up and cycle repeated. (Help to understand the second question model) The buffer would thus spend most of its time full, i.e. num_full would always be equal to or close to the buffer size. Since there is only one empty buffer slot, the producer will run once, and until the loops are over for each, they will take turns to add/remove one at a time.",
+            "sample_criteria": "3 sub-questions, 9 points for each sub-question",
+            "full_points": 27,
+            "score_1": 4,
+            "score_2": 3,
+            "score_3": 3
+        }
+    },
+    "8": {
+        "5": {
+            "question": "Our first question focuses on main-two-cvs-while.c (the working solution). Run with one producer and one consumer, and have the producer produce a few values. Start with a buffer (size 1), and then increase it. How does the behavior of the code change with larger buffers? (or does it?) What would you predict num_full to be with different buffer sizes (e.g., -m 10) and different numbers of produced items (e.g., -l 100), when you change the consumer sleep string from default (no sleep) to -C 0,0,0,0,0,0,1?",
+            "answer": "Let -l be constant 3. Increase the buffer size, the program does not change, where only one buffer is used, and the rest is wasted. If default, every time the producer produces one, the consumer consume it immediately, only one buffer is used, no matter what size the buffer is. C 0,0,0,0,0,0,1 means that the consumer thread sleep at c6 for 1 second. Therefore, the producer keeps producing until the buffer is full, after which the consumer consumes one, the producer produces another, the consumer consumes another, and the cycle repeats. Finally when producers finish producing, the consumer consumes the left one by one. ./main-two-cvs-while -l 100 -m 10 -p 1 -c 1 -C 0,0,0,0,0,0,1 -v",
+            "sample_answer": "With larger buffers, producer can add multiple values to the buffer (up to the length of the buffer) before it waits or context switches, and vice versa for the consumer. The second question models consumers that take much longer to consume items than it takes for producers to produce items. The consumer grabs one item each and then immediately falls asleep for one second, leaving the producer to fill the buffer. The producer would then sleep until the consumer woke up and cycle repeated. (Help to understand the second question model) The buffer would thus spend most of its time full, i.e. num_full would always be equal to or close to the buffer size. Since there is only one empty buffer slot, the producer will run once, and until the loops are over for each, they will take turns to add/remove one at a time.",
+            "sample_criteria": "3 sub-questions, 9 points for each sub-question",
+            "full_points": 27,
+            "score_1": 11,
+            "score_2": 15,
+            "score_3": 12
+        }
+    },
+    "9": {
+        "5": {
+            "question": "Our first question focuses on main-two-cvs-while.c (the working solution). Run with one producer and one consumer, and have the producer produce a few values. Start with a buffer (size 1), and then increase it. How does the behavior of the code change with larger buffers? (or does it?) What would you predict num_full to be with different buffer sizes (e.g., -m 10) and different numbers of produced items (e.g., -l 100), when you change the consumer sleep string from default (no sleep) to -C 0,0,0,0,0,0,1?",
+            "answer": "The producer produces a value into buffer with an index of 0 at first. After the consumer consumes it, the producer produces a value into the buffer with index 1\u2026and so on. Except this, the behavior of code won\u2019t change much with only the change of buffer size. The num_full should always be same if consumer sleep string remain default even with the change of buffer sizes and different number of produced items. However, if the consumer sleep string is changed to C 0,0,0,0,0,0,1 the max num_full will be same as the buffer size m.",
+            "sample_answer": "With larger buffers, producer can add multiple values to the buffer (up to the length of the buffer) before it waits or context switches, and vice versa for the consumer. The second question models consumers that take much longer to consume items than it takes for producers to produce items. The consumer grabs one item each and then immediately falls asleep for one second, leaving the producer to fill the buffer. The producer would then sleep until the consumer woke up and cycle repeated. (Help to understand the second question model) The buffer would thus spend most of its time full, i.e. num_full would always be equal to or close to the buffer size. Since there is only one empty buffer slot, the producer will run once, and until the loops are over for each, they will take turns to add/remove one at a time.",
+            "sample_criteria": "3 sub-questions, 9 points for each sub-question",
+            "full_points": 27,
+            "score_1": 8,
+            "score_2": 16,
+            "score_3": 12
+        }
+    },
+    "10": {
+        "5": {
+            "question": "Our first question focuses on main-two-cvs-while.c (the working solution). Run with one producer and one consumer, and have the producer produce a few values. Start with a buffer (size 1), and then increase it. How does the behavior of the code change with larger buffers? (or does it?) What would you predict num_full to be with different buffer sizes (e.g., -m 10) and different numbers of produced items (e.g., -l 100), when you change the consumer sleep string from default (no sleep) to -C 0,0,0,0,0,0,1?",
+            "answer": "The behavior of the code will become increase in the number of buffers. The prediction of num_full should be changed between 0 to max. The consumer gets to run, but finds the queue empty, and thus sleep for 1 seconds.",
+            "sample_answer": "With larger buffers, producer can add multiple values to the buffer (up to the length of the buffer) before it waits or context switches, and vice versa for the consumer. The second question models consumers that take much longer to consume items than it takes for producers to produce items. The consumer grabs one item each and then immediately falls asleep for one second, leaving the producer to fill the buffer. The producer would then sleep until the consumer woke up and cycle repeated. (Help to understand the second question model) The buffer would thus spend most of its time full, i.e. num_full would always be equal to or close to the buffer size. Since there is only one empty buffer slot, the producer will run once, and until the loops are over for each, they will take turns to add/remove one at a time.",
+            "sample_criteria": "3 sub-questions, 9 points for each sub-question",
+            "full_points": 27,
+            "score_1": 18,
+            "score_2": 20,
+            "score_3": 21
+        }
+    },
+    "11": {
+        "5": {
+            "question": "Our first question focuses on main-two-cvs-while.c (the working solution). Run with one producer and one consumer, and have the producer produce a few values. Start with a buffer (size 1), and then increase it. How does the behavior of the code change with larger buffers? (or does it?) What would you predict num_full to be with different buffer sizes (e.g., -m 10) and different numbers of produced items (e.g., -l 100), when you change the consumer sleep string from default (no sleep) to -C 0,0,0,0,0,0,1?",
+            "answer": "With larger buffers, the producer is able to add multiple values to the buffer before waiting or switching to another task, and the same goes for the consumer in reverse. In the second scenario, the consumer takes much longer to consume items compared to the producer's speed in producing them. The consumer takes one item and then immediately falls asleep for one second, allowing the producer to fill the buffer. The producer then sleeps until the consumer wakes up, and this cycle repeats. As a result, the buffer remains mostly full, with the number of occupied slots (num_full) always being close to or equal to the buffer size. Since there is only one empty slot in the buffer, the producer will run once, and they will take turns adding or removing one item at a time until both loops are completed.",
+            "sample_answer": "With larger buffers, producer can add multiple values to the buffer (up to the length of the buffer) before it waits or context switches, and vice versa for the consumer. The second question models consumers that take much longer to consume items than it takes for producers to produce items. The consumer grabs one item each and then immediately falls asleep for one second, leaving the producer to fill the buffer. The producer would then sleep until the consumer woke up and cycle repeated. (Help to understand the second question model) The buffer would thus spend most of its time full, i.e. num_full would always be equal to or close to the buffer size. Since there is only one empty buffer slot, the producer will run once, and until the loops are over for each, they will take turns to add/remove one at a time.",
+            "sample_criteria": "3 sub-questions, 9 points for each sub-question",
+            "full_points": 27,
+            "score_1": 27.0,
+            "score_2": 27,
+            "score_3": 27
+        }
+    },
+    "12": {
+        "5": {
+            "question": "Our first question focuses on main-two-cvs-while.c (the working solution). Run with one producer and one consumer, and have the producer produce a few values. Start with a buffer (size 1), and then increase it. How does the behavior of the code change with larger buffers? (or does it?) What would you predict num_full to be with different buffer sizes (e.g., -m 10) and different numbers of produced items (e.g., -l 100), when you change the consumer sleep string from default (no sleep) to -C 0,0,0,0,0,0,1?",
+            "answer": "Buffer from 1 to 2. The behavior has no change. Buffer from 1 to 5, the behavior has no change too. Because the comsumer consumes one at a time, and producer produce one at a time. It only requires the buffer of size 1. Without utilization of rest buffer. As shown in code, NF would be the same with different buffer size as the producer and consumer only modify 1 on product at a time. The NF would still be 0 and 1 in the flow of execution with different numbers of produced items. But the 0 0 0 0 0 1 1 1 1 loop would appear k times with -m k. As the k equals to the total products amount. It wouldn\u2019t be 2 or other numbers because the producer and the consumer has the same amount and consume(produce) speed. In default, the consumer do not sleep and consumes right after the product is available. In 0,0,0,0,0,0,1, The consumer sleeps at 7th which makes it did not wake up to consume product produced at 12th. Therefore NF appears 2 at line 15. The consumer consumed it aftwewards alternatively.",
+            "sample_answer": "With larger buffers, producer can add multiple values to the buffer (up to the length of the buffer) before it waits or context switches, and vice versa for the consumer. The second question models consumers that take much longer to consume items than it takes for producers to produce items. The consumer grabs one item each and then immediately falls asleep for one second, leaving the producer to fill the buffer. The producer would then sleep until the consumer woke up and cycle repeated. (Help to understand the second question model) The buffer would thus spend most of its time full, i.e. num_full would always be equal to or close to the buffer size. Since there is only one empty buffer slot, the producer will run once, and until the loops are over for each, they will take turns to add/remove one at a time.",
+            "sample_criteria": "3 sub-questions, 9 points for each sub-question",
+            "full_points": 27,
+            "score_1": 11,
+            "score_2": 15,
+            "score_3": 12
+        }
+    },
+    "13": {
+        "5": {
+            "question": "Our \nfirst question focuses on main-two-cvs-while.c (the working solution). Run with one producer and one consumer, and have the producer produce a few values. Start with a buffer (size 1), and then increase it. How does the behavior of the code change with larger buffers? (or does it?) What would you predict num_full to be with different buffer sizes (e.g., -m 10) and different numbers of produced items (e.g., -l 100), when you change the consumer sleep string from default (no sleep) to -C 0,0,0,0,0,0,1?",
+            "answer": "Behavior Changes :Producers can produce more items before they have to wait for consumers to consume some items ; Consumers can consume more items before they have to wait for producers to produce more items ; Reducing the frequency of context switches between producers and consumers, increasing the performance. \nPrediction The num_full will increase because the consumers will sleep for 1 second at the c6 , allowing more time for producer to produce the items.",
+            "sample_answer": "With larger buffers, producer can add multiple values to the buffer (up to the length of the buffer) before it waits or context switches, and vice versa for the consumer. The second question models consumers that take much longer to consume items than it takes for producers to produce items. The consumer grabs one item each and then immediately falls asleep for one second, leaving the producer to fill the buffer. The producer would then sleep until the consumer woke up and cycle repeated. (Help to understand the second question model) The buffer would thus spend most of its time full, i.e. num_full would always be equal to or close to the buffer size. Since there is only one empty buffer slot, the producer will run once, and until the loops are over for each, they will take turns to add/remove one at a time.",
+            "sample_criteria": "3 sub-questions, 9 points for each sub-question",
+            "full_points": 27,
+            "score_1": 15,
+            "score_2": 13,
+            "score_3": 12
+        }
+    },
+    "14": {
+        "5": {
+            "question": "Our first question focuses on main-two-cvs-while.c (the working solution). Run with one producer and one consumer, and have the producer produce a few values. Start with a buffer (size 1), and then increase it. How does the behavior of the code change with larger buffers? (or does it?) What would you predict num_full to be with different buffer sizes (e.g., -m 10) and different numbers of produced items (e.g., -l 100), when you change the consumer sleep string from default (no sleep) to -C 0,0,0,0,0,0,1?",
+            "answer": "If we increase the larger buffer, it means the producer can add multiple values to the buffer until the buffer is in full, before there is a context switch or sleep. On the consumer side, it is also the same case that the consumer can consumer the project until the buffer is zero. The num_full is always equal to or close to the buffer size. As there is only one on buffer slot, and the producer will run once, until the looping for each, and it will task turn to add or remove one at the time. Where we change the consumer sleep for no sleep to -C -0,0,0,0,0,1. It means the consumer takes much more time to consume the item than the producer produces it. Since, when the consumer take one item in each loop, and feel asleep for 1 second, and leaving the producer to fill the buffer. The producer will sleep until the consumer wakes and loops.",
+            "sample_answer": "With larger buffers, producer can add multiple values to the buffer (up to the length of the buffer) before it waits or context switches, and vice versa for the consumer. The second question models consumers that take much longer to consume items than it takes for producers to produce items. The consumer grabs one item each and then immediately falls asleep for one second, leaving the producer to fill the buffer. The producer would then sleep until the consumer woke up and cycle repeated. (Help to understand the second question model) The buffer would thus spend most of its time full, i.e. num_full would always be equal to or close to the buffer size. Since there is only one empty buffer slot, the producer will run once, and until the loops are over for each, they will take turns to add/remove one at a time.",
+            "sample_criteria": "3 sub-questions, 9 points for each sub-question",
+            "full_points": 27,
+            "score_1": 27.0,
+            "score_2": 25,
+            "score_3": 27
+        }
+    },
+    "15": {
+        "5": {
+            "question": "Our first question focuses on main-two-cvs-while.c (the working solution). Run with one producer and one consumer, and have the producer produce a few values. Start with a buffer (size 1), and then increase it. How does the behavior of the code change with larger buffers? (or does it?) What would you predict num_full to be with different buffer sizes (e.g., -m 10) and different numbers of produced items (e.g., -l 100), when you change the consumer sleep string from default (no sleep) to -C 0,0,0,0,0,0,1?",
+            "answer": "By utilizing larger buffers, the producer gains the ability to add multiple values to the buffer, up to its maximum length, before needing to wait or switch context. Conversely, the consumer operates under a different scenario where consuming items takes significantly longer compared to the producer's item production speed. Here, the consumer retrieves one item and promptly enters a one-second sleep, allowing the producer to fill the buffer. Subsequently, the producer sleeps until the consumer awakens, and this cycle repeats. As a result, the buffer remains predominantly full, with the variable \"num_full\" consistently equal to or nearing the buffer size. Since there is only one vacant slot in the buffer, the producer runs once, and until both loops are completed, they alternate in adding or removing one item at a time.",
+            "sample_answer": "With larger buffers, producer can add multiple values to the buffer (up to the length of the buffer) before it waits or context switches, and vice versa for the consumer. The second question models consumers that take much longer to consume items than it takes for producers to produce items. The consumer grabs one item each and then immediately falls asleep for one second, leaving the producer to fill the buffer. The producer would then sleep until the consumer woke up and cycle repeated. (Help to understand the second question model) The buffer would thus spend most of its time full, i.e. num_full would always be equal to or close to the buffer size. Since there is only one empty buffer slot, the producer will run once, and until the loops are over for each, they will take turns to add/remove one at a time.",
+            "sample_criteria": "3 sub-questions, 9 points for each sub-question",
+            "full_points": 27,
+            "score_1": 27.0,
+            "score_2": 27,
+            "score_3": 27
+        }
+    },
+    "16": {
+        "5": {
+            "question": "Our \nfirst question focuses on main-two-cvs-while.c (the working solution). Run with one producer and one consumer, and have the producer produce a few values. Start with a buffer (size 1), and then increase it. How does the behavior of the code change with larger buffers? (or does it?) What would you predict num_full to be with different buffer sizes (e.g., -m 10) and different numbers of produced items (e.g., -l 100), when you change the consumer sleep string from default (no sleep) to -C 0,0,0,0,0,0,1?",
+            "answer": "The behavior of the code doesn\u2019t change since the default sleeping time for both producer and consumer are zero. No matter how large the buffer size is, it would always produce a thing and consume a thing. The num_full will increase to n if the buffer size n is less than the numbers of produced items l. For example, if the buffer size is 10 and the number of produced items is 100, the num_full will be increasing from 0 to 10 and the buffer will be full, and it will keep looping from consuming and producing an item until the buffer is relieved.",
+            "sample_answer": "With larger buffers, producer can add multiple values to the buffer (up to the length of the buffer) before it waits or context switches, and vice versa for the consumer. The second question models consumers that take much longer to consume items than it takes for producers to produce items. The consumer grabs one item each and then immediately falls asleep for one second, leaving the producer to fill the buffer. The producer would then sleep until the consumer woke up and cycle repeated. (Help to understand the second question model) The buffer would thus spend most of its time full, i.e. num_full would always be equal to or close to the buffer size. Since there is only one empty buffer slot, the producer will run once, and until the loops are over for each, they will take turns to add/remove one at a time.",
+            "sample_criteria": "3 sub-questions, 9 points for each sub-question",
+            "full_points": 27,
+            "score_1": 12,
+            "score_2": 18,
+            "score_3": 15
+        }
+    },
+    "17": {
+        "5": {
+            "question": "Our first question focuses on main-two-cvs-while.c (the working solution). Run with one producer and one consumer, and have the producer produce a few values. Start with a buffer (size 1), and then increase it. How does the behavior of the code change with larger buffers? (or does it?) What would you predict num_full to be with different buffer sizes (e.g., -m 10) and different numbers of produced items (e.g., -l 100), when you change the consumer sleep string from default (no sleep) to -C 0,0,0,0,0,0,1?",
+            "answer": "When m=1/2/3\\u2026, the result is the same as the increase in buffer size will not affect the production and consumption. When -l = 100 and -C 0,0,0,0,0,0,1 , the producer keeps producing into the buffer. After the buffer is full, consumers start to consume the products. When the buffer is not full, the producer keeps producing, and the consumer sleeps; the consumer will consume when the buffer is empty.",
+            "sample_answer": "With larger buffers, producer can add multiple values to the buffer (up to the length of the buffer) before it waits or context switches, and vice versa for the consumer. The second question models consumers that take much longer to consume items than it takes for producers to produce items. The consumer grabs one item each and then immediately falls asleep for one second, leaving the producer to fill the buffer. The producer would then sleep until the consumer woke up and cycle repeated. (Help to understand the second question model) The buffer would thus spend most of its time full, i.e. num_full would always be equal to or close to the buffer size. Since there is only one empty buffer slot, the producer will run once, and until the loops are over for each, they will take turns to add/remove one at a time.",
+            "sample_criteria": "3 sub-questions, 9 points for each sub-question",
+            "full_points": 27,
+            "score_1": 7.0,
+            "score_2": 5,
+            "score_3": 6
+        }
+    },
+    "18": {
+        "5": {
+            "question": "Our first question focuses on main-two-cvs-while.c (the working solution). Run with one producer and one consumer, and have the producer produce a few values. Start with a buffer (size 1), and then increase it. How does the behavior of the code change with larger buffers? (or does it?) What would you predict num_full to be with different buffer sizes (e.g., -m 10) and different numbers of produced items (e.g., -l 100), when you change the consumer sleep string from default (no sleep) to -C 0,0,0,0,0,0,1?",
+            "answer": "No, increasing the buffer size does not the behavior of the code in this example. But the larger the buffers, the more value producer and consumer can put in into the buffers. The num_full will be full most of the time because while -c sleep, -p will continue to produce item and filling up the buffer.",
+            "sample_answer": "With larger buffers, producer can add multiple values to the buffer (up to the length of the buffer) before it waits or context switches, and vice versa for the consumer. The second question models consumers that take much longer to consume items than it takes for producers to produce items. The consumer grabs one item each and then immediately falls asleep for one second, leaving the producer to fill the buffer. The producer would then sleep until the consumer woke up and cycle repeated. (Help to understand the second question model) The buffer would thus spend most of its time full, i.e. num_full would always be equal to or close to the buffer size. Since there is only one empty buffer slot, the producer will run once, and until the loops are over for each, they will take turns to add/remove one at a time.",
+            "sample_criteria": "3 sub-questions, 9 points for each sub-question",
+            "full_points": 27,
+            "score_1": 20,
+            "score_2": 16,
+            "score_3": 18
+        }
+    },
+    "19": {
+        "5": {
+            "question": "Our first question focuses on main-two-cvs-while.c (the working solution). Run with one producer and one consumer, and have the producer produce a few values. Start with a buffer (size 1), and then increase it. How does the behavior of the code change with larger buffers? (or does it?) What would you predict num_full to be with different buffer sizes (e.g., -m 10) and different numbers of produced items (e.g., -l 100), when you change the consumer sleep string from default (no sleep) to -C 0,0,0,0,0,0,1?",
+            "answer": "After the producer produces a value, it can point to another empty buffer slot and no need tp wait for the value to be consumed. The producer keeps producing values, then the consumer wakes up to consume values.",
+            "sample_answer": "With larger buffers, producer can add multiple values to the buffer (up to the length of the buffer) before it waits or context switches, and vice versa for the consumer. The second question models consumers that take much longer to consume items than it takes for producers to produce items. The consumer grabs one item each and then immediately falls asleep for one second, leaving the producer to fill the buffer. The producer would then sleep until the consumer woke up and cycle repeated. (Help to understand the second question model) The buffer would thus spend most of its time full, i.e. num_full would always be equal to or close to the buffer size. Since there is only one empty buffer slot, the producer will run once, and until the loops are over for each, they will take turns to add/remove one at a time.",
+            "sample_criteria": "3 sub-questions, 9 points for each sub-question",
+            "full_points": 27,
+            "score_1": 9,
+            "score_2": 11,
+            "score_3": 9
+        }
+    },
+    "20": {
+        "5": {
+            "question": "Our first question focuses on main-two-cvs-while.c (the working solution). Run with one producer and one consumer, and have the producer produce a few values. Start with a buffer (size 1), and then increase it. How does the behavior of the code change with larger buffers? (or does it?) What would you predict num_full to be with different buffer sizes (e.g., -m 10) and different numbers of produced items (e.g., -l 100), when you change the consumer sleep string from default (no sleep) to -C 0,0,0,0,0,0,1?",
+            "answer": "When using larger buffers, the code exhibits a change in behavior as the producer can store more values in the buffer before the consumer consumes them. Specifically, the producer can fill the buffer entirely before the consumer wakes up to consume its contents when the consumer sleeps. Thus, regardless of the buffer size, num_full will always remain either 0 or 1. This is because the consumer instantly consumes the product produced due to the configuration of one producer and one consumer (-p 1 and -c 1). With the consumer sleeping and the producer continuously filling the buffer, the consumer only wakes up to consume the full buffer, resulting in a predictable pattern where num_full reaches its maximum value once the buffer is full. This behavior persists irrespective of changes in buffer sizes or the number of produced items. Specifically, when the consumer sleeps according to the pattern -C 0,0,0,0,0,0,1, the producer fills the entire buffer, prompting the consumer to wake up and consume it, repeating the cycle until the buffer reaches its capacity.",
+            "sample_answer": "With larger buffers, producer can add multiple values to the buffer (up to the length of the buffer) before it waits or context switches, and vice versa for the consumer. The second question models consumers that take much longer to consume items than it takes for producers to produce items. The consumer grabs one item each and then immediately falls asleep for one second, leaving the producer to fill the buffer. The producer would then sleep until the consumer woke up and cycle repeated. (Help to understand the second question model) The buffer would thus spend most of its time full, i.e. num_full would always be equal to or close to the buffer size. Since there is only one empty buffer slot, the producer will run once, and until the loops are over for each, they will take turns to add/remove one at a time.",
+            "sample_criteria": "3 sub-questions, 9 points for each sub-question",
+            "full_points": 27,
+            "score_1": 27.0,
+            "score_2": 27,
+            "score_3": 27
+        }
+    },
+    "21": {
+        "5": {
+            "question": "Our firts question focuses on main-two-cvs-while.c (the working solution). Run with one producer and one consumer, and have the producer produce a few values. Start with a buffer (size 1), and then increase it. How does the behavior of the code change with larger buffers? (or does it?) What would you predict num_full to be with different buffer sizes (e.g., -m 10) and different numbers of produced items (e.g., -l 100), when you change the consumer sleep string from default (no sleep) to -C 0,0,0,0,0,0,1?",
+            "answer": "There is no significant difference in code change to larger buffers. The user will consume the same values from the buffer. However, with different buffer sizes ( -m 10) and the number of produced items (- l 100), the num_full could be more significant, as the buffers have more prominent space and the producing items at a faster rate as more items are being produced. With more space in the buffer for items, the num_full will be increased. With -C 0,0,0,0,0,0,1, this means the consumer will sleep for some time after consuming each item. This will slow down the process, which num_full will likely be larger.",
+            "sample_answer": "With larger buffers, producer can add multiple values to the buffer (up to the length of the buffer) before it waits or context switches, and vice versa for the consumer. The second question models consumers that take much longer to consume items than it takes for producers to produce items. The consumer grabs one item each and then immediately falls asleep for one second, leaving the producer to fill the buffer. The producer would then sleep until the consumer woke up and cycle repeated. (Help to understand the second question model) The buffer would thus spend most of its time full, i.e. num_full would always be equal to or close to the buffer size. Since there is only one empty buffer slot, the producer will run once, and until the loops are over for each, they will take turns to add/remove one at a time.",
+            "sample_criteria": "3 sub-questions, 9 points for each sub-question",
+            "full_points": 27,
+            "score_1": 15.0,
+            "score_2": 10,
+            "score_3": 12
+        }
+    },
+    "22": {
+        "5": {
+            "question": "Our \nfirst question focuses on main-two-cvs-while.c (the working solution). Run with one producer and one consumer, and have the producer produce a few values. Start with a buffer (size 1), and then increase it. How does the behavior of the code change with larger buffers? (or does it?) What would you predict num_full to be with different buffer sizes (e.g., -m 10) and different numbers of produced items (e.g., -l 100), when you change the consumer sleep string from default (no sleep) to -C 0,0,0,0,0,0,1?",
+            "answer": "With a larger buffer producer will be able to produce more (up to buffer capacity) before waiting for the consumer or a context switch (same for consumer). First num_full will be 1 when the producer produces an item, then it will be consumed and num_full becomes 0. After that the consumer will sleep for 1s and the producer will produce until the buffer is full, and when it is full it will wait for the consumer to wake up and continue consuming. Num_full will be switching from buffer_size-1 and buffer_size, because producer is producing faster than consumer consuming.",
+            "sample_answer": "With larger buffers, producer can add multiple values to the buffer (up to the length of the buffer) before it waits or context switches, and vice versa for the consumer. The second question models consumers that take much longer to consume items than it takes for producers to produce items. The consumer grabs one item each and then immediately falls asleep for one second, leaving the producer to fill the buffer. The producer would then sleep until the consumer woke up and cycle repeated. (Help to understand the second question model) The buffer would thus spend most of its time full, i.e. num_full would always be equal to or close to the buffer size. Since there is only one empty buffer slot, the producer will run once, and until the loops are over for each, they will take turns to add/remove one at a time.",
+            "sample_criteria": "3 sub-questions, 9 points for each sub-question",
+            "full_points": 27,
+            "score_1": 23.0,
+            "score_2": 16,
+            "score_3": 18
+        }
+    },
+    "23": {
+        "5": {
+            "question": "Our first question focuses on main-two-cvs-while.c (the working solution). Run with one producer and one consumer, and have the producer produce a few values. Start with a buffer (size 1), and then increase it. How does the behavior of the code change with larger buffers? (or does it?) What would you predict num_full to be with different buffer sizes (e.g., -m 10) and different numbers of produced items (e.g., -l 100), when you change the consumer sleep string from default (no sleep) to -C 0,0,0,0,0,0,1?",
+            "answer": "num_full = 3 when -m 10 is used num_full =100 when -l 100 is used They seem to don\u2019t change even when there are sleep",
+            "sample_answer": "With larger buffers, producer can add multiple values to the buffer (up to the length of the buffer) before it waits or context switches, and vice versa for the consumer. The second question models consumers that take much longer to consume items than it takes for producers to produce items. The consumer grabs one item each and then immediately falls asleep for one second, leaving the producer to fill the buffer. The producer would then sleep until the consumer woke up and cycle repeated. (Help to understand the second question model) The buffer would thus spend most of its time full, i.e. num_full would always be equal to or close to the buffer size. Since there is only one empty buffer slot, the producer will run once, and until the loops are over for each, they will take turns to add/remove one at a time.",
+            "sample_criteria": "3 sub-questions, 9 points for each sub-question",
+            "full_points": 27,
+            "score_1": 6,
+            "score_2": 6,
+            "score_3": 3
+        }
+    },
+    "24": {
+        "5": {
+            "question": "Our \nfirst question focuses on main-two-cvs-while.c (the working solution). Run with one producer and one consumer, and have the producer produce a few values. Start with a buffer (size 1), and then increase it. How does the behavior of the code change with larger buffers? (or does it?) What would you predict num_full to be with different buffer sizes (e.g., -m 10) and different numbers of produced items (e.g., -l 100), when you change the consumer sleep string from default (no sleep) to -C 0,0,0,0,0,0,1?",
+            "answer": "The producer can add many different values to the buffer (the value is belong to [1, size of buffer -1], depending on at which instruction the thread changes) before it waits. For smaller buffer sizes, num_full will change regularly between the size of buffer and 0. For larger buffer sizes, it might not reach the size of buffer. When consumer string is -C 0,0,0,0,0,0,1, the producer will fill the buffer first. The num_full will be size of buffer, Then the consumer will run once, and consume 1 item. The num_full will reduce 1. Since there is only one empty location, the producer will run once. The num_full will increase 1. This process will continue to cycle until they consume enough items.",
+            "sample_answer": "With larger buffers, producer can add multiple values to the buffer (up to the length of the buffer) before it waits or context switches, and vice versa for the consumer. The second question models consumers that take much longer to consume items than it takes for producers to produce items. The consumer grabs one item each and then immediately falls asleep for one second, leaving the producer to fill the buffer. The producer would then sleep until the consumer woke up and cycle repeated. (Help to understand the second question model) The buffer would thus spend most of its time full, i.e. num_full would always be equal to or close to the buffer size. Since there is only one empty buffer slot, the producer will run once, and until the loops are over for each, they will take turns to add/remove one at a time.",
+            "sample_criteria": "3 sub-questions, 9 points for each sub-question",
+            "full_points": 27,
+            "score_1": 20,
+            "score_2": 27,
+            "score_3": 21
+        }
+    },
+    "25": {
+        "5": {
+            "question": "Our first question focuses on main-two-cvs-while.c (the working solution). Run with one producer and one consumer, and have the producer produce a few values. Start with a buffer (size 1), and then increase it. How does the behavior of the code change with larger buffers? (or does it?) What would you predict num_full to be with different buffer sizes (e.g., -m 10) and different numbers of produced items (e.g., -l 100), when you change the consumer sleep string from default (no sleep) to -C 0,0,0,0,0,0,1?",
+            "answer": "The result does not change when the buffers become larger. When num_full changes or consumer sleep string changes, the num_full will be always same as the number of loops (-l).",
+            "sample_answer": "With larger buffers, producer can add multiple values to the buffer (up to the length of the buffer) before it waits or context switches, and vice versa for the consumer. The second question models consumers that take much longer to consume items than it takes for producers to produce items. The consumer grabs one item each and then immediately falls asleep for one second, leaving the producer to fill the buffer. The producer would then sleep until the consumer woke up and cycle repeated. (Help to understand the second question model) The buffer would thus spend most of its time full, i.e. num_full would always be equal to or close to the buffer size. Since there is only one empty buffer slot, the producer will run once, and until the loops are over for each, they will take turns to add/remove one at a time.",
+            "sample_criteria": "3 sub-questions, 9 points for each sub-question",
+            "full_points": 27,
+            "score_1": 5,
+            "score_2": 9,
+            "score_3": 3
+        }
+    },
+    "26": {
+        "5": {
+            "question": "Our \nfirst question focuses on main-two-cvs-while.c (the working solution). Run with one producer and one consumer, and have the producer produce a few values. Start with a buffer (size 1), and then increase it. How does the behavior of the code change with larger buffers? (or does it?) What would you predict num_full to be with different buffer sizes (e.g., -m 10) and different numbers of produced items (e.g., -l 100), when you change the consumer sleep string from default (no sleep) to -C 0,0,0,0,0,0,1?",
+            "answer": "With larger buffers, the producer can store multiple values in the buffer before pausing or switching tasks, and the same applies to the consumer in the opposite direction. In the alternate scenario, the consumer's consumption rate of items is much slower compared to the producer's production speed. After taking one item, the consumer promptly goes into a one-second sleep, allowing the producer to fill the buffer. Subsequently, the producer also goes into sleep mode until the consumer resumes activity, repeating this cycle. Consequently, the buffer mostly remains full, with the number of filled slots (num_full) consistently close to or equal to the buffer size. As there is only one vacant slot in the buffer, the producer executes once, and both entities take turns adding or removing one item at a time until both processes conclude.",
+            "sample_answer": "With larger buffers, producer can add multiple values to the buffer (up to the length of the buffer) before it waits or context switches, and vice versa for the consumer. The second question models consumers that take much longer to consume items than it takes for producers to produce items. The consumer grabs one item each and then immediately falls asleep for one second, leaving the producer to fill the buffer. The producer would then sleep until the consumer woke up and cycle repeated. (Help to understand the second question model) The buffer would thus spend most of its time full, i.e. num_full would always be equal to or close to the buffer size. Since there is only one empty buffer slot, the producer will run once, and until the loops are over for each, they will take turns to add/remove one at a time.",
+            "sample_criteria": "3 sub-questions, 9 points for each sub-question",
+            "full_points": 27,
+            "score_1": 27,
+            "score_2": 27,
+            "score_3": 27
+        }
+    },
+    "27": {
+        "5": {
+            "question": "Our \nfirst question focuses on main-two-cvs-while.c (the working solution). Run with one producer and one consumer, and have the producer produce a few values. Start with a buffer (size 1), and then increase it. How does the behavior of the code change with larger buffers? (or does it?) What would you predict num_full to be with different buffer sizes (e.g., -m 10) and different numbers of produced items (e.g., -l 100), when you change the consumer sleep string from default (no sleep) to -C 0,0,0,0,0,0,1?",
+            "answer": "num_full changes only if the consumer sleeps at least once. Otherwise, it\u2019s either 0 or 1.",
+            "sample_answer": "With larger buffers, producer can add multiple values to the buffer (up to the length of the buffer) before it waits or context switches, and vice versa for the consumer. The second question models consumers that take much longer to consume items than it takes for producers to produce items. The consumer grabs one item each and then immediately falls asleep for one second, leaving the producer to fill the buffer. The producer would then sleep until the consumer woke up and cycle repeated. (Help to understand the second question model) The buffer would thus spend most of its time full, i.e. num_full would always be equal to or close to the buffer size. Since there is only one empty buffer slot, the producer will run once, and until the loops are over for each, they will take turns to add/remove one at a time.",
+            "sample_criteria": "3 sub-questions, 9 points for each sub-question",
+            "full_points": 27,
+            "score_1": 0.0,
+            "score_2": 1,
+            "score_3": 0
+        }
+    },
+    "28": {
+        "5": {
+            "question": "Our first question focuses on main-two-cvs-while.c (the working solution). Run with one producer and one consumer, and have the producer produce a few values. Start with a buffer (size 1), and then increase it. How does the behavior of the code change with larger buffers? (or does it?) What would you predict num_full to be with different buffer sizes (e.g., -m 10) and different numbers of produced items (e.g., -l 100), when you change the consumer sleep string from default (no sleep) to -C 0,0,0,0,0,0,1?",
+            "answer": "Changes\uff1a The producer can add multiple values to the buffer (up to the length of the buffer -1) before it waits, and vice versa for the consumer. Num-full changes between 0 and maximum for smaller buffer sizes. For larger sizes, it might not hit the extrema much, producer first fills the buffer, then the consumer will run once, and sleep for 1 second. Since there is only one empty index, the producer will run once, then the customer continues, they take turns to add/remove one at a time.",
+            "sample_answer": "With larger buffers, producer can add multiple values to the buffer (up to the length of the buffer) before it waits or context switches, and vice versa for the consumer. The second question models consumers that take much longer to consume items than it takes for producers to produce items. The consumer grabs one item each and then immediately falls asleep for one second, leaving the producer to fill the buffer. The producer would then sleep until the consumer woke up and cycle repeated. (Help to understand the second question model) The buffer would thus spend most of its time full, i.e. num_full would always be equal to or close to the buffer size. Since there is only one empty buffer slot, the producer will run once, and until the loops are over for each, they will take turns to add/remove one at a time.",
+            "sample_criteria": "3 sub-questions, 9 points for each sub-question",
+            "full_points": 27,
+            "score_1": 27.0,
+            "score_2": 27,
+            "score_3": 27
+        }
+    },
+    "29": {
+        "5": {
+            "question": "Our \nfirst question focuses on main-two-cvs-while.c (the working solution). Run with one producer and one consumer, and have the producer produce a few values. Start with a buffer (size 1), and then increase it. How does the behavior of the code change with larger buffers? (or does it?) What would you predict num_full to be with different buffer sizes (e.g., -m 10) and different numbers of produced items (e.g., -l 100), when you change the consumer sleep string from default (no sleep) to -C 0,0,0,0,0,0,1?",
+            "answer": "With a buffer size ('-m 10') and a larger number of produced items ('-l 100'), the num_full will be closer to the maximum buffer size. This is because the larger size produces more space for the producer to fill without waiting for the consumer. The consumer is set to sleep after every six consumed items for a duration of one-time unit. Initially, both producer and consumer are active without any sleep, \n'num_full' would fluctuate based on the relative speeds of production and consumption. After consumer sleeps start, the producer has be uninterrupted and add items to the buffer. 'nun_full' will increase and reach the full capacity of 10. At the end of 100 items approaches, 'num_full' near it peak because the consumer have not enough time to consume all remaining items.",
+            "sample_answer": "With larger buffers, producer can add multiple values to the buffer (up to the length of the buffer) before it waits or context switches, and vice versa for the consumer. The second question models consumers that take much longer to consume items than it takes for producers to produce items. The consumer grabs one item each and then immediately falls asleep for one second, leaving the producer to fill the buffer. The producer would then sleep until the consumer woke up and cycle repeated. (Help to understand the second question model) The buffer would thus spend most of its time full, i.e. num_full would always be equal to or close to the buffer size. Since there is only one empty buffer slot, the producer will run once, and until the loops are over for each, they will take turns to add/remove one at a time.",
+            "sample_criteria": "3 sub-questions, 9 points for each sub-question",
+            "full_points": 27,
+            "score_1": 12.0,
+            "score_2": 12,
+            "score_3": 12
+        }
+    },
+    "30": {
+        "5": {
+            "question": "Our first question focuses on main-two-cvs-while.c (the working solution). Run with one producer and one consumer, and have the producer produce a few values. Start with a buffer (size 1), and then increase it. How does the behavior of the code change with larger buffers? (or does it?) What would you predict num_full to be with different buffer sizes (e.g., -m 10) and different numbers of produced items (e.g., -l 100), when you change the consumer sleep string from default (no sleep) to -C 0,0,0,0,0,0,1? ",
+            "answer": "Num_full is always either be 9 or 10 instead of 1. Because consumer have to wait for 1 second and within this second, producer check the buffer and keep producing items.",
+            "sample_answer": "With larger buffers, producer can add multiple values to the buffer (up to the length of the buffer) before it waits or context switches, and vice versa for the consumer. The second question models consumers that take much longer to consume items than it takes for producers to produce items. The consumer grabs one item each and then immediately falls asleep for one second, leaving the producer to fill the buffer. The producer would then sleep until the consumer woke up and cycle repeated. (Help to understand the second question model) The buffer would thus spend most of its time full, i.e. num_full would always be equal to or close to the buffer size. Since there is only one empty buffer slot, the producer will run once, and until the loops are over for each, they will take turns to add/remove one at a time.",
+            "sample_criteria": "3 sub-questions, 9 points for each sub-question",
+            "full_points": 27,
+            "score_1": 9.0,
+            "score_2": 10,
+            "score_3": 9
+        }
+    },
+    "31": {
+        "5": {
+            "question": "Our first question focuses on main-two-cvs-while.c (the working solution). Run with one producer and one consumer, and have the producer produce a few values. Start with a buffer (size 1), and then increase it. How does the behavior of the code change with larger buffers? (or does it?) What would you predict num_full to be with different buffer sizes (e.g., -m 10) and different numbers of produced items (e.g., -l 100), when you change the consumer sleep string from default (no sleep) to -C 0,0,0,0,0,0,1?",
+            "answer": "With a larger buffer (from m=1 to m=3), the behavior remains unchanged. For no sleep, the value of num_full only changes from 0 to 1 and vice versa. For -C 0,0,0,0,0,0,1, the value of num_full rises from 0 to 10, while in the middle, it keeps fluctuate between 9 and 10, and goes back to 0 at the end. With sleep, the buffer will be more utilized.",
+            "sample_answer": "With larger buffers, producer can add multiple values to the buffer (up to the length of the buffer) before it waits or context switches, and vice versa for the consumer. The second question models consumers that take much longer to consume items than it takes for producers to produce items. The consumer grabs one item each and then immediately falls asleep for one second, leaving the producer to fill the buffer. The producer would then sleep until the consumer woke up and cycle repeated. (Help to understand the second question model) The buffer would thus spend most of its time full, i.e. num_full would always be equal to or close to the buffer size. Since there is only one empty buffer slot, the producer will run once, and until the loops are over for each, they will take turns to add/remove one at a time.",
+            "sample_criteria": "3 sub-questions, 9 points for each sub-question",
+            "full_points": 27,
+            "score_1": 10,
+            "score_2": 12,
+            "score_3": 12
+        }
+    },
+    "32": {
+        "5": {
+            "question": "Our \ntag{first question} focuses on main-two-cvs-while.c (the working solution). Run with one producer and one consumer, and have the producer produce a few values. Start with a buffer (size 1), and then increase it. How does the behavior of the code change with larger buffers? (or does it?) What would you predict num_full to be with different buffer sizes (e.g., -m 10) and different numbers of produced items (e.g., -l 100), when you change the consumer sleep string from default (no sleep) to -C 0,0,0,0,0,0,1?",
+            "answer": "The behavior of the code will not change the with the larger buffer. num_full always is 0 and 1. When the consumer sleep, the producer will fill up the whole buffer.",
+            "sample_answer": "With larger buffers, producer can add multiple values to the buffer (up to the length of the buffer) before it waits or context switches, and vice versa for the consumer. The second question models consumers that take much longer to consume items than it takes for producers to produce items. The consumer grabs one item each and then immediately falls asleep for one second, leaving the producer to fill the buffer. The producer would then sleep until the consumer woke up and cycle repeated. (Help to understand the second question model) The buffer would thus spend most of its time full, i.e. num_full would always be equal to or close to the buffer size. Since there is only one empty buffer slot, the producer will run once, and until the loops are over for each, they will take turns to add/remove one at a time.",
+            "sample_criteria": "3 sub-questions, 9 points for each sub-question",
+            "full_points": 27,
+            "score_1": 4,
+            "score_2": 3,
+            "score_3": 0
+        }
+    },
+    "33": {
+        "5": {
+            "question": "Our \nfirst question focuses on main-two-cvs-while.c (the working solution). Run with one producer and one consumer, and have the producer produce a few values. Start with a buffer (size 1), and then increase it. How does the behavior of the code change with larger buffers? (or does it?) What would you predict num_full to be with different buffer sizes (e.g., -m 10) and different numbers of produced items (e.g., -l 100), when you change the consumer sleep string from default (no sleep) to -C 0,0,0,0,0,0,1?",
+            "answer": "The behavior of the code does not change with larger buffers as producer and consumer take turns to acquire and release the lock. In other words, producer produces and then consumer consumes and repeats until production requirement is met and consumed. Thus, the num_full value is always 0 or 1. The num_full is mostly 9 or 10. From the trace, it is observed that consumer sleeps at c6 and wakes up when the buffer is full. Then the consumer will consume 1 and sleep back. Thus, the predicted num_full value would be mostly m-1 and m, let m be the size of the buffer.",
+            "sample_answer": "With larger buffers, producer can add multiple values to the buffer (up to the length of the buffer) before it waits or context switches, and vice versa for the consumer. The second question models consumers that take much longer to consume items than it takes for producers to produce items. The consumer grabs one item each and then immediately falls asleep for one second, leaving the producer to fill the buffer. The producer would then sleep until the consumer woke up and cycle repeated. (Help to understand the second question model) The buffer would thus spend most of its time full, i.e. num_full would always be equal to or close to the buffer size. Since there is only one empty buffer slot, the producer will run once, and until the loops are over for each, they will take turns to add/remove one at a time.",
+            "sample_criteria": "3 sub-questions, 9 points for each sub-question",
+            "full_points": 27,
+            "score_1": 13,
+            "score_2": 15,
+            "score_3": 13
+        }
+    },
+    "34": {
+        "5": {
+            "question": "Our first question focuses on main-two-cvs-while.c (the working solution). Run with one producer and one consumer, and have the producer produce a few values. Start with a buffer (size 1), and then increase it. How does the behavior of the code change with larger buffers? (or does it?) What would you predict num_full to be with different buffer sizes (e.g., -m 10) and different numbers of produced items (e.g., -l 100), when you change the consumer sleep string from default (no sleep) to -C 0,0,0,0,0,0,1?",
+            "answer": "The buffer size is affecting the synchronization between different threads. With a bigger buffer size, more data can be produced before a context switch is performed. With a larger produced items size, the program will run for longer. If we increase the buffer size or increase the produced items r if the consumer sleep more than the num_full value will also be increased",
+            "sample_answer": "With larger buffers, producer can add multiple values to the buffer (up to the length of the buffer) before it waits or context switches, and vice versa for the consumer. The second question models consumers that take much longer to consume items than it takes for producers to produce items. The consumer grabs one item each and then immediately falls asleep for one second, leaving the producer to fill the buffer. The producer would then sleep until the consumer woke up and cycle repeated. (Help to understand the second question model) The buffer would thus spend most of its time full, i.e. num_full would always be equal to or close to the buffer size. Since there is only one empty buffer slot, the producer will run once, and until the loops are over for each, they will take turns to add/remove one at a time.",
+            "sample_criteria": "3 sub-questions, 9 points for each sub-question",
+            "full_points": 27,
+            "score_1": 16,
+            "score_2": 10,
+            "score_3": 12
+        }
+    },
+    "35": {
+        "5": {
+            "question": "Our \nfirst question focuses on main-two-cvs-while.c (the working solution). Run with one producer and one consumer, and have the producer produce a few values. Start with a buffer (size 1), and then increase it. How does the behavior of the code change with larger buffers? (or does it?) What would you predict num_full to be with different buffer sizes (e.g., -m 10) and different numbers of produced items (e.g., -l 100), when you change the consumer sleep string from default (no sleep) to -C 0,0,0,0,0,0,1?",
+            "answer": "When the buffer is larger or more numbers of produced items, the num_full is always 0 or 1, which the number of entries in the buffer is either 0 or 1. It is because there is only 1 producer and 1 consumer, it is always that the producer produces an item, then the consumer consumes it. So larger the buffer will not change the behavior and having different numbers of produced items will not change the pattern that the producer produces an item, then the consumer consumes it. When I change the consumer sleep string to the specified one, the behavior of the code also does not change. It is because the sleep string let the consumer to sleep for 1 second at c6 while c6 is to release the mutex lock. After releasing the lock, the consumer will not run immediately as the producer will get the lock and lock the critical section, so having a sleep at c6 will not affect the code behavior.",
+            "sample_answer": "With larger buffers, producer can add multiple values to the buffer (up to the length of the buffer) before it waits or context switches, and vice versa for the consumer. The second question models consumers that take much longer to consume items than it takes for producers to produce items. The consumer grabs one item each and then immediately falls asleep for one second, leaving the producer to fill the buffer. The producer would then sleep until the consumer woke up and cycle repeated. (Help to understand the second question model) The buffer would thus spend most of its time full, i.e. num_full would always be equal to or close to the buffer size. Since there is only one empty buffer slot, the producer will run once, and until the loops are over for each, they will take turns to add/remove one at a time.",
+            "sample_criteria": "3 sub-questions, 9 points for each sub-question",
+            "full_points": 27,
+            "score_1": 5,
+            "score_2": 5,
+            "score_3": 2
+        }
+    },
+    "36": {
+        "5": {
+            "question": "Our \nfirst question focuses on main-two-cvs-while.c (the working solution). Run with one producer and one consumer, and have the producer produce a few values. Start with a buffer (size 1), and then increase it. How does the behavior of the code change with larger buffers? (or does it?) What would you predict num_full to be with different buffer sizes (e.g., -m 10) and different numbers of produced items (e.g., -l 100), when you change the consumer sleep string from default (no sleep) to -C 0,0,0,0,0,0,1?",
+            "answer": "A larger buffer can also provide more space to let the producer produce more value before the consumer consumes, same with the consumer, it can consume more before the producer needs to produce again (to keep the buffer being filled with at least one value). It can make the num_full larger when in process, because the consumer will sleep for 1 sec when consuming values in the buffer, causing them to consume slower than the producer produces. This makes more values stuck in the buffer, causing num_full to become larger, close to, or even reach the max (buffer size). With faster production speed and slower consumption speed, the number of empty slots will always be one or zero, causing the producer and consumer to \ntake turns.",
+            "sample_answer": "With larger buffers, producer can add multiple values to the buffer (up to the length of the buffer) before it waits or context switches, and vice versa for the consumer. The second question models consumers that take much longer to consume items than it takes for producers to produce items. The consumer grabs one item each and then immediately falls asleep for one second, leaving the producer to fill the buffer. The producer would then sleep until the consumer woke up and cycle repeated. (Help to understand the second question model) The buffer would thus spend most of its time full, i.e. num_full would always be equal to or close to the buffer size. Since there is only one empty buffer slot, the producer will run once, and until the loops are over for each, they will take turns to add/remove one at a time.",
+            "sample_criteria": "3 sub-questions, 9 points for each sub-question",
+            "full_points": 27,
+            "score_1": 27.0,
+            "score_2": 27,
+            "score_3": 27
+        }
+    },
+    "37": {
+        "5": {
+            "question": "Our first question focuses on main-two-cvs-while.c (the working solution). Run with one producer and one consumer, and have the producer produce a few values. Start with a buffer (size 1), and then increase it. How does the behavior of the code change with larger buffers? (or does it?) What would you predict num_full to be with different buffer sizes (e.g., -m 10) and different numbers of produced items (e.g., -l 100), when you change the consumer sleep string from default (no sleep) to -C 0,0,0,0,0,0,1?",
+            "answer": "The behavior of the code changes with larger buffers as the producer is able to produce more items before the consumer can consume them. I would predict num_full to be higher with larger buffer sizes and different numbers of produced items, especially when the consumer sleep string is changed to -C 0,0,0,0,0,0,1.",
+            "sample_answer": "With larger buffers, producer can add multiple values to the buffer (up to the length of the buffer) before it waits or context switches, and vice versa for the consumer. The second question models consumers that take much longer to consume items than it takes for producers to produce items. The consumer grabs one item each and then immediately falls asleep for one second, leaving the producer to fill the buffer. The producer would then sleep until the consumer woke up and cycle repeated. (Help to understand the second question model) The buffer would thus spend most of its time full, i.e. num_full would always be equal to or close to the buffer size. Since there is only one empty buffer slot, the producer will run once, and until the loops are over for each, they will take turns to add/remove one at a time.",
+            "sample_criteria": "3 sub-questions, 9 points for each sub-question",
+            "full_points": 27,
+            "score_1": 9.0,
+            "score_2": 12,
+            "score_3": 9
+        }
+    },
+    "38": {
+        "5": {
+            "question": "Our first question focuses on main-two-cvs-while.c (the working solution). Run with one producer and one consumer, and have the producer produce a few values. Start with a buffer (size 1), and then increase it. How does the behavior of the code change with larger buffers? (or does it?) What would you predict num_full to be with different buffer sizes (e.g., -m 10) and different numbers of produced items (e.g., -l 100), when you change the consumer sleep string from default (no sleep) to -C 0,0,0,0,0,0,1?",
+            "answer": "If the buffer is size 1, the user_ prt and the fill_ prt always point at the same address. The larger buffer code has different buffer for producer and consumer. The consumer sleep string make the producer have the chance to fill every slot for each buffer. For buffer size of 10 the num_full will become 10 or 9 for the most time because the consuming speed less than the speed of producing.",
+            "sample_answer": "With larger buffers, producer can add multiple values to the buffer (up to the length of the buffer) before it waits or context switches, and vice versa for the consumer. The second question models consumers that take much longer to consume items than it takes for producers to produce items. The consumer grabs one item each and then immediately falls asleep for one second, leaving the producer to fill the buffer. The producer would then sleep until the consumer woke up and cycle repeated. (Help to understand the second question model) The buffer would thus spend most of its time full, i.e. num_full would always be equal to or close to the buffer size. Since there is only one empty buffer slot, the producer will run once, and until the loops are over for each, they will take turns to add/remove one at a time.",
+            "sample_criteria": "3 sub-questions, 9 points for each sub-question",
+            "full_points": 27,
+            "score_1": 2,
+            "score_2": 0,
+            "score_3": 0
+        }
+    },
+    "39": {
+        "5": {
+            "question": "Our first question focuses on main-two-cvs-while.c (the working solution). Run with one producer and one consumer, and have the producer produce a few values. Start with a buffer (size 1), and then increase it. How does the behavior of the code change with larger buffers? (or does it?) What would you predict num_full to be with different buffer sizes (e.g., -m 10) and different numbers of produced items (e.g., -l 100), when you change the consumer sleep string from default (no sleep) to -C 0,0,0,0,0,0,1?",
+            "answer": "A larger buffer allow the producer to produce more without waiting the consumer to consume ,as long as there is still space in the buffer.",
+            "sample_answer": "With larger buffers, producer can add multiple values to the buffer (up to the length of the buffer) before it waits or context switches, and vice versa for the consumer. The second question models consumers that take much longer to consume items than it takes for producers to produce items. The consumer grabs one item each and then immediately falls asleep for one second, leaving the producer to fill the buffer. The producer would then sleep until the consumer woke up and cycle repeated. (Help to understand the second question model) The buffer would thus spend most of its time full, i.e. num_full would always be equal to or close to the buffer size. Since there is only one empty buffer slot, the producer will run once, and until the loops are over for each, they will take turns to add/remove one at a time.",
+            "sample_criteria": "3 sub-questions, 9 points for each sub-question",
+            "full_points": 27,
+            "score_1": 9.0,
+            "score_2": 8,
+            "score_3": 9
+        }
+    },
+    "40": {
+        "5": {
+            "question": "Our \nhave the consumer consume a value, have the producer produce a value Okay, so now we have\nHere\u2019s But\n on p0, on c0 , on p1, on c0, new value of p1, old value of p0; now on p4, on c1, no space here, on p5, on c4, no space here, on p5, on c6\n [new value of p6, example value of p1, old value of p4, old value of p5, old value of p1, on c0, now on c1] 0,\non c5, no the c0,\n on c5\n, on c4,\n on c1\n  executable \n producer -c 0,0,0,0,0,0,1",
+            "answer": "./main-two-cvs-while -p 1 -c 1 -m 1 -v -t NF P0 C0 0 [*--- ] p0 0 [*--- ] c0 0 [*--- ] p1 1 [* 0 ] p4 1 [* 0 ] p5 1 [* 0 ] p6 1 [* 0 ] c1 0 [*--- ] c4 0 [*--- ] c5 0 [*--- ] c6 1 [*EOS ] [main: added end-of-stream marker] 1 [*EOS ] c0 1 [*EOS ] c1  0 [*--- ] c4 0 [*--- ] c5 0 [*--- ] c6 Consumer consumption: C0 -> 1 Total time: 0.00 seconds After change: ./main-two-cvs-while -p 1 -c 1 -m 10 -v -t -l 100 -C 0,0,0,0,0,0,1 The time needed to process this is increased by the amount of value the producer needs to produce times the time for the consumer to sleep. When the producer needs to produce 100 values and consumer needs to sleep 1 second on c6, the total time needed is 101.7 sec.",
+            "sample_answer": "With larger buffers, producer can add multiple values to the buffer (up to the length of the buffer) before it waits or context switches, and vice versa for the consumer. The second question models consumers that take much longer to consume items than it takes for producers to produce items. The consumer grabs one item each and then immediately falls asleep for one second, leaving the producer to fill the buffer. The producer would then sleep until the consumer woke up and cycle repeated. (Help to understand the second question model) The buffer would thus spend most of its time full, i.e. num_full would always be equal to or close to the buffer size. Since there is only one empty buffer slot, the producer will run once, and until the loops are over for each, they will take turns to add/remove one at a time.",
+            "sample_criteria": "3 sub-questions, 9 points for each sub-question",
+            "full_points": 27,
+            "score_1": 5,
+            "score_2": 4,
+            "score_3": 3
+        }
+    }
+}

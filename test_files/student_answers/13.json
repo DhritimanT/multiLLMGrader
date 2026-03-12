@@ -1,0 +1,8 @@
+{
+    "1": "SJF: Response Times: 0, 100, 300 Turnaround Times: 100, 300, 600 . FIFO: Response Times: 0, 100, 300 Turnaround Times: 100, 300, 600. \nIf change order to be 200,100,300. SJF: Response Times: 100, 0, 300. Turnaround Times: 300, 100, 600. \n If change order to 200,100,300 FIFO Response Times: 0, 200, 300 Turnaround Times: 200, 300, 600",
+    "2": "Initially dx will be 0 and it will become -1 after running the code",
+    "3": "When running with the parallelism flag (-p), the performance of `vector-avoid-hold-and-wait.c` may be affected by the potential hold-and-wait situations.",
+    "4": "It takes for 10 times to complete both proesss",
+    "5": "Behavior Changes :Producers can produce more items before they have to wait for consumers to consume some items ; Consumers can consume more items before they have to wait for producers to produce more items ; Reducing the frequency of context switches between producers and consumers, increasing the performance. \nPrediction The num_full will increase because the consumers will sleep for 1 second at the c6 , allowing more time for producer to produce the items.",
+    "6": "5a23: Fault since 0x7f (valid bit = 0) 14ab: Fault since 0x7f (valid bit = 0) 257e: Fault, 7988: 0x19 75cf: 0x07, 3350: 0x04 0a70: 0x1f, 55f9: 0x1d"
+}
