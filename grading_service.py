@@ -202,11 +202,11 @@ class LLMGrader:
             # Dynamically build config to support optional schema enforcement
             config_kwargs = {
                 "system_instruction": system_content,
-                "response_mime_type": "application/json",
                 "temperature": temperature,
                 "max_output_tokens": max_tokens,
             }
             if response_schema is not None:
+                config_kwargs["response_mime_type"] = "application/json"
                 config_kwargs["response_schema"] = response_schema
 
             response = self.client.models.generate_content(
@@ -338,11 +338,11 @@ class LLMGrader:
             logger.info("user_content" + json.dumps(user_content, indent=2))
 
             # Use Structured Outputs schema for Gemini if available
-            schema = GeminiGradingResponse if HAS_PYDANTIC and self.provider == "gemini" else None
+            # schema = GeminiGradingResponse if HAS_PYDANTIC and self.provider == "gemini" else None
             # Increase tokens for Gemini to accommodate Chain-of-Thought
             # max_tokens_to_use = 8000 if self.provider == "gemini" else 2000
             # For grading, we want to allow as much response as possible to get detailed feedback, so we'll use max tokens for all providers. The main constraint is the model's overall context window, which should be sufficient given our prompt and expected response size.
-            max_tokens_to_use = 8000
+            max_tokens_to_use = 8192
 
             # Make single LLM call
             start_time = time.time()
@@ -351,10 +351,13 @@ class LLMGrader:
                 user_content=user_content,
                 temperature=0.1,
                 max_tokens=max_tokens_to_use,
-                response_schema=schema,
+                response_schema=None,
             )
             end_time = time.time()
             time_taken = end_time - start_time
+            
+            logger.info(f"Raw LLM response: {result_text}")
+            logger.info(f"LLM call duration: {time_taken:.2f} seconds")
 
             # Parse bulk response
             (
@@ -386,7 +389,7 @@ class LLMGrader:
             # Keep overall feedback from LLM if present
             overall_feedback = overall_feedback_llm or overall_feedback
 
-        logger.info("feedback_by_question after LLM", feedback_by_question)
+        logger.info("feedback_by_question after LLM" + json.dumps(feedback_by_question, indent=2))
 
         # Calculate totals
         total_points = sum(float(q.get("points", 0) or 0) for q in flattened_questions)
@@ -1068,80 +1071,46 @@ class LLMGrader:
         flattened_questions: List[Dict[str, Any]],
         flattened_answers: Dict[str, Any],
     ) -> Tuple[str, List[str]]:
-        """Build a comprehensive prompt with all questions and answers in interleaved format.
-
-        Returns:
-            Tuple of (prompt_text, list_of_diagram_s3_keys)
-        """
         prompt_parts = []
         diagram_s3_keys = []
         diagram_index = 0
 
-        # Branching to safely accommodate Gemini's structured response expectation
-        # if self.provider == "gemini":
-        #     prompt_parts.append(
-        #         "You are an expert academic grader. Grade this student's submission for all questions. "
-        #         "For each question, FIRST write out your step-by-step reasoning against the rubric, "
-        #         "THEN provide a score, strengths, areas for improvement, and detailed breakdown. "
-        #         "Return your response as JSON with the following structure:\n"
-        #         "{\n"
-        #         '  "grades": [\n'
-        #         '    {\n'
-        #         '      "question_id": "<id>",\n'
-        #         '      "reasoning": "<step-by-step logic against rubric>",\n'
-        #         '      "score": <float in [0, max_points]>,\n'
-        #         '      "strengths": "<brief strengths>",\n'
-        #         '      "areas_for_improvement": "<areas to improve>",\n'
-        #         '      "breakdown": "<detailed analysis>"\n'
-        #         '    }\n'
-        #         '  ],\n'
-        #         '  "overall_feedback": "<overall assessment>"\n'
-        #         "}\n\n"
-        #         "GRADING CRITERIA:\n"
-        #         "- Grade strictly according to the provided rubric and max points.\n\n"
-        #         "Questions, reference answers, rubrics, max points, and student answers follow:\n"
-        #     )
-        # else:
-        #     prompt_parts.append(
-        #         "You are an expert academic grader. Grade this student's submission for all questions. "
-        #         "For each question, provide a score, strengths, areas for improvement, and detailed breakdown. "
-        #         "Return your response as JSON with the following structure:\n"
-        #         "{\n"
-        #         '  "question_<id>": {\n'
-        #         '    "score": <float in [0, max_points]>,\n'
-        #         '    "strengths": "<brief strengths>",\n'
-        #         '    "areas_for_improvement": "<areas to improve>",\n'
-        #         '    "breakdown": "<detailed analysis>"\n'
-        #         "  },\n"
-        #         '  "overall_feedback": "<overall assessment>"\n'
-        #         "}\n\n"
-        #         "GRADING CRITERIA:\n"
-        #         "- Grade strictly according to the provided rubric and max points.\n\n"
-        #         "Questions, reference answers, rubrics, max points, and student answers follow:\n"
-        #     )
-
-        prompt_parts.append(
-            "You are an expert academic grader. Grade this student's submission for all questions. "
-            "For each question, FIRST write out your step-by-step reasoning against the rubric, "
-            "THEN provide a score, strengths, areas for improvement, and detailed breakdown. "
-            "Return your response as JSON with the following structure:\n"
-            "{\n"
-            '  "grades": [\n'
-            '    {\n'
-            '      "question_id": "<id (the question id e.g., 1, 2.1, 2.1.3)>",\n'
-            '      "reasoning": "<step-by-step logic against rubric>",\n'
-            '      "score": <float in [0, max_points]>,\n'
-            '      "strengths": "<brief strengths>",\n'
-            '      "areas_for_improvement": "<areas to improve>",\n'
-            '      "breakdown": "<detailed analysis>"\n'
-            '    }\n'
-            '  ],\n'
-            '  "overall_feedback": "<overall assessment>"\n'
-            "}\n\n"
-            "GRADING CRITERIA:\n"
-            "- Grade strictly according to the provided rubric and max points.\n\n"
-            "Questions, reference answers, rubrics, max points, and student answers follow:\n"
-        )
+        if self.provider == "gemini":
+            prompt_parts.append(
+                "You are an expert academic grader. Grade this student's submission.\n"
+                "DO NOT OUTPUT JSON. Use the highly compact delimiter format below exactly as shown to save space.\n\n"
+                "For EACH question, output:\n"
+                "[Q:<id>]\n"
+                "[R] <strictly 1-2 short sentences of logic against the rubric>\n"
+                "[S] <score as a float>\n"
+                "[STR] <brief strengths>\n"
+                "[AFI] <areas to improve>\n"
+                "[B] <detailed breakdown>\n"
+                "[/Q]\n\n"
+                "At the very end, output:\n"
+                "[OVERALL]\n<overall assessment>\n[/OVERALL]\n\n"
+                "CRITICAL: Keep all explanations extremely concise (under 30 words per field) to avoid output cutoff.\n"
+                "Questions, reference answers, rubrics, max points, and student answers follow:\n"
+            )
+        else:
+            # Keep your existing OpenAI/Anthropic JSON prompt here...
+            prompt_parts.append(
+                "You are an expert academic grader. Grade this student's submission for all questions. "
+                "For each question, provide a score, strengths, areas for improvement, and detailed breakdown. "
+                "Return your response as JSON with the following structure:\n"
+                "{\n"
+                '  "question_<id>": {\n'
+                '    "score": <float in [0, max_points]>,\n'
+                '    "strengths": "<brief strengths>",\n'
+                '    "areas_for_improvement": "<areas to improve>",\n'
+                '    "breakdown": "<detailed analysis>"\n'
+                "  },\n"
+                '  "overall_feedback": "<overall assessment>"\n'
+                "}\n\n"
+                "GRADING CRITERIA:\n"
+                "- Grade strictly according to the provided rubric and max points.\n\n"
+                "Questions, reference answers, rubrics, max points, and student answers follow:\n"
+            )
 
         for question in flattened_questions:
             q_id = str(question.get("id"))
@@ -1221,6 +1190,54 @@ class LLMGrader:
         overall_feedback = ""
 
         try:
+            # If it's not JSON (our new Gemini format), parse using Regex
+            if self.provider == "gemini":
+                import re
+                feedback_by_question = {}
+                
+                # Extract Overall Feedback
+                overall_match = re.search(r"\[OVERALL\](.*?)\[/OVERALL\]", response_text, re.DOTALL | re.IGNORECASE)
+                overall_feedback = overall_match.group(1).strip() if overall_match else ""
+
+                # Extract Each Question Block
+                q_blocks = re.finditer(r'\[Q:(.*?)\](.*?)\[/Q\]', response_text, re.DOTALL | re.IGNORECASE)
+                
+                for block in q_blocks:
+                    q_id = block.group(1).strip()
+                    content = block.group(2)
+                    
+                    # Look up max points
+                    max_points = 0.0
+                    for q in flattened_questions:
+                        if str(q.get("id")) == q_id:
+                            max_points = float(q.get("points", 0) or 0)
+                            break
+                            
+                    # Helper to grab text from a tag until the next tag bracket '[' or end of string
+                    def extract_field(field, text):
+                        match = re.search(rf"\[{field}\](.*?)(?=\[|$)", text, re.DOTALL | re.IGNORECASE)
+                        return match.group(1).strip() if match else ""
+
+                    try:
+                        raw_score = extract_field("S", content)
+                        score = float(raw_score) if raw_score else 0.0
+                    except ValueError:
+                        score = 0.0
+                        
+                    score = max(0.0, min(score, max_points))
+                    reasoning = extract_field("R", content)
+                    raw_breakdown = extract_field("B", content)
+                    
+                    feedback_by_question[q_id] = {
+                        "score": score,
+                        "max_points": max_points,
+                        "strengths": extract_field("STR", content),
+                        "areas_for_improvement": extract_field("AFI", content),
+                        "breakdown": f"Reasoning: {reasoning}\n\n{raw_breakdown}" if reasoning else raw_breakdown
+                    }
+
+                return feedback_by_question, overall_feedback
+            
             import re as _re
             # Strip markdown code fences and leading/trailing prose before parsing
             clean_text = response_text
@@ -1293,6 +1310,8 @@ class LLMGrader:
                 }
 
         except (json.JSONDecodeError, ValueError, KeyError) as e:
+            logger.warning(f"Failed to parse LLM response as JSON: {e}. Attempting regex extraction.")
+            
             # Fallback: try to extract information using regex patterns
             import re
 
@@ -1345,41 +1364,11 @@ class LLMGrader:
                     "areas_for_improvement": areas,
                     "breakdown": breakdown,
                 }
+        
+        except Exception as e:
+            logger.error(f"Unexpected error while parsing LLM response: {e}")
 
         return feedback_by_question, overall_feedback
-
-    def _parse_score_and_feedback(
-        self, text: str, default_max: float
-    ) -> Tuple[float, Dict[str, Any]]:
-        score = 0.0
-        strengths = None
-        areas = None
-        breakdown = text
-        try:
-            import re
-
-            m = re.search(r"SCORE:\s*([0-9]+(?:\.[0-9]+)?)", text)
-            if m:
-                score = float(m.group(1))
-            strengths_m = re.search(r"Strengths:\s*(.*)", text, re.IGNORECASE)
-            if strengths_m:
-                strengths = strengths_m.group(1).strip()
-            areas_m = re.search(r"AreasForImprovement:\s*(.*)", text, re.IGNORECASE)
-            if areas_m:
-                areas = areas_m.group(1).strip()
-            breakdown_m = re.search(
-                r"Breakdown:\s*(.*)", text, re.IGNORECASE | re.DOTALL
-            )
-            if breakdown_m:
-                breakdown = breakdown_m.group(1).strip()
-        except Exception:
-            pass
-        score = max(0.0, min(score, default_max))
-        return score, {
-            "breakdown": breakdown,
-            "strengths": strengths,
-            "areas_for_improvement": areas,
-        }
 
     def _extract_answer_text(self, answer_obj: Any) -> str:
         """Extract plain text from answer object (handles string or dict with 'text' field)."""

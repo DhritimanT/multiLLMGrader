@@ -39,11 +39,11 @@ def test_grading():
         assignment_dict = json.load(f)
 
     models_to_test = [
-        "gpt-5",
-        "gpt-4o",
-        "global.anthropic.claude-opus-4-6-v1",
-        "global.anthropic.claude-sonnet-4-6",
-        "global.anthropic.claude-haiku-4-5-20251001-v1:0",
+        # "gpt-5",
+        # "gpt-4o",
+        # "global.anthropic.claude-opus-4-6-v1",
+        # "global.anthropic.claude-sonnet-4-6",
+        # "global.anthropic.claude-haiku-4-5-20251001-v1:0",
         "gemini-2.5-flash",
         "gemini-2.5-pro",
     ]
@@ -70,6 +70,9 @@ def test_grading():
                     )
                     end_time = time.time()
                     total_time_taken = end_time - start_time
+                    
+                    logger.info(f"Graded student {student_id} with model {model} in run {run}: score {total_score}/{total_points}, time taken {time_taken:.2f}s, total time {total_time_taken:.2f}s")
+                    logger.info(f"Feedback by question: {json.dumps(feedback_by_question, indent=2)}")
 
                     results[student_id].append({
                         "model": model,
@@ -89,7 +92,7 @@ def test_grading():
                     "error": str(e),
                 })
 
-    out_dir = "grading_results"
+    out_dir = "grading_results_only_gemini"
     os.makedirs(out_dir, exist_ok=True)
 
     with open(os.path.join(out_dir, "grading_results.json"), "w") as f:
